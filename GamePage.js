@@ -25,6 +25,8 @@ var GamePage = React.createClass({
         question: '',
         answer: '',
       },
+      flagX: 0,
+      flagY: 0,
     };
   },
 
@@ -85,12 +87,21 @@ var GamePage = React.createClass({
 
   render() {
     panResponder = PanResponder.create({
-      onStartShouldSetPanResponder : () => true,
+      onStartShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([null,{
           dx : this.state.pan.x,
           dy : this.state.pan.y
       }]),
-      onPanResponderRelease: (e, gesture) => {}
+      onPanResponderRelease: (e, gesture) => {
+        this.setState({
+          flagX: gesture.dx,
+          flagY: gesture.dy,
+        });
+        Animated.spring(
+          this.state.pan,
+          {toValue: {x: 0, y: 0}}
+        ).start();
+      }
     });
 
     return (
@@ -102,6 +113,7 @@ var GamePage = React.createClass({
           {...panResponder.panHandlers}
           style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}
         />
+        <Text>({this.state.flagX}, {this.state.flagY})</Text>
       </View>
     );
   }
