@@ -6,7 +6,6 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'blue',
     marginTop: 64,
   },
   board: {
@@ -18,9 +17,9 @@ export default StyleSheet.create({
     height: 30,
     width: 30,
     backgroundColor: "#41EAD4",
+    margin: 1,
   },
   boardRow: {
-    flex: 1,
     flexDirection: 'row',
   }
 });

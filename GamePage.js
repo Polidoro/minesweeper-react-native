@@ -1,4 +1,5 @@
 import React from 'react';
+import puns from './puns';
 import styles from './styles';
 import {
   Image,
@@ -11,32 +12,32 @@ import {
 } from 'react-native';
 
 var GamePage = React.createClass({
-  getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  getPun() {
+    const thePuns = puns[this.props.gameType];
+    const thePun = thePuns[Math.floor(Math.random()*thePuns.length)];
+    return thePun;
   },
 
-  boardHeight: 15,
+  boardHeight: 5,
   boardWidth: 10,
 
   render() {
-    var theBoard = [];
+    const thePun = this.getPun();
+
+    let theBoard = [];
     for (var i = 0; i < this.boardHeight; i++) {
       var row = [];
       for(var j = 0; j < this.boardWidth; j++) {
-        row.push(<View key={j} style={[styles.gamePage.boardSquare, { backgroundColor: this.getRandomColor() }]} />)
+        row.push(<View key={j} style={[styles.gamePage.boardSquare]} />)
       }
       theBoard.push(<View style={styles.gamePage.boardRow} key={i}>{row}</View>);
     }
 
     return (
       <View style={styles.gamePage.mainContainer}>
-        <Text>Hello Text</Text>
+        <Text>{thePun.question}</Text>
         <View style={styles.gamePage.board}>{theBoard}</View>
+        <Text>{thePun.answer}</Text>
       </View>
     );
   }
