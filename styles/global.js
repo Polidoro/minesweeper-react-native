@@ -3,10 +3,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   mainContainer: {
-    flex: 1,
   },
   content: {
     backgroundColor: '#FCFFF7',
-    flex: 1,
   },
 });

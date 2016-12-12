@@ -9,10 +9,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: '#FCFFF7',
   },
-  content: {
-    backgroundColor: '#EFEFEF',
-    flex: 1,
-  },
   menuButton: {
     backgroundColor: '#E53D00',
     fontSize: 46,
