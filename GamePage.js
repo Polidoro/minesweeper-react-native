@@ -34,34 +34,43 @@ var GamePage = React.createClass({
   },
 
   generateBoard(thePun) {
-    const mineCount = thePun.answer.length;
+    const mineCount = thePun.answer.replace(/\s/g, '').length;
+    let minesToPlace = mineCount;
     var boardArray = new Array(thePun.boardWidth);
+    var squaresLeft = thePun.boardWidth * thePun.boardHeight;
 
     for (var i = 0; i < thePun.boardHeight; i++) {
       boardArray[i] = new Array(thePun.boardWidth);
+      for (var j = 0; j < thePun.boardWidth; j++) {
+        let isMine = (Math.random() < minesToPlace/squaresLeft)
+        if (isMine) {
+          minesToPlace--;
+        }
+        squaresLeft--;
+        boardArray[i][j] = isMine;
+      }
     }
 
     return boardArray;
   },
 
   componentDidMount() {
-    
     const thePun = this.getPun();
     const boardArray = this.generateBoard(thePun);
 
-    let theSquares = [];
+    let theGrid = [];
     for (var i = 0; i < thePun.boardHeight; i++) {
       var row = [];
       for(var j = 0; j < thePun.boardWidth; j++) {
-        row.push(<Square adjacentBombs={boardArray[i][j]} key={j} />)
+        row.push(<Square isMine={boardArray[i][j]} key={j} />)
       }
-      theSquares.push(<View style={styles.gamePage.boardRow} key={i}>{row}</View>);
+      theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{row}</View>);
     }
-    
+
     this.setState({
       thePun: thePun,
       boardArray: boardArray,
-      theSquares: theSquares,
+      theGrid: theGrid,
     });
   },
 
@@ -69,7 +78,7 @@ var GamePage = React.createClass({
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View style={styles.gamePage.board}>{this.state.theSquares}</View>
+        <View style={styles.gamePage.board}>{this.state.theGrid}</View>
         <PunAnswer theAnswer={this.state.thePun.answer} />
       </View>
     );
