@@ -17,7 +17,7 @@ const Letter = React.createClass({
   render() {
     const displayCharacter = (this.state.reveal || this.state.theLetter === ' ') ? this.state.theLetter : '_'
     return (
-      <TouchableHighlight onPress={() => this.setState({ reveal: true })} disabled={this.state.theLetter === ' '}>
+      <TouchableHighlight underlayColor="#FAEB00" onPress={() => this.setState({ reveal: true })} disabled={this.state.theLetter === ' '}>
         <Text style={styles.gamePage.answerLetter}>{displayCharacter}</Text>
       </TouchableHighlight>
     )

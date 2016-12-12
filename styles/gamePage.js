@@ -22,11 +22,16 @@ export default StyleSheet.create({
   boardRow: {
     flexDirection: 'row',
   },
+  questionText: {
+    fontSize: 30,
+    textAlign: 'center',
+  },
   answerText: {
     flexDirection: 'row',
+    flexWrap: 'nowrap',
   },
   answerLetter: {
     padding: 3,
-    fontSize: 50,
+    fontSize: 40,
   },
 });

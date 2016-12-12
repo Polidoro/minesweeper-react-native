@@ -36,7 +36,7 @@ var GamePage = React.createClass({
 
     return (
       <View style={styles.gamePage.mainContainer}>
-        <Text>{thePun.question}</Text>
+        <Text style={styles.gamePage.questionText}>{thePun.question}</Text>
         <View style={styles.gamePage.board}>{theBoard}</View>
         <PunAnswer theAnswer={thePun.answer} />
       </View>
