@@ -21,5 +21,12 @@ export default StyleSheet.create({
   },
   boardRow: {
     flexDirection: 'row',
-  }
+  },
+  answerText: {
+    flexDirection: 'row',
+  },
+  answerLetter: {
+    padding: 3,
+    fontSize: 50,
+  },
 });

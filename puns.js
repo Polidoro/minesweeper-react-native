@@ -21,7 +21,7 @@ export default {
   ],
   hard: [
     {
-      question: 'What do you call cheese that doesn\'t belogn to you?',
+      question: 'What do you call cheese that doesn\'t belong to you?',
       answer: 'Nacho Cheese',
     },
     {

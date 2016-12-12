@@ -1,6 +1,7 @@
 import React from 'react';
 import puns from './puns';
 import styles from './styles';
+import PunAnswer from './components/PunAnswer';
 import {
   Image,
   StyleSheet,
@@ -37,7 +38,7 @@ var GamePage = React.createClass({
       <View style={styles.gamePage.mainContainer}>
         <Text>{thePun.question}</Text>
         <View style={styles.gamePage.board}>{theBoard}</View>
-        <Text>{thePun.answer}</Text>
+        <PunAnswer theAnswer={thePun.answer} />
       </View>
     );
   }
