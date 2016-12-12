@@ -9,6 +9,8 @@ import {
 const Square = React.createClass({
   getInitialState () {
     return {
+      row: this.props.row,
+      col: this.props.col,
       opened: false,
       isBomb: this.props.isBomb,
       adjacentBombs: this.props.adjacentBombs,
@@ -16,7 +18,7 @@ const Square = React.createClass({
   },
 
   render() {
-    const displayCharacter = this.state.opened ? 'X' : '';
+    const displayCharacter = this.state.opened ? this.state.adjacentBombs : '';
     return (
       <TouchableHighlight style={[styles.gamePage.boardSquare]} underlayColor="#FAEB00" onPress={() => this.setState({ opened: true })}>
         <Text style={styles.gamePage.squareLetter}>{displayCharacter}</Text>

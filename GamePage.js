@@ -17,11 +17,14 @@ var GamePage = React.createClass({
   getInitialState() {
     return {
       gameType: this.props.gameType,
+      boardArray: [[]],
       thePun: {
+        boardWidth: 0,
+        boardHeight: 0,
         question: '',
         answer: '',
       },
-    }
+    };
   },
 
   getPun() {
@@ -30,30 +33,43 @@ var GamePage = React.createClass({
     return thePun;
   },
 
+  generateBoard(thePun) {
+    const mineCount = thePun.answer.length;
+    var boardArray = new Array(thePun.boardWidth);
+
+    for (var i = 0; i < thePun.boardHeight; i++) {
+      boardArray[i] = new Array(thePun.boardWidth);
+    }
+
+    return boardArray;
+  },
+
   componentDidMount() {
+    
+    const thePun = this.getPun();
+    const boardArray = this.generateBoard(thePun);
+
+    let theSquares = [];
+    for (var i = 0; i < thePun.boardHeight; i++) {
+      var row = [];
+      for(var j = 0; j < thePun.boardWidth; j++) {
+        row.push(<Square adjacentBombs={boardArray[i][j]} key={j} />)
+      }
+      theSquares.push(<View style={styles.gamePage.boardRow} key={i}>{row}</View>);
+    }
+    
     this.setState({
-      thePun: this.getPun()
+      thePun: thePun,
+      boardArray: boardArray,
+      theSquares: theSquares,
     });
   },
 
-
-  boardHeight: 5,
-  boardWidth: 10,
-
   render() {
-    let theBoard = [];
-    for (var i = 0; i < this.boardHeight; i++) {
-      var row = [];
-      for(var j = 0; j < this.boardWidth; j++) {
-        row.push(<Square key={j} />)
-      }
-      theBoard.push(<View style={styles.gamePage.boardRow} key={i}>{row}</View>);
-    }
-
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View style={styles.gamePage.board}>{theBoard}</View>
+        <View style={styles.gamePage.board}>{this.state.theSquares}</View>
         <PunAnswer theAnswer={this.state.thePun.answer} />
       </View>
     );
