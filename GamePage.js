@@ -37,6 +37,8 @@ var GamePage = React.createClass({
     const mineCount = thePun.answer.replace(/\s/g, '').length;
     let minesToPlace = mineCount;
     let squaresLeft = thePun.boardWidth * thePun.boardHeight;
+    
+    // A grid to store the location of all the mines
     let boardArray = new Array(thePun.boardWidth);
 
     // A grid to store all the squares that make up the board
@@ -56,7 +58,7 @@ var GamePage = React.createClass({
         boardArray[i][j] = isMine;
 
         // Add a square to the row of squares to display
-        gridRow.push(<Square isMine={isMine} key={j} />)
+        gridRow.push(<Square isMine={isMine} row={i} column={j} key={j} />)
       }
 
       // Add the row to the grid of squares to display
