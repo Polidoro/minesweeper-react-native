@@ -18,11 +18,14 @@ export default StyleSheet.create({
     width: 30,
     backgroundColor: "#41EAD4",
     margin: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   boardRow: {
     flexDirection: 'row',
   },
   questionText: {
+    margin: 20,
     fontSize: 30,
     textAlign: 'center',
   },
@@ -33,5 +36,10 @@ export default StyleSheet.create({
   answerLetter: {
     padding: 3,
     fontSize: 40,
+  }, 
+  squareLetter: {
+    padding: 1,
+    fontSize: 20,
   },
 });
+
