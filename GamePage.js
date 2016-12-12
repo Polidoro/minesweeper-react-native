@@ -4,18 +4,19 @@ import styles from './styles';
 import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
 import {
-  Image,
-  StyleSheet,
-  ScrollView,
   TouchableHighlight,
   Text,
   Linking,
   View,
+  PanResponder,
+  Animated,
+  Dimensions,
 } from 'react-native';
 
 var GamePage = React.createClass({
   getInitialState() {
     return {
+      pan: new Animated.ValueXY(),
       gameType: this.props.gameType,
       boardArray: [[]],
       thePun: {
@@ -83,11 +84,24 @@ var GamePage = React.createClass({
   },
 
   render() {
+    panResponder = PanResponder.create({
+      onStartShouldSetPanResponder : () => true,
+      onPanResponderMove: Animated.event([null,{
+          dx : this.state.pan.x,
+          dy : this.state.pan.y
+      }]),
+      onPanResponderRelease: (e, gesture) => {}
+    });
+
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
         <View style={styles.gamePage.board}>{this.state.theGrid}</View>
         <PunAnswer theAnswer={this.state.thePun.answer} />
+        <Animated.View
+          {...panResponder.panHandlers}
+          style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}
+        />
       </View>
     );
   }

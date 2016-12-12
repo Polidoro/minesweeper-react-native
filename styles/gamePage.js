@@ -41,4 +41,9 @@ export default StyleSheet.create({
     padding: 1,
     fontSize: 20,
   },
+  theFlag: {
+    height: 30,
+    width: 30,
+    backgroundColor: 'black',
+  },
 });
