@@ -36,41 +36,47 @@ var GamePage = React.createClass({
   generateBoard(thePun) {
     const mineCount = thePun.answer.replace(/\s/g, '').length;
     let minesToPlace = mineCount;
-    var boardArray = new Array(thePun.boardWidth);
-    var squaresLeft = thePun.boardWidth * thePun.boardHeight;
+    let squaresLeft = thePun.boardWidth * thePun.boardHeight;
+    let boardArray = new Array(thePun.boardWidth);
 
+    // A grid to store all the squares that make up the board
+    let theGrid = [];
+
+    // Build the board based on the pun characteristics
     for (var i = 0; i < thePun.boardHeight; i++) {
       boardArray[i] = new Array(thePun.boardWidth);
+      let gridRow = [];
+
       for (var j = 0; j < thePun.boardWidth; j++) {
+
+        // Check if square is a mine
         let isMine = (Math.random() < minesToPlace/squaresLeft)
-        if (isMine) {
-          minesToPlace--;
-        }
+        if (isMine) minesToPlace--;
         squaresLeft--;
         boardArray[i][j] = isMine;
+
+        // Add a square to the row of squares to display
+        gridRow.push(<Square isMine={isMine} key={j} />)
       }
+
+      // Add the row to the grid of squares to display
+      theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
     }
 
-    return boardArray;
+    return {
+      boardArray,
+      theGrid,
+    };
   },
 
   componentDidMount() {
     const thePun = this.getPun();
-    const boardArray = this.generateBoard(thePun);
-
-    let theGrid = [];
-    for (var i = 0; i < thePun.boardHeight; i++) {
-      var row = [];
-      for(var j = 0; j < thePun.boardWidth; j++) {
-        row.push(<Square isMine={boardArray[i][j]} key={j} />)
-      }
-      theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{row}</View>);
-    }
+    const board = this.generateBoard(thePun);
 
     this.setState({
       thePun: thePun,
-      boardArray: boardArray,
-      theGrid: theGrid,
+      boardArray: board.boardArray,
+      theGrid: board.theGrid,
     });
   },
 
