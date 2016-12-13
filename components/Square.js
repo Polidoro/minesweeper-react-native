@@ -9,29 +9,27 @@ import {
 const Square = React.createClass({
   getInitialState () {
     return {
-      row: this.props.row,
-      col: this.props.col,
-      isOpened: false,
-      isMine: this.props.isMine,
-      isFlagged: false,
-      adjacentMines: this.props.adjacentMines,
+      isOpened: this.props.squareData.isOpened,
+      isMine: this.props.squareData.isMine,
+      isFlagged: this.props.squareData.isFlagged,
     };
   },
 
   render() {
+    const squareData = this.props.squareData;
     let displayCharacter = 'X';
-    if (this.state.isOpened && this.state.isMine) {
+    if (squareData.isOpened && squareData.isMine) {
         displayCharacter = 'M';
-    } else if (this.state.isFlagged) {
+    } else if (squareData.isFlagged) {
         displayCharacter = 'F';
-    } else if (this.state.isOpened) {
+    } else if (squareData.isOpened) {
         displayCharacter = ' ';
     }
 
     return (
-      <TouchableHighlight style={[styles.gamePage.boardSquare]} underlayColor="#FAEB00" onPress={() => this.setState({ isOpened: true })}>
+      <View style={[styles.gamePage.boardSquare]}>
         <Text style={styles.gamePage.squareLetter}>{displayCharacter}</Text>
-      </TouchableHighlight>
+      </View>
     )
   }
 });

@@ -36,9 +36,7 @@ var GamePage = React.createClass({
     return thePun;
   },
 
-  componentDidMount() {
-    let thePun = this.getPun();
-
+  generateBoard(thePun) {
     // A grid to store the location of all the mines
     const mineCount = thePun.answer.replace(/\s/g, '').length;
     let minesToPlace = mineCount;
@@ -52,19 +50,39 @@ var GamePage = React.createClass({
       boardArray[i] = new Array(thePun.boardWidth);
 
       for (var j = 0; j < thePun.boardWidth; j++) {
-
-        // Check if square is a mine
+        // Decide if square should be a mine
         let isMine = (Math.random() < minesToPlace/squaresLeft)
         if (isMine) minesToPlace--;
         squaresLeft--;
-        boardArray[i][j] = isMine;
+        boardArray[i][j] = {
+          isMine: isMine,
+          isFlagged: false,
+          isOpened: false,
+        }
       }
     }
+
+    return boardArray;
+  },
+
+  componentDidMount() {
+    const thePun = this.getPun();
+    const boardArray = this.generateBoard(thePun);
+
 
     this.setState({
       thePun: thePun,
       boardArray: boardArray
     });
+  },
+
+  openSquare(i, j) {
+    let newBoard = this.state.boardArray;
+    newBoard[i][j].isOpened = true;
+
+    this.setState({
+      boardArray: newBoard
+    })
   },
 
   render() {
@@ -90,13 +108,17 @@ var GamePage = React.createClass({
 
     if(this.state.boardArray) {
       // Build the board based on the pun characteristics
-      for (var i = 0; i < this.state.boardArray.length; i++) {
+      for (let i = 0; i < this.state.boardArray.length; i++) {
         let gridRow = [];
 
-        for (var j = 0; j < this.state.boardArray[i].length; j++) {
+        for (let j = 0; j < this.state.boardArray[i].length; j++) {
 
           // Add a square to the row of squares to display
-          gridRow.push(<Square isMine={this.state.boardArray[i][j]} row={i} column={j} key={j} />)
+          gridRow.push(
+            <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00">
+              <View><Square squareData={this.state.boardArray[i][j]} /></View>
+            </TouchableHighlight>
+          )
         }
 
         // Add the row to the grid of squares to display
