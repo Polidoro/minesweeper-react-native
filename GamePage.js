@@ -18,7 +18,7 @@ var GamePage = React.createClass({
     return {
       pan: new Animated.ValueXY(),
       gameType: this.props.gameType,
-      boardArray: [[]],
+      boardArray: null,
       thePun: {
         boardWidth: 0,
         boardHeight: 0,
@@ -36,21 +36,20 @@ var GamePage = React.createClass({
     return thePun;
   },
 
-  generateBoard(thePun) {
+  componentDidMount() {
+    let thePun = this.getPun();
+
+    // A grid to store the location of all the mines
     const mineCount = thePun.answer.replace(/\s/g, '').length;
     let minesToPlace = mineCount;
     let squaresLeft = thePun.boardWidth * thePun.boardHeight;
-    
-    // A grid to store the location of all the mines
-    let boardArray = new Array(thePun.boardWidth);
 
-    // A grid to store all the squares that make up the board
-    let theGrid = [];
+    // An array to store the board values
+    let boardArray = new Array(thePun.boardHeight);
 
     // Build the board based on the pun characteristics
     for (var i = 0; i < thePun.boardHeight; i++) {
       boardArray[i] = new Array(thePun.boardWidth);
-      let gridRow = [];
 
       for (var j = 0; j < thePun.boardWidth; j++) {
 
@@ -59,55 +58,55 @@ var GamePage = React.createClass({
         if (isMine) minesToPlace--;
         squaresLeft--;
         boardArray[i][j] = isMine;
-
-        // Add a square to the row of squares to display
-        gridRow.push(<Square isMine={isMine} row={i} column={j} key={j} />)
       }
-
-      // Add the row to the grid of squares to display
-      theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
     }
-
-    return {
-      boardArray,
-      theGrid,
-    };
-  },
-
-  componentDidMount() {
-    const thePun = this.getPun();
-    const board = this.generateBoard(thePun);
 
     this.setState({
       thePun: thePun,
-      boardArray: board.boardArray,
-      theGrid: board.theGrid,
+      boardArray: boardArray
     });
   },
 
   render() {
     panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null,{
-          dx : this.state.pan.x,
-          dy : this.state.pan.y
-      }]),
-      onPanResponderRelease: (e, gesture) => {
-        this.setState({
-          flagX: gesture.dx,
-          flagY: gesture.dy,
-        });
-        Animated.spring(
-          this.state.pan,
-          {toValue: {x: 0, y: 0}}
-        ).start();
-      }
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: Animated.event([null,{
+      dx : this.state.pan.x,
+      dy : this.state.pan.y
+    }]),
+    onPanResponderRelease: (e, gesture) => {
+      this.setState({
+        flagX: gesture.dx,
+        flagY: gesture.dy,
+      });
+      Animated.spring(
+        this.state.pan,
+        {toValue: {x: 0, y: 0}}
+      ).start();}
     });
 
+    // A grid to store all the squares that make up the board
+    let theGrid = [];
+
+    if(this.state.boardArray) {
+      // Build the board based on the pun characteristics
+      for (var i = 0; i < this.state.boardArray.length; i++) {
+        let gridRow = [];
+
+        for (var j = 0; j < this.state.boardArray[i].length; j++) {
+
+          // Add a square to the row of squares to display
+          gridRow.push(<Square isMine={this.state.boardArray[i][j]} row={i} column={j} key={j} />)
+        }
+
+        // Add the row to the grid of squares to display
+        theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
+      }
+    }
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View style={styles.gamePage.board}>{this.state.theGrid}</View>
+        <View style={styles.gamePage.board}>{theGrid}</View>
         <PunAnswer theAnswer={this.state.thePun.answer} />
         <Animated.View
           {...panResponder.panHandlers}
