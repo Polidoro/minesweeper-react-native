@@ -18,7 +18,7 @@ var GamePage = React.createClass({
     return {
       pan: new Animated.ValueXY(),
       gameType: this.props.gameType,
-      boardArray: null,
+      boardArray: [[]],
       thePun: {
         boardWidth: 0,
         boardHeight: 0,
@@ -46,10 +46,10 @@ var GamePage = React.createClass({
     let boardArray = new Array(thePun.boardHeight);
 
     // Build the board based on the pun characteristics
-    for (var i = 0; i < thePun.boardHeight; i++) {
+    for (let i = 0; i < thePun.boardHeight; i++) {
       boardArray[i] = new Array(thePun.boardWidth);
 
-      for (var j = 0; j < thePun.boardWidth; j++) {
+      for (let j = 0; j < thePun.boardWidth; j++) {
         // Decide if square should be a mine
         let isMine = (Math.random() < minesToPlace/squaresLeft)
         if (isMine) minesToPlace--;
@@ -72,7 +72,6 @@ var GamePage = React.createClass({
   componentDidMount() {
     const thePun = this.getPun();
     const boardArray = this.generateBoard(thePun);
-
 
     this.setState({
       thePun: thePun,
@@ -99,8 +98,6 @@ var GamePage = React.createClass({
         py: py,
       })
 
-      console.log(newBoard);
-
       this.setState({
         boardArray: newBoard
       })
@@ -115,7 +112,6 @@ var GamePage = React.createClass({
       dy : this.state.pan.y
     }]),
     onPanResponderRelease: (e, gesture) => {
-      console.log(gesture);
       this.setState({
         flagX: gesture.moveX,
         flagY: gesture.moveY,
@@ -129,34 +125,33 @@ var GamePage = React.createClass({
     // A grid to store all the squares that make up the board
     let theGrid = [];
 
-    if(this.state.boardArray) {
-      // Build the board based on the pun characteristics
-      for (let i = 0; i < this.state.boardArray.length; i++) {
-        let gridRow = [];
+    // Build the board based on the pun characteristics
+    for (let i = 0; i < this.state.boardArray.length; i++) {
+      let gridRow = [];
 
-        for (let j = 0; j < this.state.boardArray[i].length; j++) {
+      for (let j = 0; j < this.state.boardArray[i].length; j++) {
 
-          // Generate a unique Ref for this square
-          let ref = i + '-' + j;
+        // Generate a unique Ref for this square
+        let ref = i + '-' + j;
 
-          // Add a square to the row of squares to display
-          gridRow.push(
-            <TouchableHighlight
-              ref={ref}
-              key={ref}
-              onPress={() => this.openSquare(i, j)}
-              onLayout={(event) => this.measureSquare(event, i, j, ref)}
-              underlayColor="#FAEB00"
-            >
-              <View><Square squareData={this.state.boardArray[i][j]} /></View>
-            </TouchableHighlight>
-          )
-        }
-
-        // Add the row to the grid of squares to display
-        theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
+        // Add a square to the row of squares to display
+        gridRow.push(
+          <TouchableHighlight
+            ref={ref}
+            key={ref}
+            onPress={() => this.openSquare(i, j)}
+            onLayout={(event) => this.measureSquare(event, i, j, ref)}
+            underlayColor="#FAEB00"
+          >
+            <View><Square squareData={this.state.boardArray[i][j]} /></View>
+          </TouchableHighlight>
+        )
       }
+
+      // Add the row to the grid of squares to display
+      theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
     }
+
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
