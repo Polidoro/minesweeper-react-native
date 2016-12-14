@@ -116,6 +116,19 @@ var GamePage = React.createClass({
         flagX: gesture.moveX,
         flagY: gesture.moveY,
       });
+
+      let newBoard = this.state.boardArray
+
+      newBoard.map(row => row.map(cell => {
+        if(gesture.moveX > cell.px && gesture.moveX < cell.px + cell.width && gesture.moveY > cell.py && gesture.moveY < cell.py + cell.height) {
+          cell.isOpened = true;
+        }
+      }))
+
+      this.setState({
+        theBoard: newBoard
+      })
+
       Animated.spring(
         this.state.pan,
         {toValue: {x: 0, y: 0}}
@@ -130,11 +143,10 @@ var GamePage = React.createClass({
       let gridRow = [];
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
-
         // Generate a unique Ref for this square
         let ref = i + '-' + j;
 
-        // Add a square to the row of squares to display
+        // Add a square to the row
         gridRow.push(
           <TouchableHighlight
             ref={ref}
