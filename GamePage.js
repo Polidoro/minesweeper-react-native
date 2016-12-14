@@ -24,8 +24,8 @@ var GamePage = React.createClass({
       boardStartX: 0,
       boardStartY: 0,
       thePun: {
-        boardWidth: 0,
-        boardHeight: 0,
+        boardCols: 0,
+        boardRows: 0,
         question: '',
         answer: '',
       },
@@ -42,16 +42,16 @@ var GamePage = React.createClass({
     // A grid to store the location of all the mines
     const mineCount = thePun.answer.replace(/\s/g, '').length;
     let minesToPlace = mineCount;
-    let squaresLeft = thePun.boardWidth * thePun.boardHeight;
+    let squaresLeft = thePun.boardCols * thePun.boardRows;
 
     // An array to store the board values
-    let boardArray = new Array(thePun.boardHeight);
+    let boardArray = new Array(thePun.boardRows);
 
     // Build the board based on the pun characteristics
-    for (let i = 0; i < thePun.boardHeight; i++) {
-      boardArray[i] = new Array(thePun.boardWidth);
+    for (let i = 0; i < thePun.boardRows; i++) {
+      boardArray[i] = new Array(thePun.boardCols);
 
-      for (let j = 0; j < thePun.boardWidth; j++) {
+      for (let j = 0; j < thePun.boardCols; j++) {
         // Decide if square should be a mine
         let isMine = (Math.random() < minesToPlace/squaresLeft)
         if (isMine) minesToPlace--;
@@ -110,14 +110,14 @@ var GamePage = React.createClass({
       let yWithRespectToBoard = (gesture.moveY - this.state.boardStartY);
 
       if(xWithRespectToBoard > 0 && xWithRespectToBoard < this.state.boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < this.state.boardHeight) {
-        newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardHeight))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardWidth))].isOpened = true;
+        newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardRows))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardCols))].isFlagged = true;
         this.setState({ theBoard: newBoard })
       }
 
       Animated.spring(
         this.state.pan,
         {toValue: {x: 0, y: 0}}
-      ).start();}
+      ).start()}
     });
 
     // A grid to store all the squares that make up the board
