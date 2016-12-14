@@ -58,6 +58,10 @@ var GamePage = React.createClass({
           isMine: isMine,
           isFlagged: false,
           isOpened: false,
+          px: 0,
+          py: 0,
+          width: 0,
+          height: 0,
         }
       }
     }
@@ -85,6 +89,24 @@ var GamePage = React.createClass({
     })
   },
 
+  measureSquare(event, i, j, ref) {
+    this.refs[ref].measure((fx, fy, width, height, px, py) => {
+      let newBoard = this.state.boardArray;
+      newBoard[i][j] = Object.assign({}, newBoard[i][j],{
+        width: width,
+        height: height,
+        px: px,
+        py: py,
+      })
+
+      console.log(newBoard);
+
+      this.setState({
+        boardArray: newBoard
+      })
+    })
+  },
+
   render() {
     panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -93,9 +115,10 @@ var GamePage = React.createClass({
       dy : this.state.pan.y
     }]),
     onPanResponderRelease: (e, gesture) => {
+      console.log(gesture);
       this.setState({
-        flagX: gesture.dx,
-        flagY: gesture.dy,
+        flagX: gesture.moveX,
+        flagY: gesture.moveY,
       });
       Animated.spring(
         this.state.pan,
@@ -113,9 +136,18 @@ var GamePage = React.createClass({
 
         for (let j = 0; j < this.state.boardArray[i].length; j++) {
 
+          // Generate a unique Ref for this square
+          let ref = i + '-' + j;
+
           // Add a square to the row of squares to display
           gridRow.push(
-            <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00">
+            <TouchableHighlight
+              ref={ref}
+              key={ref}
+              onPress={() => this.openSquare(i, j)}
+              onLayout={(event) => this.measureSquare(event, i, j, ref)}
+              underlayColor="#FAEB00"
+            >
               <View><Square squareData={this.state.boardArray[i][j]} /></View>
             </TouchableHighlight>
           )
