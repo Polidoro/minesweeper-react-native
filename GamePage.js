@@ -57,12 +57,62 @@ var GamePage = React.createClass({
         if (isMine) minesToPlace--;
         squaresLeft--;
         boardArray[i][j] = {
+          row: i,
+          col: j,
           isMine: isMine,
           isFlagged: false,
           isOpened: false,
+          adjacentMines: 0,
+          adjacentCells: [],
         }
       }
     }
+
+    // For each square check if each adjacent square exists
+    boardArray.map(row => row.map(cell => {
+      let i = cell.row;
+      let j = cell.col;
+
+      if(i > 0 && j > 0) {
+        cell.adjacentCells.push({row: i-1, col: j-1})
+        if(boardArray[i-1][j-1].isMine) cell.adjacentMines++;
+      }
+
+      if(j > 0) {
+        cell.adjacentCells.push({row: i, col: j-1})
+        if(boardArray[i][j-1].isMine) cell.adjacentMines++;
+      }
+
+      if(i < thePun.boardRows-1 && j > 0) {
+        cell.adjacentCells.push({row: i+1, col: j-1})
+        if(boardArray[i+1][j-1].isMine) cell.adjacentMines++;
+      }
+
+      if(i > 0) {
+        cell.adjacentCells.push({row: i-1, col: j})
+        if(boardArray[i-1][j].isMine) cell.adjacentMines++;
+      }
+
+      if(i < thePun.boardRows-1) {
+        cell.adjacentCells.push({row: i+1, col: j})
+        if(boardArray[i+1][j].isMine) cell.adjacentMines++;
+      }
+
+      if(i > 0 && j < thePun.boardCols-1) {
+        cell.adjacentCells.push({row: i-1, col: j+1})
+        if(boardArray[i-1][j+1].isMine) cell.adjacentMines++;
+      }
+
+      if(j < thePun.boardCols-1) {
+        cell.adjacentCells.push({row: i, col: j+1})
+        if(boardArray[i][j+1].isMine) cell.adjacentMines++;
+      }
+
+      if(i < thePun.boardRows-1 && j < thePun.boardCols-1) {
+        cell.adjacentCells.push({row: i+1, col: j+1})
+        if(boardArray[i+1][j+1].isMine) cell.adjacentMines++;
+      }
+    }));
 
     return boardArray;
   },
@@ -78,12 +128,22 @@ var GamePage = React.createClass({
   },
 
   openSquare(i, j) {
-    let newBoard = this.state.boardArray;
-    newBoard[i][j].isOpened = true;
+    if (!this.state.boardArray[i][j].isOpen && !this.state.boardArray[i][j].isFlagged) {
+      let newBoard = this.state.boardArray;
+      newBoard[i][j].isOpened = true;
 
-    this.setState({
-      boardArray: newBoard
-    })
+      if(!newBoard[i][j].isMine && newBoard[i][j].adjacentMines === 0) {
+        newBoard[i][j].adjacentCells.map(({row, col}) => {
+          if(!newBoard[row][col].isOpened) {
+            this.openSquare(row, col);
+          }
+        })
+      }
+
+      this.setState({
+        boardArray: newBoard
+      });
+    }
   },
 
   measureBoard(event) {
@@ -99,25 +159,27 @@ var GamePage = React.createClass({
 
   render() {
     panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: Animated.event([null,{
-      dx : this.state.pan.x,
-      dy : this.state.pan.y
-    }]),
-    onPanResponderRelease: (e, gesture) => {
-      let newBoard = this.state.boardArray
-      let xWithRespectToBoard = (gesture.moveX - this.state.boardStartX);
-      let yWithRespectToBoard = (gesture.moveY - this.state.boardStartY);
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null,{
+        dx : this.state.pan.x,
+        dy : this.state.pan.y
+      }]),
 
-      if(xWithRespectToBoard > 0 && xWithRespectToBoard < this.state.boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < this.state.boardHeight) {
-        newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardRows))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardCols))].isFlagged = true;
-        this.setState({ theBoard: newBoard })
+      onPanResponderRelease: (e, gesture) => {
+        let newBoard = this.state.boardArray
+        let xWithRespectToBoard = (gesture.moveX - this.state.boardStartX);
+        let yWithRespectToBoard = (gesture.moveY - this.state.boardStartY);
+
+        if(xWithRespectToBoard > 0 && xWithRespectToBoard < this.state.boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < this.state.boardHeight) {
+          newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardRows))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardCols))].isFlagged = true;
+          this.setState({ theBoard: newBoard })
+        }
+
+        Animated.spring(
+          this.state.pan,
+          {toValue: {x: 0, y: 0}}
+        ).start()
       }
-
-      Animated.spring(
-        this.state.pan,
-        {toValue: {x: 0, y: 0}}
-      ).start()}
     });
 
     // A grid to store all the squares that make up the board
@@ -145,11 +207,7 @@ var GamePage = React.createClass({
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
         <View ref='board' style={styles.gamePage.board} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
         <PunAnswer theAnswer={this.state.thePun.answer} />
-        <Animated.View
-          {...panResponder.panHandlers}
-          style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}
-        />
-        <Text>({this.state.boardWidth}, {this.state.boardHeight})</Text>
+        <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
       </View>
     );
   }

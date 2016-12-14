@@ -12,6 +12,7 @@ const Square = React.createClass({
       isOpened: this.props.squareData.isOpened,
       isMine: this.props.squareData.isMine,
       isFlagged: this.props.squareData.isFlagged,
+      adjacentMines: this.props.squareData.adjacentMines,
     };
   },
 
@@ -23,7 +24,7 @@ const Square = React.createClass({
     } else if (squareData.isFlagged) {
         displayCharacter = 'F';
     } else if (squareData.isOpened) {
-        displayCharacter = ' ';
+        displayCharacter = this.state.adjacentMines > 0 ? this.state.adjacentMines : ' ';
     }
 
     return (
