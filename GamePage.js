@@ -19,14 +19,16 @@ var GamePage = React.createClass({
       pan: new Animated.ValueXY(),
       gameType: this.props.gameType,
       boardArray: [[]],
+      boardWidth: 0,
+      boardHeight: 0,
+      boardStartX: 0,
+      boardStartY: 0,
       thePun: {
         boardWidth: 0,
         boardHeight: 0,
         question: '',
         answer: '',
       },
-      flagX: 0,
-      flagY: 0,
     };
   },
 
@@ -58,10 +60,6 @@ var GamePage = React.createClass({
           isMine: isMine,
           isFlagged: false,
           isOpened: false,
-          px: 0,
-          py: 0,
-          width: 0,
-          height: 0,
         }
       }
     }
@@ -88,20 +86,15 @@ var GamePage = React.createClass({
     })
   },
 
-  measureSquare(event, i, j, ref) {
-    this.refs[ref].measure((fx, fy, width, height, px, py) => {
-      let newBoard = this.state.boardArray;
-      newBoard[i][j] = Object.assign({}, newBoard[i][j],{
-        width: width,
-        height: height,
-        px: px,
-        py: py,
-      })
-
+  measureBoard(event) {
+    this.refs['board'].measure((fx, fy, width, height, px, py) => {
       this.setState({
-        boardArray: newBoard
-      })
-    })
+        boardWidth: width,
+        boardHeight: height,
+        boardStartX: px,
+        boardStartY: py,
+      });
+    });
   },
 
   render() {
@@ -112,22 +105,14 @@ var GamePage = React.createClass({
       dy : this.state.pan.y
     }]),
     onPanResponderRelease: (e, gesture) => {
-      this.setState({
-        flagX: gesture.moveX,
-        flagY: gesture.moveY,
-      });
-
       let newBoard = this.state.boardArray
+      let xWithRespectToBoard = (gesture.moveX - this.state.boardStartX);
+      let yWithRespectToBoard = (gesture.moveY - this.state.boardStartY);
 
-      newBoard.map(row => row.map(cell => {
-        if(gesture.moveX > cell.px && gesture.moveX < cell.px + cell.width && gesture.moveY > cell.py && gesture.moveY < cell.py + cell.height) {
-          cell.isOpened = true;
-        }
-      }))
-
-      this.setState({
-        theBoard: newBoard
-      })
+      if(xWithRespectToBoard > 0 && xWithRespectToBoard < this.state.boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < this.state.boardHeight) {
+        newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardHeight))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardWidth))].isOpened = true;
+        this.setState({ theBoard: newBoard })
+      }
 
       Animated.spring(
         this.state.pan,
@@ -143,18 +128,9 @@ var GamePage = React.createClass({
       let gridRow = [];
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
-        // Generate a unique Ref for this square
-        let ref = i + '-' + j;
-
         // Add a square to the row
         gridRow.push(
-          <TouchableHighlight
-            ref={ref}
-            key={ref}
-            onPress={() => this.openSquare(i, j)}
-            onLayout={(event) => this.measureSquare(event, i, j, ref)}
-            underlayColor="#FAEB00"
-          >
+          <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00">
             <View><Square squareData={this.state.boardArray[i][j]} /></View>
           </TouchableHighlight>
         )
@@ -167,13 +143,13 @@ var GamePage = React.createClass({
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View style={styles.gamePage.board}>{theGrid}</View>
+        <View ref='board' style={styles.gamePage.board} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
         <PunAnswer theAnswer={this.state.thePun.answer} />
         <Animated.View
           {...panResponder.panHandlers}
           style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}
         />
-        <Text>({this.state.flagX}, {this.state.flagY})</Text>
+        <Text>({this.state.boardWidth}, {this.state.boardHeight})</Text>
       </View>
     );
   }
