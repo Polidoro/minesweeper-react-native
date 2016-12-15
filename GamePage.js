@@ -137,6 +137,8 @@ var GamePage = React.createClass({
         wrongLetter: null,
         actualLetter: answer[i],
         revealed: false,
+        associatedFlagX: null,
+        associatedFlagY: null,
       })
     }
 
@@ -193,19 +195,21 @@ var GamePage = React.createClass({
 
   placeFlag(cell) {
     cell.isFlagged = true;
+    let newAnswerArray = this.state.answerArray;
+
+    // Pick a random unrevealed letter from the answerArray
     let filteredAnswerArray = answerArray.filter(letterObject => { return !letterObject.revealed})
+    let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
+    newAnswerArray[randomLetterIndex].revealed = true;
+    newAnswerArray[randomLetterIndex].associatedFlagY = cell.row;
+    newAnswerArray[randomLetterIndex].associatedFlagY = cell.col;
 
-    console.log(filteredAnswerArray);
+    // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
+    newAnswerArray[randomLetterIndex].wrongLetter = cell.isMine ? null : 'X';
 
-    // if cell is a mine reveal a letter
-    if(cell.isMine) {
-      let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
-      this.state.answerArray[randomLetterIndex].revealed = true;
-    } else { // Otherwise set a wrongLetter and reveal it
-      let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
-      this.state.answerArray[randomLetterIndex].wrongLetter = 'X';
-      this.state.answerArray[randomLetterIndex].revealed = true;
-    }
+    this.setState({
+      answerArray: newAnswerArray,
+    });
   },
 
   render() {
