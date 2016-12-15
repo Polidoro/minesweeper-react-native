@@ -16,10 +16,12 @@ export default StyleSheet.create({
   boardSquare: {
     height: 30,
     width: 30,
-    backgroundColor: "#41EAD4",
+    backgroundColor: "#FC2F00",
     margin: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    borderStyle: 'solid',
+    borderWidth: .5,
   },
   boardRow: {
     flexDirection: 'row',

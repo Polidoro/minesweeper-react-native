@@ -17,6 +17,7 @@ var GamePage = React.createClass({
   getInitialState() {
     return {
       pan: new Animated.ValueXY(),
+      gameActive: true,
       gameType: this.props.gameType,
       boardArray: [[]],
       boardWidth: 0,
@@ -140,6 +141,12 @@ var GamePage = React.createClass({
         })
       }
 
+      if(newBoard[i][j].isMine) {
+        this.setState({
+          gameActive: false,
+        });
+      }
+
       this.setState({
         boardArray: newBoard
       });
@@ -159,7 +166,7 @@ var GamePage = React.createClass({
 
   render() {
     panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => this.state.gameActive,
       onPanResponderMove: Animated.event([null,{
         dx : this.state.pan.x,
         dy : this.state.pan.y
@@ -192,7 +199,7 @@ var GamePage = React.createClass({
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         // Add a square to the row
         gridRow.push(
-          <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00">
+          <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00" disabled={!this.state.gameActive}>
             <View><Square squareData={this.state.boardArray[i][j]} /></View>
           </TouchableHighlight>
         )
