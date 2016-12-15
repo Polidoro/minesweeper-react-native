@@ -23,13 +23,13 @@ var GamePage = React.createClass({
       boardWidth: 0,
       boardHeight: 0,
       boardStartX: 0,
-      revealedLetters: [],
+      answerArray: [],
       boardStartY: 0,
       thePun: {
         boardCols: 0,
         boardRows: 0,
         question: '',
-        answer: '',
+        answer: [],
       },
     };
   },
@@ -41,12 +41,9 @@ var GamePage = React.createClass({
   },
 
   generateBoard(thePun) {
-    // A grid to store the location of all the mines
     const mineCount = thePun.answer.replace(/\s/g, '').length;
     let minesToPlace = mineCount;
     let squaresLeft = thePun.boardCols * thePun.boardRows;
-
-    // An array to store the board values
     let boardArray = new Array(thePun.boardRows);
 
     // Build the board based on the pun characteristics
@@ -58,6 +55,8 @@ var GamePage = React.createClass({
         let isMine = (Math.random() < minesToPlace/squaresLeft)
         if (isMine) minesToPlace--;
         squaresLeft--;
+
+        // Store all the data for the square
         boardArray[i][j] = {
           row: i,
           col: j,
@@ -122,11 +121,26 @@ var GamePage = React.createClass({
   componentDidMount() {
     const thePun = this.getPun();
     const boardArray = this.generateBoard(thePun);
+    const answerArray = this.generateAnswerArray(thePun.answer);
 
     this.setState({
-      thePun: thePun,
-      boardArray: boardArray
+      thePun,
+      boardArray,
+      answerArray,
     });
+  },
+
+  generateAnswerArray(answer) {
+    answerArray = [];
+    for(let i = 0; i < answer.length; i++) {
+      answerArray.push({
+        wrongLetter: null,
+        actualLetter: answer[i],
+        revealed: false,
+      })
+    }
+
+    return answerArray;
   },
 
   openSquare(i, j) {
@@ -178,10 +192,20 @@ var GamePage = React.createClass({
   },
 
   placeFlag(cell) {
-   cell.isFlagged = true;
-   newRevealedLetters = this.state.revealedLetters;
-   newRevealedLetters.push({place: 0, letter: 'A'});
-//   const thePun = thePuns[Math.floor(Math.random()*thePuns.length)];
+    cell.isFlagged = true;
+    let filteredAnswerArray = answerArray.filter(letterObject => { return !letterObject.revealed})
+
+    console.log(filteredAnswerArray);
+
+    // if cell is a mine reveal a letter
+    if(cell.isMine) {
+      let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
+      this.state.answerArray[randomLetterIndex].revealed = true;
+    } else { // Otherwise set a wrongLetter and reveal it
+      let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
+      this.state.answerArray[randomLetterIndex].wrongLetter = 'X';
+      this.state.answerArray[randomLetterIndex].revealed = true;
+    }
   },
 
   render() {
@@ -230,7 +254,7 @@ var GamePage = React.createClass({
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
         <View ref='board' style={[styles.gamePage.board, !this.state.gameActive && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
-        <PunAnswer theAnswer={this.state.thePun.answer} revealedLetters={[]} />
+        <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
       </View>
     );

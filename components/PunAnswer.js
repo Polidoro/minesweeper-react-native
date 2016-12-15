@@ -8,21 +8,27 @@ import {
 
 const Letter = React.createClass({
   render() {
-    const displayCharacter = this.props.displayLetter ? this.props.displayLetter : this.props.theLetter;
+    const letterObject = this.props.letterObject;
+    let displayCharacter = '_';
+
+    if(letterObject.revealed) {
+      displayCharacter = letterObject.wrongLetter || letterObject.actualLetter;
+    }
+
     return <Text style={styles.gamePage.answerLetter}>{displayCharacter}</Text>
   }
 });
 
 const PunAnswer = React.createClass({
   render() {
-    answerArray = [];
-    for (var i = 0; i < this.props.theAnswer.length; i++) {
-      answerArray.push(<Letter key={i} displayLetter={this.props.revealedLetters[i]} theLetter={this.props.theAnswer[i]} />)
-    }
+    let letterArray = [];
+    this.props.answerArray.map((object, index) => {
+      letterArray.push(<Letter key={index} letterObject={object} />)
+    })
 
     return (
       <View style={styles.gamePage.answerText}>
-        {answerArray}
+        {letterArray}
       </View>
     );
   }
