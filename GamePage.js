@@ -143,6 +143,7 @@ var GamePage = React.createClass({
       }
 
       if(newBoard[i][j].isMine) {
+        this.revealMines();
         this.setState({
           gameActive: false,
         });
@@ -152,6 +153,17 @@ var GamePage = React.createClass({
         boardArray: newBoard
       });
     }
+  },
+
+  revealMines() {
+    let newBoard = this.state.boardArray;
+    newBoard.map(row => {row.map(cell => {
+      if (cell.isMine) cell.isOpened = true;
+    })});
+
+    this.setState({
+      boardArray: newBoard,
+    })
   },
 
   measureBoard(event) {
