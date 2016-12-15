@@ -16,7 +16,7 @@ export default StyleSheet.create({
   boardSquare: {
     height: 30,
     width: 30,
-    backgroundColor: "#FC2F00",
+    backgroundColor: "#CBE896",
     margin: 1,
     flexDirection: 'row',
     justifyContent: 'center',

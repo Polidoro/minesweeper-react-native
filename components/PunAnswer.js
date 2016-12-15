@@ -7,20 +7,9 @@ import {
 } from 'react-native';
 
 const Letter = React.createClass({
-  getInitialState () {
-    return {
-      reveal: false,
-      theLetter: this.props.theLetter,
-    };
-  },
-
   render() {
-    const displayCharacter = (this.state.reveal || this.state.theLetter === ' ') ? this.state.theLetter : '_'
-    return (
-      <TouchableHighlight underlayColor="#FAEB00" onPress={() => this.setState({ reveal: true })} disabled={this.state.theLetter === ' '}>
-        <Text style={styles.gamePage.answerLetter}>{displayCharacter}</Text>
-      </TouchableHighlight>
-    )
+    const displayCharacter = this.props.displayLetter ? this.props.displayLetter : this.props.theLetter;
+    return <Text style={styles.gamePage.answerLetter}>{displayCharacter}</Text>
   }
 });
 
@@ -28,7 +17,7 @@ const PunAnswer = React.createClass({
   render() {
     answerArray = [];
     for (var i = 0; i < this.props.theAnswer.length; i++) {
-      answerArray.push(<Letter key={i} theLetter={this.props.theAnswer[i]} />)
+      answerArray.push(<Letter key={i} displayLetter={this.props.revealedLetters[i]} theLetter={this.props.theAnswer[i]} />)
     }
 
     return (

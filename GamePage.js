@@ -23,6 +23,7 @@ var GamePage = React.createClass({
       boardWidth: 0,
       boardHeight: 0,
       boardStartX: 0,
+      revealedLetters: [],
       boardStartY: 0,
       thePun: {
         boardCols: 0,
@@ -164,6 +165,13 @@ var GamePage = React.createClass({
     });
   },
 
+  placeFlag(cell) {
+   cell.isFlagged = true;
+   newRevealedLetters = this.state.revealedLetters;
+   newRevealedLetters.push({place: 0, letter: 'A'});
+//   const thePun = thePuns[Math.floor(Math.random()*thePuns.length)];
+  },
+
   render() {
     panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => this.state.gameActive,
@@ -178,7 +186,7 @@ var GamePage = React.createClass({
         let yWithRespectToBoard = (gesture.moveY - this.state.boardStartY);
 
         if(xWithRespectToBoard > 0 && xWithRespectToBoard < this.state.boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < this.state.boardHeight) {
-          newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardRows))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardCols))].isFlagged = true;
+          this.placeFlag(newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardRows))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardCols))]);
           this.setState({ theBoard: newBoard })
         }
 
@@ -189,15 +197,12 @@ var GamePage = React.createClass({
       }
     });
 
-    // A grid to store all the squares that make up the board
-    let theGrid = [];
-
     // Build the board based on the pun characteristics
+    let theGrid = [];
     for (let i = 0; i < this.state.boardArray.length; i++) {
       let gridRow = [];
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
-        // Add a square to the row
         gridRow.push(
           <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00" disabled={!this.state.gameActive}>
             <View><Square squareData={this.state.boardArray[i][j]} /></View>
@@ -212,8 +217,8 @@ var GamePage = React.createClass({
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View ref='board' style={styles.gamePage.board} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
-        <PunAnswer theAnswer={this.state.thePun.answer} />
+        <View ref='board' style={[styles.gamePage.board, !this.state.gameActive && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
+        <PunAnswer theAnswer={this.state.thePun.answer} revealedLetters={[]} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
       </View>
     );
