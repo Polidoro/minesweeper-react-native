@@ -218,12 +218,23 @@ var GamePage = React.createClass({
       newAnswerArray[randomLetterIndex].associatedFlagX = cell.col;
 
       // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
-      newAnswerArray[randomLetterIndex].wrongLetter = cell.isMine ? null : 'X';
+      newAnswerArray[randomLetterIndex].wrongLetter = cell.isMine ? null : this.generateRandomLetter(newAnswerArray[randomLetterIndex].actualLetter);
 
       this.setState({
         answerArray: newAnswerArray,
       });
     }
+  },
+
+  generateRandomLetter (letterToAvoid) {
+    let randomLetter = letterToAvoid;
+    const choices = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    while (randomLetter === letterToAvoid) {
+      randomLetter = choices[Math.floor(Math.random() * choices.length)];
+    }
+
+    return randomLetter;
   },
 
   render() {
