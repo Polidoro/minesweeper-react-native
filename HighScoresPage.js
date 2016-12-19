@@ -7,16 +7,15 @@ import {
   Text,
   AsyncStorage,
   AlertIOS,
+  TouchableHighlight,
 } from 'react-native';
 
 let HighScore = React.createClass({
-
-
   render() {
     return (
-      <View key={this.props.question}>
-        <Text>{this.props.question}</Text>
-      </View>
+      <TouchableHighlight key={this.props.question} onPress={() => AlertIOS.alert(this.props.question, this.props.answer)}>
+        <Text style={styles.highScoresPage.highScoreText}>{this.props.question}</Text>
+      </TouchableHighlight>
     )
   }
 })
@@ -36,12 +35,13 @@ let HighScoresPage = React.createClass({
     try {
       var value = await AsyncStorage.getItem('gameswon');
       if (value !== null){
+        console.log(value)
         this.setState({
           gameswon: JSON.parse(value)
         });
       }
     } catch (error) {
-      AlertIOS('ERROR', error.message);
+      AlertIOS.alert('ERROR', error.message);
     }
   },
 
@@ -52,13 +52,15 @@ let HighScoresPage = React.createClass({
 
       puns[gameType].map(game => {
         if(this.state.gameswon.indexOf(game.id) >= 0) {
-          gameTypes.push(<HighScore key={game.question} question={game.question} />)
+          gameTypes.push(<HighScore key={game.question} answer={game.answer} question={game.question} />)
         }
       });
     }
 
     return (
       <ScrollView style={styles.highScoresPage.mainContainer}>
+        <Text style={styles.highScoresPage.instructionText}>Tap the pun to see the punchline!</Text>
+        <TouchableHighlight onPress={() => AsyncStorage.removeItem('gameswon')}><Text> Reset scores </Text></TouchableHighlight>
         {gameTypes}
         <Text>{this.state.highScores}</Text>
       </ScrollView>

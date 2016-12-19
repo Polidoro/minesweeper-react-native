@@ -10,13 +10,15 @@ export default StyleSheet.create({
   },
   highScoreCategory: {
     paddingTop: 10,
-    fontSize: 84,
+    fontSize: 44,
     fontWeight: 'bold',
   },
-  highScoreTitle: {
-    fontSize: 64,
-  },
   highScoreText: {
-    fontSize: 44,
+    fontSize: 24,
+  },
+  instructionText: {
+    fontSize: 30,
+    color: 'red',
+    textAlign: 'center',
   },
 });

@@ -101,7 +101,15 @@ var GamePage = React.createClass({
     }));
 
     if(gameWon) {
-      AsyncStorage.mergeItem('gameswon', JSON.stringify([this.state.thePun.id]))
+      AsyncStorage.getItem('gameswon', (error, result) => {
+        let previousGameswon = JSON.parse(result);
+        if(!previousGameswon) {
+          AsyncStorage.setItem('gameswon', JSON.stringify([this.state.thePun.id]));
+        } else {
+          AsyncStorage.setItem('gameswon', JSON.stringify(previousGameswon.concat([this.state.thePun.id])));
+        }
+      });
+
       this.setState({gameState: 'won'});
       AlertIOS.alert('YOU WIN', this.state.thePun.answer);
     }
