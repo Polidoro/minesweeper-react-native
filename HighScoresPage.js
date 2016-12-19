@@ -35,7 +35,6 @@ let HighScoresPage = React.createClass({
     try {
       var value = await AsyncStorage.getItem('gameswon');
       if (value !== null){
-        console.log(value)
         this.setState({
           gameswon: JSON.parse(value)
         });
