@@ -12,14 +12,15 @@ import {
   Animated,
   Dimensions,
   AsyncStorage,
+  AlertIOS,
 } from 'react-native';
-import { generateBoard, generateRandomLetter, generateAnswerArray } from './Helpers'
+import { generateBoard, generateRandomLetter, generateAnswerArray, checkWin } from './Helpers'
 
 var GamePage = React.createClass({
   getInitialState() {
     return {
       pan: new Animated.ValueXY(),
-      gameActive: true,
+      gameState: 'active',
       gameType: this.props.gameType,
       boardArray: [[]],
       boardWidth: 0,
@@ -43,7 +44,7 @@ var GamePage = React.createClass({
 
   setupBoard(thePun) {
     this.setState({
-      gameActive: true,
+      gameState: 'active',
       boardArray: [[]],
       answerArray: [],
     });
@@ -58,7 +59,7 @@ var GamePage = React.createClass({
     });
   },
 
-  openSquare(i, j) {
+  openSquare(i, j, recursing = false) {
     if (!this.state.boardArray[i][j].isOpen && !this.state.boardArray[i][j].isFlagged) {
       let newBoard = this.state.boardArray;
       newBoard[i][j].isOpened = true;
@@ -66,16 +67,16 @@ var GamePage = React.createClass({
       if(!newBoard[i][j].isMine && newBoard[i][j].adjacentMines === 0) {
         newBoard[i][j].adjacentCells.map(({row, col}) => {
           if(!newBoard[row][col].isOpened) {
-            this.openSquare(row, col);
+            this.openSquare(row, col, true);
           }
         })
       }
 
       if(newBoard[i][j].isMine) {
-        // Reveal all the mines and set gameActive to false
+        // Reveal all the mines and set gameState to 'lost'
         this.state.boardArray.map(row => {row.map(cell => cell.isOpened = cell.isOpened || cell.isMine)});
         this.setState({
-          gameActive: false,
+          gameState: 'lost',
           boardArray: this.state.boardArray,
         });
       }
@@ -83,6 +84,25 @@ var GamePage = React.createClass({
       this.setState({
         boardArray: newBoard
       });
+    }
+
+    if(!recursing) {
+      this.checkWin()
+    }
+  },
+
+  checkWin() {
+    let gameWon = true;
+    this.state.boardArray.map(row => row.map(cell => {
+      // For a player to win every mine must be flagged and every non-mine must be open
+      if((cell.isFlagged && !cell.isMine) || (!cell.isOpened && !cell.isMine)) {
+        gameWon = false;
+      }
+    }));
+
+    if(gameWon) {
+      AlertIOS.alert('YOU WIN', this.state.thePun.answer)
+      this.setState({gameState: 'won'})
     }
   },
 
@@ -135,11 +155,13 @@ var GamePage = React.createClass({
         answerArray: newAnswerArray,
       });
     }
+
+    this.checkWin()
   },
 
   render() {
     panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => this.state.gameActive,
+      onStartShouldSetPanResponder: () => this.state.gameState === 'active',
       onPanResponderMove: Animated.event([null,{
         dx : this.state.pan.x,
         dy : this.state.pan.y
@@ -169,7 +191,7 @@ var GamePage = React.createClass({
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         gridRow.push(
-          <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00" disabled={!this.state.gameActive}>
+          <TouchableHighlight key={j} onPress={() => this.openSquare(i, j)} underlayColor="#FAEB00" disabled={this.state.gameState !== 'active'}>
             <View><Square squareData={this.state.boardArray[i][j]} /></View>
           </TouchableHighlight>
         )
@@ -179,12 +201,12 @@ var GamePage = React.createClass({
       theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
     }
 
-    AsyncStorage.setItem('testing', this.state.gameType);
+    AsyncStorage.setItem('highScores', this.state.gameType);
 
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View ref='board' style={[styles.gamePage.board, !this.state.gameActive && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
+        <View ref='board' style={[styles.gamePage.board, (this.state.gameState === 'lost') && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
         <TouchableHighlight onPress={() => this.setupBoard(this.state.thePun)}>
