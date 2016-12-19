@@ -21,4 +21,9 @@ export default StyleSheet.create({
     color: 'red',
     textAlign: 'center',
   },
+  rowSeparator: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    height: 1,
+    marginLeft: 4,
+  },
 });

@@ -12,7 +12,7 @@ import {
   Animated,
   Dimensions,
   AsyncStorage,
-  AlertIOS,
+  Alert,
 } from 'react-native';
 import { generateBoard, generateRandomLetter, generateAnswerArray, checkWin } from './Helpers'
 
@@ -111,7 +111,7 @@ var GamePage = React.createClass({
       });
 
       this.setState({gameState: 'won'});
-      AlertIOS.alert('YOU WIN', this.state.thePun.answer);
+      Alert.alert('YOU WIN', this.state.thePun.answer);
     }
   },
 
