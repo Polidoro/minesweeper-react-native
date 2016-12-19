@@ -113,14 +113,21 @@ var GamePage = React.createClass({
       let newAnswerArray = this.state.answerArray;
 
       // Pick a random unrevealed letter from the answerArray
-      let filteredAnswerArray = answerArray.filter(letterObject => { return !letterObject.revealed})
-      let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
-      newAnswerArray[randomLetterIndex].revealed = true;
-      newAnswerArray[randomLetterIndex].associatedFlagY = cell.row;
-      newAnswerArray[randomLetterIndex].associatedFlagX = cell.col;
+      unRevealedSquares = [];
+      for(let i = 0; i < answerArray.length; i++) {
+        if (!answerArray[i].revealed && answerArray[i].actualLetter !== ' ') unRevealedSquares.push(i);
+      }
+
+      indexOfSquareToReveal = unRevealedSquares[Math.floor(Math.random()*unRevealedSquares.length)]
+
+      //let filteredAnswerArray = answerArray.filter(letterObject => { return (!letterObject.revealed && letterObject.actualLetter !== ' ')})
+      //let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
+      newAnswerArray[indexOfSquareToReveal].revealed = true;
+      newAnswerArray[indexOfSquareToReveal].associatedFlagY = cell.row;
+      newAnswerArray[indexOfSquareToReveal].associatedFlagX = cell.col;
 
       // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
-      newAnswerArray[randomLetterIndex].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[randomLetterIndex].actualLetter);
+      newAnswerArray[indexOfSquareToReveal].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[indexOfSquareToReveal].actualLetter);
 
       this.setState({
         answerArray: newAnswerArray,
