@@ -11,6 +11,7 @@ import {
   PanResponder,
   Animated,
   Dimensions,
+  AsyncStorage,
 } from 'react-native';
 import { generateBoard, generateRandomLetter, generateAnswerArray } from './Helpers'
 
@@ -177,6 +178,8 @@ var GamePage = React.createClass({
       // Add the row to the grid of squares to display
       theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
     }
+
+    AsyncStorage.setItem('testing', this.state.gameType);
 
     return (
       <View style={styles.gamePage.mainContainer}>

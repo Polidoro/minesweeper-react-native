@@ -8,8 +8,8 @@ import {
   ScrollView,
   TouchableHighlight,
   Text,
-  Linking,
   View,
+  AsyncStorage,
 } from 'react-native';
 
 var MenuPage = React.createClass({
@@ -29,6 +29,8 @@ var MenuPage = React.createClass({
   },
 
   render() {
+    console.log(AsyncStorage.getItem('testing'));
+
     return (
       <View style={styles.menuPage.mainContainer}>
         <View></View>
