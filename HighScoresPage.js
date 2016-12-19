@@ -28,17 +28,17 @@ let HighScoresPage = React.createClass({
 
   getInitialState() {
     return {
-      highScores: 'Loading',
+      gameswon: [],
     };
   },
 
   async _loadInitialState() {
     try {
-      var value = await AsyncStorage.getItem('highScores');
+      var value = await AsyncStorage.getItem('gameswon');
       if (value !== null){
-        this.setState({highScores: value});
-      } else {
-        this.setState({highScores: 'NO HIGH SCORES'});
+        this.setState({
+          gameswon: JSON.parse(value)
+        });
       }
     } catch (error) {
       AlertIOS('ERROR', error.message);
@@ -49,7 +49,12 @@ let HighScoresPage = React.createClass({
     let gameTypes = [];
     for(let gameType in puns) {
       gameTypes.push(<Text style={styles.highScoresPage.highScoreCategory} key={gameType}>{gameType}</Text>);
-      puns[gameType].map(game => gameTypes.push(<HighScore key={game.question} question={game.question} />));
+
+      puns[gameType].map(game => {
+        if(this.state.gameswon.indexOf(game.id) >= 0) {
+          gameTypes.push(<HighScore key={game.question} question={game.question} />)
+        }
+      });
     }
 
     return (

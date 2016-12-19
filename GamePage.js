@@ -101,8 +101,9 @@ var GamePage = React.createClass({
     }));
 
     if(gameWon) {
-      AlertIOS.alert('YOU WIN', this.state.thePun.answer)
-      this.setState({gameState: 'won'})
+      AsyncStorage.mergeItem('gameswon', JSON.stringify([this.state.thePun.id]))
+      this.setState({gameState: 'won'});
+      AlertIOS.alert('YOU WIN', this.state.thePun.answer);
     }
   },
 
