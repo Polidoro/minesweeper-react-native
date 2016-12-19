@@ -4,7 +4,7 @@ export const puns = {
       boardCols: 6,
       boardRows: 6,
       question: 'How did I escape Iraq?',
-      answer: 'Iran',
+      answer: 'IRAN',
     },
     {
       boardCols: 8,
@@ -36,13 +36,13 @@ export const puns = {
     },
     {
       boardCols: 11,
-      boardRows: 13,
+      boardRows: 11,
       question: 'What does it sound like when a piano falls down a mineshaft?',
       answer: 'A FLAT MINER',
     },
     {
       boardCols: 11,
-      boardRows: 13,
+      boardRows: 12,
       question: 'Why couldn\'t the bicycle go for a ride?',
       answer: 'IT WAS TOO TIRED',
     },
