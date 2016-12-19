@@ -1,4 +1,4 @@
-export default {
+export const puns = {
   easy: [
     {
       boardCols: 6,
@@ -47,4 +47,9 @@ export default {
       answer: 'IT WAS TOO TIRED',
     },
   ],
+}
+
+export const getPun = (gameType) => {
+  const thePuns = puns[gameType];
+  return thePuns[Math.floor(Math.random()*thePuns.length)];
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import puns from './puns';
+import { getPun } from './puns';
 import styles from './styles';
 import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
@@ -12,6 +12,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
+import { generateBoard, generateRandomLetter, generateAnswerArray } from './Helpers'
 
 var GamePage = React.createClass({
   getInitialState() {
@@ -34,115 +35,16 @@ var GamePage = React.createClass({
     };
   },
 
-  getPun() {
-    const thePuns = puns[this.state.gameType];
-    const thePun = thePuns[Math.floor(Math.random()*thePuns.length)];
-    return thePun;
-  },
-
-  generateBoard(thePun) {
-    const mineCount = thePun.answer.replace(/\s/g, '').length;
-    let minesToPlace = mineCount;
-    let squaresLeft = thePun.boardCols * thePun.boardRows;
-    let boardArray = new Array(thePun.boardRows);
-
-    // Build the board based on the pun characteristics
-    for (let i = 0; i < thePun.boardRows; i++) {
-      boardArray[i] = new Array(thePun.boardCols);
-
-      for (let j = 0; j < thePun.boardCols; j++) {
-        // Decide if square should be a mine
-        let isMine = (Math.random() < minesToPlace/squaresLeft)
-        if (isMine) minesToPlace--;
-        squaresLeft--;
-
-        // Store all the data for the square
-        boardArray[i][j] = {
-          row: i,
-          col: j,
-          isMine: isMine,
-          isFlagged: false,
-          isOpened: false,
-          adjacentMines: 0,
-          adjacentCells: [],
-        }
-      }
-    }
-
-    // For each square check if each adjacent square exists
-    boardArray.map(row => row.map(cell => {
-      let i = cell.row;
-      let j = cell.col;
-
-      if(i > 0 && j > 0) {
-        cell.adjacentCells.push({row: i-1, col: j-1})
-        if(boardArray[i-1][j-1].isMine) cell.adjacentMines++;
-      }
-
-      if(j > 0) {
-        cell.adjacentCells.push({row: i, col: j-1})
-        if(boardArray[i][j-1].isMine) cell.adjacentMines++;
-      }
-
-      if(i < thePun.boardRows-1 && j > 0) {
-        cell.adjacentCells.push({row: i+1, col: j-1})
-        if(boardArray[i+1][j-1].isMine) cell.adjacentMines++;
-      }
-
-      if(i > 0) {
-        cell.adjacentCells.push({row: i-1, col: j})
-        if(boardArray[i-1][j].isMine) cell.adjacentMines++;
-      }
-
-      if(i < thePun.boardRows-1) {
-        cell.adjacentCells.push({row: i+1, col: j})
-        if(boardArray[i+1][j].isMine) cell.adjacentMines++;
-      }
-
-      if(i > 0 && j < thePun.boardCols-1) {
-        cell.adjacentCells.push({row: i-1, col: j+1})
-        if(boardArray[i-1][j+1].isMine) cell.adjacentMines++;
-      }
-
-      if(j < thePun.boardCols-1) {
-        cell.adjacentCells.push({row: i, col: j+1})
-        if(boardArray[i][j+1].isMine) cell.adjacentMines++;
-      }
-
-      if(i < thePun.boardRows-1 && j < thePun.boardCols-1) {
-        cell.adjacentCells.push({row: i+1, col: j+1})
-        if(boardArray[i+1][j+1].isMine) cell.adjacentMines++;
-      }
-    }));
-
-    return boardArray;
-  },
-
   componentDidMount() {
-    const thePun = this.getPun();
-    const boardArray = this.generateBoard(thePun);
-    const answerArray = this.generateAnswerArray(thePun.answer);
+    const thePun = getPun(this.state.gameType);
+    const boardArray = generateBoard(thePun);
+    const answerArray = generateAnswerArray(thePun.answer);
 
     this.setState({
       thePun,
       boardArray,
       answerArray,
     });
-  },
-
-  generateAnswerArray(answer) {
-    answerArray = [];
-    for(let i = 0; i < answer.length; i++) {
-      answerArray.push({
-        wrongLetter: null,
-        actualLetter: answer[i],
-        revealed: false,
-        associatedFlagX: null,
-        associatedFlagY: null,
-      })
-    }
-
-    return answerArray;
   },
 
   openSquare(i, j) {
@@ -218,23 +120,12 @@ var GamePage = React.createClass({
       newAnswerArray[randomLetterIndex].associatedFlagX = cell.col;
 
       // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
-      newAnswerArray[randomLetterIndex].wrongLetter = cell.isMine ? null : this.generateRandomLetter(newAnswerArray[randomLetterIndex].actualLetter);
+      newAnswerArray[randomLetterIndex].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[randomLetterIndex].actualLetter);
 
       this.setState({
         answerArray: newAnswerArray,
       });
     }
-  },
-
-  generateRandomLetter (letterToAvoid) {
-    let randomLetter = letterToAvoid;
-    const choices = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    while (randomLetter === letterToAvoid) {
-      randomLetter = choices[Math.floor(Math.random() * choices.length)];
-    }
-
-    return randomLetter;
   },
 
   render() {
