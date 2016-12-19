@@ -37,6 +37,16 @@ var GamePage = React.createClass({
 
   componentDidMount() {
     const thePun = getPun(this.state.gameType);
+    this.setupBoard(thePun);
+  },
+
+  setupBoard(thePun) {
+    this.setState({
+      gameActive: true,
+      boardArray: [[]],
+      answerArray: [],
+    });
+
     const boardArray = generateBoard(thePun);
     const answerArray = generateAnswerArray(thePun.answer);
 
@@ -61,9 +71,11 @@ var GamePage = React.createClass({
       }
 
       if(newBoard[i][j].isMine) {
-        this.revealMines();
+        // Reveal all the mines and set gameActive to false
+        this.state.boardArray.map(row => {row.map(cell => cell.isOpened = cell.isOpened || cell.isMine)});
         this.setState({
           gameActive: false,
+          boardArray: this.state.boardArray,
         });
       }
 
@@ -71,17 +83,6 @@ var GamePage = React.createClass({
         boardArray: newBoard
       });
     }
-  },
-
-  revealMines() {
-    let newBoard = this.state.boardArray;
-    newBoard.map(row => {row.map(cell => {
-      if (cell.isMine) cell.isOpened = true;
-    })});
-
-    this.setState({
-      boardArray: newBoard,
-    })
   },
 
   measureBoard(event) {
@@ -183,6 +184,9 @@ var GamePage = React.createClass({
         <View ref='board' style={[styles.gamePage.board, !this.state.gameActive && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
+        <TouchableHighlight onPress={() => this.setupBoard(this.state.thePun)}>
+          <Text style={styles.gamePage.resetButton}> Reset Board </Text>
+        </TouchableHighlight>
       </View>
     );
   }

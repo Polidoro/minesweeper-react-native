@@ -48,4 +48,15 @@ export default StyleSheet.create({
     width: 30,
     backgroundColor: 'black',
   },
+  resetButton: {
+    backgroundColor: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    borderRadius: 4,
+    color: '#666',
+    textAlign: 'center',
+    borderColor: '#666',
+    borderWidth: 1,
+    padding: 8,
+  },
 });

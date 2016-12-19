@@ -17,7 +17,7 @@ var MenuPage = React.createClass({
     this.props.navigator.push({
       title: title,
       component: GamePage,
-      passProps: { gameType: gameType }
+      passProps: { gameType: gameType },
     });
   },
 
