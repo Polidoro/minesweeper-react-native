@@ -109,25 +109,25 @@ var GamePage = React.createClass({
         answerArray: newAnswerArray,
       });
     } else if(!cell.isOpened) {
-      cell.isFlagged = true;
-      let newAnswerArray = this.state.answerArray;
-
       // Pick a random unrevealed letter from the answerArray
-      unRevealedSquares = [];
+      let newAnswerArray = this.state.answerArray;
+      let unRevealedSquares = [];
+
       for(let i = 0; i < answerArray.length; i++) {
         if (!answerArray[i].revealed && answerArray[i].actualLetter !== ' ') unRevealedSquares.push(i);
       }
 
-      indexOfSquareToReveal = unRevealedSquares[Math.floor(Math.random()*unRevealedSquares.length)]
+      if(unRevealedSquares.length > 0) {
+        cell.isFlagged = true;
 
-      //let filteredAnswerArray = answerArray.filter(letterObject => { return (!letterObject.revealed && letterObject.actualLetter !== ' ')})
-      //let randomLetterIndex = Math.floor(Math.random()*filteredAnswerArray.length)
-      newAnswerArray[indexOfSquareToReveal].revealed = true;
-      newAnswerArray[indexOfSquareToReveal].associatedFlagY = cell.row;
-      newAnswerArray[indexOfSquareToReveal].associatedFlagX = cell.col;
+        indexOfSquareToReveal = unRevealedSquares[Math.floor(Math.random()*unRevealedSquares.length)]
+        newAnswerArray[indexOfSquareToReveal].revealed = true;
+        newAnswerArray[indexOfSquareToReveal].associatedFlagY = cell.row;
+        newAnswerArray[indexOfSquareToReveal].associatedFlagX = cell.col;
 
-      // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
-      newAnswerArray[indexOfSquareToReveal].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[indexOfSquareToReveal].actualLetter);
+        // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
+        newAnswerArray[indexOfSquareToReveal].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[indexOfSquareToReveal].actualLetter);
+      }
 
       this.setState({
         answerArray: newAnswerArray,

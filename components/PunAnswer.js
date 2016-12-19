@@ -9,7 +9,7 @@ import {
 const Letter = React.createClass({
   render() {
     const letterObject = this.props.letterObject;
-    let displayCharacter = '_';
+    let displayCharacter = (letterObject.actualLetter === ' ') ? ' ' : '_';
 
     if(letterObject.revealed) {
       displayCharacter = letterObject.wrongLetter || letterObject.actualLetter;
