@@ -48,8 +48,7 @@ let HighScoresPage = React.createClass({
   },
 
   confirmClearScores() {
-    Alert.alert(
-      'Are you sure?', 'This will erase all your pun-hunting progress!',
+    Alert.alert('Are you sure?', 'This will erase all your pun-hunting progress!',
       [
         {text: 'Yes! Wipe my scores!', onPress: () => {
           AsyncStorage.removeItem('gameswon');
