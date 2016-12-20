@@ -24,27 +24,10 @@ let HighScore = React.createClass({
 })
 
 let HighScoresPage = React.createClass({
-  componentDidMount() {
-    this._loadInitialState().done();
-  },
-
   getInitialState() {
     return {
-      gameswon: [],
+      gameswon: this.props.gameswon,
     };
-  },
-
-  async _loadInitialState() {
-    try {
-      var value = await AsyncStorage.getItem('gameswon');
-      if (value !== null){
-        this.setState({
-          gameswon: JSON.parse(value)
-        });
-      }
-    } catch (error) {
-      Alert.alert('ERROR', error.message);
-    }
   },
 
   confirmClearScores() {

@@ -56,7 +56,7 @@ export const puns = {
   ],
 }
 
-export const getPun = (gameType) => {
-  const thePuns = puns[gameType];
-  return thePuns[Math.floor(Math.random()*thePuns.length)];
+export const getPun = (gameType, gameswon) => {
+  const punsToChooseFrom = puns[gameType].filter(pun => gameswon.indexOf(pun.id) < 0);
+  return punsToChooseFrom[Math.floor(Math.random()*punsToChooseFrom.length)];
 }

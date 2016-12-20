@@ -41,7 +41,10 @@ var MenuPage = React.createClass({
     this.props.navigator.push({
       title: title,
       component: GamePage,
-      passProps: { gameType: gameType },
+      passProps: { 
+        gameType: gameType,
+        gameswon: this.state.gameswon,
+      },
     });
   },
 
@@ -49,6 +52,7 @@ var MenuPage = React.createClass({
     this.props.navigator.push({
       title: 'High Scores',
       component: HighScoresPage,
+      passProps: { gameswon: this.state.gameswon },
     });
   },
 

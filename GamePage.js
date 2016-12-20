@@ -38,7 +38,7 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    const thePun = getPun(this.state.gameType);
+    const thePun = getPun(this.state.gameType, this.props.gameswon);
     this.setupBoard(thePun);
   },
 
