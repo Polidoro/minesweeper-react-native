@@ -44,12 +44,12 @@ var MenuPage = React.createClass({
       passProps: { 
         gameType: gameType,
         gameswon: this.state.gameswon,
-        onWin: () => this.onWin(),
+        reloadInitialState: () => this.reloadInitialState(),
       },
     });
   },
 
-  onWin() {
+  reloadInitialState() {
      this._loadInitialState().done();
   },
 
@@ -57,7 +57,10 @@ var MenuPage = React.createClass({
     this.props.navigator.push({
       title: 'High Scores',
       component: HighScoresPage,
-      passProps: { gameswon: this.state.gameswon },
+      passProps: {
+        gameswon: this.state.gameswon,
+        reloadInitialState: () => this.reloadInitialState(),
+      },
     });
   },
 
@@ -91,10 +94,10 @@ var MenuPage = React.createClass({
             <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted} completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushHighScoresPage()}>
+        <TouchableHighlight style={[styles.menuPage.menuButton, (this.state.gameswon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gameswon.length === 0)}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>View Archive</Text>
-            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gameswon.length} pun{(this.state.gameswon.length !== 1) && 's'} to read </Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gameswon.length} pun{(this.state.gameswon.length !== 1) && 's'} to view </Text>
           </View>
         </TouchableHighlight>
         <View></View>

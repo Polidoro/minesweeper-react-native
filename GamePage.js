@@ -114,7 +114,7 @@ var GamePage = React.createClass({
       Alert.alert('YOU WIN', this.state.thePun.answer, [{text: 'Awesome!', onPress: () => 
         {
           this.props.navigator.pop();
-          this.props.onWin();
+          this.props.reloadInitialState();
         }
       }]);
     }

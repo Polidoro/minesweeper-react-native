@@ -34,6 +34,7 @@ let HighScoresPage = React.createClass({
     Alert.alert('Are you sure?', 'This will erase all your pun-hunting progress!',
       [
         {text: 'Yes! Wipe my scores!', onPress: () => {
+          this.props.reloadInitialState();
           AsyncStorage.removeItem('gameswon');
           this.setState({ gameswon: [] });
         }},
