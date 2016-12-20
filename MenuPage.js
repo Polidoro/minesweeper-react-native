@@ -57,27 +57,30 @@ var MenuPage = React.createClass({
   },
 
   render() {
+    const easyPunsDisabled = (puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length === puns['easy'].length)
     const easyPunsCompleted = puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['easy'].length;
+    const mediumPunsDisabled = (puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length === puns['medium'].length)
     const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['medium'].length;
+    const hardPunsDisabled = (puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length === puns['hard'].length)
     const hardPunsCompleted = puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['hard'].length;
     
     return (
       <View style={styles.menuPage.mainContainer}>
         <View></View>
         <View></View>
-        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushGamePage('Easy Game', 'easy')}>
+        <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy Mode</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {easyPunsCompleted} completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushGamePage('Medium Game', 'medium')}>
+        <TouchableHighlight style={[styles.menuPage.menuButton, mediumPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Medium Game', 'medium')} disabled={mediumPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Medium</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {mediumPunsCompleted} completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushGamePage('Hard Game', 'hard')}>
+        <TouchableHighlight style={[styles.menuPage.menuButton, hardPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Hard Game', 'hard')} disabled={hardPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Hard Mode</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted} completed </Text>

@@ -16,6 +16,9 @@ export default StyleSheet.create({
     borderWidth: 1,
     padding: 8,
   },
+  disabledButton: {
+    opacity: 0.65,
+  },
   menuButtonText: {
     fontSize: 46,
     fontWeight: 'bold',
