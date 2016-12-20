@@ -35,8 +35,10 @@ const Square = React.createClass({
   },
 
   longHold() {
-    if (this._value === 1) {
+    if (this._value >= 1) {
       this.props.onLongPress();
+    } else {
+      this.props.onShortPress();
     }
   },
 
