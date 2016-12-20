@@ -56,29 +56,34 @@ var MenuPage = React.createClass({
     const easyPunsCompleted = puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['easy'].length;
     const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['medium'].length;
     const hardPunsCompleted = puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['hard'].length;
+    
     return (
       <View style={styles.menuPage.mainContainer}>
         <View></View>
         <View></View>
-        <TouchableHighlight onPress={() => this.pushGamePage('Easy Game', 'easy')}>
-          <Text style={styles.menuPage.menuButton}>
-            Easy Mode {easyPunsCompleted}
-          </Text>
+        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushGamePage('Easy Game', 'easy')}>
+          <View>
+            <Text style={styles.menuPage.menuButtonText}>Easy Mode</Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {easyPunsCompleted} completed </Text>
+          </View>
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => this.pushGamePage('Medium Game', 'medium')}>
-          <Text style={styles.menuPage.menuButton}>
-            Medium {mediumPunsCompleted}
-          </Text>
+        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushGamePage('Medium Game', 'medium')}>
+          <View>
+            <Text style={styles.menuPage.menuButtonText}>Medium</Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {mediumPunsCompleted} completed </Text>
+          </View>
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => this.pushGamePage('Hard Game', 'hard')}>
-          <Text style={styles.menuPage.menuButton}>
-            Hard Mode {hardPunsCompleted}
-          </Text>
+        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushGamePage('Hard Game', 'hard')}>
+          <View>
+            <Text style={styles.menuPage.menuButtonText}>Hard Mode</Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted} completed </Text>
+          </View>
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => this.pushHighScoresPage()}>
-          <Text style={styles.menuPage.menuButton}>
-            High Scores
-          </Text>
+        <TouchableHighlight style={styles.menuPage.menuButton} onPress={() => this.pushHighScoresPage()}>
+          <View>
+            <Text style={styles.menuPage.menuButtonText}>View Archive</Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gameswon.length} pun{(this.state.gameswon.length !== 1) && 's'} to read </Text>
+          </View>
         </TouchableHighlight>
         <View></View>
       </View>

@@ -11,14 +11,22 @@ export default StyleSheet.create({
   },
   menuButton: {
     backgroundColor: '#E53D00',
-    fontSize: 46,
     width: 350,
+    borderColor: '#A72D00',
+    borderWidth: 1,
+    padding: 8,
+  },
+  menuButtonText: {
+    fontSize: 46,
     fontWeight: 'bold',
     color: '#FCFFF7',
     textAlign: 'center',
     borderColor: '#A72D00',
-    borderWidth: 1,
-    padding: 8,
-    marginTop: 0,
+  },
+  menuButtonSubtext: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#FCFFF7',
+    textAlign: 'center',
   },
 });
