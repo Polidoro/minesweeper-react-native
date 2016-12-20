@@ -44,8 +44,13 @@ var MenuPage = React.createClass({
       passProps: { 
         gameType: gameType,
         gameswon: this.state.gameswon,
+        onWin: () => this.onWin(),
       },
     });
+  },
+
+  onWin() {
+     this._loadInitialState().done();
   },
 
   pushHighScoresPage() {
