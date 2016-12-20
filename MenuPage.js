@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   Text,
   View,
+  Alert,
   AsyncStorage,
 } from 'react-native';
 
@@ -28,9 +29,9 @@ var MenuPage = React.createClass({
     try {
       var value = await AsyncStorage.getItem('gameswon');
       if (value !== null){
-        this.setState({
-          gameswon: JSON.parse(value)
-        });
+        this.setState({ gameswon: JSON.parse(value) });
+      } else {
+        this.setState({ gameswon: [] });
       }
     } catch (error) {
       Alert.alert('ERROR', error.message);

@@ -31,12 +31,12 @@ let HighScoresPage = React.createClass({
   },
 
   confirmClearScores() {
-    Alert.alert('Are you sure?', 'This will erase all your pun-hunting progress!',
+    Alert.alert('Are you sure?', 'This will erase all your pun-sweeping progress!',
       [
         {text: 'Yes! Wipe my scores!', onPress: () => {
-          this.props.reloadInitialState();
           AsyncStorage.removeItem('gameswon');
-          this.setState({ gameswon: [] });
+          this.props.navigator.pop();
+          this.props.reloadInitialState();
         }},
         {text: 'Nevermind', style: 'cancel'},
       ]
