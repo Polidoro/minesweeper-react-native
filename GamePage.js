@@ -132,43 +132,49 @@ var GamePage = React.createClass({
   },
 
   placeFlag(cell) {
+    let newAnswerArray = this.state.answerArray;
+
+    // Check if there all the possible flags are currently placed
     if(cell.isFlagged) {
       cell.isFlagged = false;
-      newAnswerArray = this.state.answerArray;
       newAnswerArray.map(letterObject => {
         if(letterObject.associatedFlagX === cell.col && letterObject.associatedFlagY === cell.row) {
           letterObject.revealed = false;
         }
       });
-
-      this.setState({
-        answerArray: newAnswerArray,
-      });
+    } else if(this.state.answerArray.filter(letterObject => letterObject.revealed === true).length >= this.state.thePun.answer.replace(/\s/g, '').length) {
+      Alert.alert('Uh oh!', 'You cannot place any more flags, try removing one first!');
     } else if(!cell.isOpened) {
-      // Pick a random unrevealed letter from the answerArray
-      let newAnswerArray = this.state.answerArray;
-      let unRevealedSquares = [];
+      cell.isFlagged = true;
 
-      for(let i = 0; i < answerArray.length; i++) {
-        if (!answerArray[i].revealed && answerArray[i].actualLetter !== ' ') unRevealedSquares.push(i);
+      // Check if that square has had a flag placed on it previously
+      if(newAnswerArray.find(letterObject => letterObject.associatedFlagX === cell.col && letterObject.associatedFlagY === cell.row)) {
+        newAnswerArray.find(letterObject => letterObject.associatedFlagX === cell.col && letterObject.associatedFlagY === cell.row).revealed = true;
+      } else {
+        // Pick a random unrevealed letter from the answerArray
+        let unRevealedSquares = [];
+
+        for(let i = 0; i < answerArray.length; i++) {
+          if (!answerArray[i].revealed && answerArray[i].actualLetter !== ' ') unRevealedSquares.push(i);
+        }
+
+        if(unRevealedSquares.length > 0) {
+          cell.isFlagged = true;
+
+          indexOfSquareToReveal = unRevealedSquares[Math.floor(Math.random()*unRevealedSquares.length)]
+          newAnswerArray[indexOfSquareToReveal].revealed = true;
+          newAnswerArray[indexOfSquareToReveal].associatedFlagY = cell.row;
+          newAnswerArray[indexOfSquareToReveal].associatedFlagX = cell.col;
+
+          // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
+          newAnswerArray[indexOfSquareToReveal].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[indexOfSquareToReveal].actualLetter);
+        }
       }
-
-      if(unRevealedSquares.length > 0) {
-        cell.isFlagged = true;
-
-        indexOfSquareToReveal = unRevealedSquares[Math.floor(Math.random()*unRevealedSquares.length)]
-        newAnswerArray[indexOfSquareToReveal].revealed = true;
-        newAnswerArray[indexOfSquareToReveal].associatedFlagY = cell.row;
-        newAnswerArray[indexOfSquareToReveal].associatedFlagX = cell.col;
-
-        // if cell is not a mine set a wrongLetter, otherwise clear wrongLetter
-        newAnswerArray[indexOfSquareToReveal].wrongLetter = cell.isMine ? null : generateRandomLetter(newAnswerArray[indexOfSquareToReveal].actualLetter);
-      }
-
-      this.setState({
-        answerArray: newAnswerArray,
-      });
     }
+
+    this.setState({
+      answerArray: newAnswerArray,
+    });
 
     this.checkWin()
   },
@@ -214,8 +220,6 @@ var GamePage = React.createClass({
       // Add the row to the grid of squares to display
       theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
     }
-
-    AsyncStorage.setItem('highScores', this.state.gameType);
 
     return (
       <View style={styles.gamePage.mainContainer}>
