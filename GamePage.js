@@ -3,6 +3,7 @@ import { getPun } from './puns';
 import styles from './styles';
 import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
+import Button from './components/Button';
 import {
   TouchableHighlight,
   Text,
@@ -227,9 +228,7 @@ var GamePage = React.createClass({
         <View ref='board' style={[styles.gamePage.board, (this.state.gameState === 'lost') && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
-        <TouchableHighlight onPress={() => this.setupBoard(this.state.thePun)}>
-          <Text style={styles.gamePage.resetButton}> Reset Board </Text>
-        </TouchableHighlight>
+        <Button onPress={() => this.setupBoard(this.state.thePun)} text='Reset Board' />
       </View>
     );
   }

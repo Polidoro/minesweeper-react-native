@@ -49,15 +49,4 @@ export default StyleSheet.create({
     height: 30,
     width: 30,
   },
-  resetButton: {
-    backgroundColor: colors.buttonColor,
-    borderColor: colors.buttonBorderColor,
-    color: colors.backgroundColor,
-    fontSize: 16,
-    fontWeight: 'bold',
-    borderRadius: 4,
-    textAlign: 'center',
-    borderWidth: 1,
-    padding: 8,
-  },
 });

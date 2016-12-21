@@ -9,4 +9,18 @@ export default StyleSheet.create({
   content: {
     backgroundColor: colors.backgroundColor,
   },
+  button: {
+    padding: 8,
+  },
+  buttonText: {
+    backgroundColor: colors.buttonColor,
+    borderColor: colors.buttonBorderColor,
+    color: colors.backgroundColor,
+    fontSize: 16,
+    fontWeight: 'bold',
+    borderRadius: 4,
+    textAlign: 'center',
+    borderWidth: 1,
+    padding: 8,
+  },
 });

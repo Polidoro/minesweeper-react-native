@@ -1,27 +1,27 @@
 import React from 'react';
 import styles from '../styles';
+import colors from '../styles/colors';
 import {
-  Text,
   TouchableWithoutFeedback ,
   View,
-  Animated,
+  Text,
 } from 'react-native';
 
 const Square = React.createClass({
   render() {
     const squareData = this.props.squareData;
     let displayCharacter = ' ';
-    let squareColor = '#CBE896';
+    let squareColor = colors.cellColor;
 
     if (squareData.isOpened && squareData.isMine) {
         displayCharacter = 'M';
-        squareColor = '#A72D00'
+        squareColor = colors.buttonColor
     } else if (squareData.isFlagged) {
         displayCharacter = 'F';
-        squareColor = '#A7BE7B';
+        squareColor = colors.cellDarkColor;
     } else if (squareData.isOpened) {
         displayCharacter = squareData.adjacentMines;
-        squareColor = '#FCFFF7';
+        squareColor = colors.backgroundColor;
     }
 
     return (

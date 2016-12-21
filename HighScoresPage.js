@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './components/Button'
 import styles from './styles';
 import { puns } from './puns';
 import {
@@ -61,7 +62,7 @@ let HighScoresPage = React.createClass({
     return (
       <ScrollView style={styles.highScoresPage.mainContainer}>
         <Text style={styles.highScoresPage.instructionText}>Tap the pun to see the punchline!</Text>
-        <TouchableHighlight disabled={this.state.gameswon.length === 0} onPress={() => this.confirmClearScores()}><Text> Reset scores </Text></TouchableHighlight>
+        <Button text='Clear Scores' onPress={() => this.confirmClearScores()} />
         {gameTypes}
         <Text>{this.state.highScores}</Text>
       </ScrollView>

@@ -80,19 +80,19 @@ var MenuPage = React.createClass({
         <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy Mode</Text>
-            <Text style={styles.menuPage.menuButtonSubtext}> {easyPunsCompleted} completed </Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {easyPunsCompleted} Completed </Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight style={[styles.menuPage.menuButton, mediumPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Medium Game', 'medium')} disabled={mediumPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Medium</Text>
-            <Text style={styles.menuPage.menuButtonSubtext}> {mediumPunsCompleted} completed </Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {mediumPunsCompleted} Completed </Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight style={[styles.menuPage.menuButton, hardPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Hard Game', 'hard')} disabled={hardPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Hard Mode</Text>
-            <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted} completed </Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted} Completed </Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight style={[styles.menuPage.menuButton, (this.state.gameswon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gameswon.length === 0)}>
