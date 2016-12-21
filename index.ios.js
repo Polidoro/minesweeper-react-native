@@ -19,7 +19,6 @@ export default class sandbox extends Component {
   render() {
     return (
       <NavigatorIOS
-        ref='nav'
         style={ styles.global.mainContainer }
         barTintColor='#FC2F00'
         tintColor='#EFEFEF'

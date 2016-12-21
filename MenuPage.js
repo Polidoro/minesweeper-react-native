@@ -58,6 +58,8 @@ var MenuPage = React.createClass({
     this.props.navigator.push({
       title: 'High Scores',
       component: HighScoresPage,
+      rightButtonTitle: 'Search',
+      onRightButtonPress: () => Alert.alert('Hello','This is an alert'),
       passProps: {
         gameswon: this.state.gameswon,
         reloadInitialState: () => this.reloadInitialState(),
