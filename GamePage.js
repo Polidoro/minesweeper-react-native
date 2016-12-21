@@ -41,6 +41,7 @@ var GamePage = React.createClass({
   componentDidMount() {
     const thePun = getNewPun(this.state.gameType, this.props.gameswon);
     this.setupBoard(thePun);
+    this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
   },
 
   setupBoard(thePun) {
@@ -228,7 +229,6 @@ var GamePage = React.createClass({
         <View ref='board' style={[styles.gamePage.board, (this.state.gameState === 'lost') && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
-        <Button onPress={() => this.setupBoard(this.state.thePun)} text='Reset Board' />
       </View>
     );
   }

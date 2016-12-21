@@ -3,6 +3,7 @@ import styles from './styles';
 import HighScoresPage from './HighScoresPage';
 import GamePage from './GamePage';
 import SettingsModal from './components/SettingsModal';
+import EventEmitter from 'wolfy87-eventemitter';
 import { puns } from './puns';
 import {
   Image,
@@ -16,10 +17,16 @@ import {
   AsyncStorage,
 } from 'react-native';
 
+let rightButtonHandler = new EventEmitter();
+
 let MenuPage = React.createClass({
   componentDidMount() {
     this._loadInitialState().done();
     this.props.events.addListener('rightButtonPressed', this.toggleSettingsModal);
+  },
+
+  handleRightButtonPress() {
+    rightButtonHandler.emitEvent('rightButtonPressed');
   },
 
   toggleSettingsModal() {
@@ -52,7 +59,10 @@ let MenuPage = React.createClass({
     this.props.navigator.push({
       title: title,
       component: GamePage,
+      rightButtonTitle: 'Reset',
+      onRightButtonPress: () => this.handleRightButtonPress(),
       passProps: { 
+        events: rightButtonHandler,
         gameType: gameType,
         gameswon: this.state.gameswon,
         reloadInitialState: () => this.reloadInitialState(),

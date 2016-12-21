@@ -16,7 +16,7 @@ import {
   NavigatorIOS,
 } from 'react-native';
 
-var rightButtonHandler = new EventEmitter();
+let rightButtonHandler = new EventEmitter();
 
 export default class sandbox extends Component {
   handleRightButtonPress() {
