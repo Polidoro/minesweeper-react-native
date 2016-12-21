@@ -11,13 +11,57 @@ import {
   Text,
   View,
   Alert,
+  Modal,
   AsyncStorage,
 } from 'react-native';
 
-var MenuPage = React.createClass({
+let SetingsModal = React.createClass({
+  getInitialState() {
+    return ({
+      modalVisible: false
+    });
+  },
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  },
+
+  render() {
+    return (
+      <View>
+      <Modal
+        animationType={"slide"}
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {alert("Modal has been closed.")}}
+      >
+      <View style={{marginTop: 22}}>
+        <View>
+          <Text>Hello World!</Text>
+
+          <TouchableHighlight onPress={() => {
+            this.setModalVisible(!this.state.modalVisible)
+          }}>
+            <Text>Hide Modal</Text>
+          </TouchableHighlight>
+
+        </View>
+       </View>
+      </Modal>
+      <TouchableHighlight onPress={() => {
+        this.setModalVisible(true)
+      }}>
+        <Text>Show Modal</Text>
+      </TouchableHighlight>
+      </View>
+    )
+  }
+})
+
+let MenuPage = React.createClass({
   componentDidMount() {
     this._loadInitialState().done();
-    this.props.events.addListener('rightButtonPressed', this.alertMe.bind(this));
+    this.props.events.addListener('rightButtonPressed', this.alertMe);
   },
 
   alertMe() {
@@ -84,6 +128,7 @@ var MenuPage = React.createClass({
       <View style={styles.menuPage.mainContainer}>
         <View></View>
         <View></View>
+        <SetingsModal />
         <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy Mode</Text>
