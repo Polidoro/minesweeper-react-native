@@ -68,12 +68,12 @@ var MenuPage = React.createClass({
   },
 
   render() {
-    const easyPunsDisabled = (puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length === puns['easy'].length)
-    const easyPunsCompleted = puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['easy'].length;
-    const mediumPunsDisabled = (puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length === puns['medium'].length)
-    const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['medium'].length;
-    const hardPunsDisabled = (puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length === puns['hard'].length)
-    const hardPunsCompleted = puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.id) >= 0).length + '/' + puns['hard'].length;
+    const easyPunsDisabled = (puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length === puns['easy'].length)
+    const easyPunsCompleted = puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length + '/' + puns['easy'].length;
+    const mediumPunsDisabled = (puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length === puns['medium'].length)
+    const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length + '/' + puns['medium'].length;
+    const hardPunsDisabled = (puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length === puns['hard'].length)
+    const hardPunsCompleted = puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length + '/' + puns['hard'].length;
     
     return (
       <View style={styles.menuPage.mainContainer}>

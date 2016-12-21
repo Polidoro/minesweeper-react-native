@@ -105,9 +105,9 @@ var GamePage = React.createClass({
       AsyncStorage.getItem('gameswon', (error, result) => {
         let previousGameswon = JSON.parse(result);
         if(!previousGameswon) {
-          AsyncStorage.setItem('gameswon', JSON.stringify([this.state.thePun.id]));
+          AsyncStorage.setItem('gameswon', JSON.stringify([this.state.thePun.question]));
         } else {
-          AsyncStorage.setItem('gameswon', JSON.stringify(previousGameswon.concat([this.state.thePun.id])));
+          AsyncStorage.setItem('gameswon', JSON.stringify(previousGameswon.concat([this.state.thePun.question])));
         }
       });
 

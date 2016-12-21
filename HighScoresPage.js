@@ -53,7 +53,7 @@ let HighScoresPage = React.createClass({
           <View style={styles.highScoresPage.rowSeparator} />
         </View>);
       puns[gameType].map(game => {
-        if(this.state.gameswon.indexOf(game.id) >= 0) {
+        if(this.state.gameswon.indexOf(game.question) >= 0) {
           gameTypes.push(<HighScore key={game.question} answer={game.answer} question={game.question} />)
         }
       });
