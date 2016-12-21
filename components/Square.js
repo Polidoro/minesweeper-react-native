@@ -2,45 +2,12 @@ import React from 'react';
 import styles from '../styles';
 import {
   Text,
-  TouchableHighlight,
+  TouchableWithoutFeedback ,
   View,
   Animated,
 } from 'react-native';
 
 const Square = React.createClass({
-  getInitialState() {
-    return {
-        pressAction: new Animated.Value(0),
-    };
-  },
-
-  componentWillMount() {
-    this._value = 0;
-    this.state.pressAction.addListener((v) => this._value = v.value);
-  },
-
-  handlePressIn() {
-      Animated.timing(this.state.pressAction, {
-        duration: 500,
-        toValue: 1
-      }).start(this.longHold);
-  },
-
-  handlePressOut() {
-      Animated.timing(this.state.pressAction, {
-        duration: this._value * 500,
-        toValue: 0
-      }).start();
-  },
-
-  longHold() {
-    if (this._value >= 1) {
-      this.props.onLongPress();
-    } else {
-      this.props.onShortPress();
-    }
-  },
-
   render() {
     const squareData = this.props.squareData;
     let displayCharacter = ' ';
@@ -58,13 +25,17 @@ const Square = React.createClass({
     }
 
     return (
-      <TouchableHighlight 
-        onPressIn={this.handlePressIn} 
-        onPressOut={this.handlePressOut} 
-        style={[styles.gamePage.boardSquare, { backgroundColor: squareColor }]}
+      <TouchableWithoutFeedback
+        onLongPress={this.props.onLongPress}
+        onPress={this.props.onShortPress}
+        disabled={this.props.disabled}
       >
-        <Text style={styles.gamePage.squareLetter}>{displayCharacter === 0 ? ' ' : displayCharacter}</Text>
-      </TouchableHighlight>
+        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor }]}>
+          <Text style={styles.gamePage.squareLetter}>
+            {displayCharacter === 0 ? ' ' : displayCharacter}
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 });

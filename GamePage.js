@@ -212,11 +212,10 @@ var GamePage = React.createClass({
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         gridRow.push(
-          <TouchableHighlight key={j} underlayColor="#FAEB00" disabled={this.state.gameState !== 'active'}>
-            <View><Square onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(this.state.boardArray[i][j])} squareData={this.state.boardArray[i][j]} /></View>
-          </TouchableHighlight>
+          <Square key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(this.state.boardArray[i][j])} squareData={this.state.boardArray[i][j]} />
         )
       }
+
 
       // Add the row to the grid of squares to display
       theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
