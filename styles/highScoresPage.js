@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import colors from './colors';
 
 export default StyleSheet.create({
   mainContainer: {
+    backgroundColor: colors.backgroundColor,
     margin: 20,
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#FCFFF7',
   },
   highScoreCategory: {
     paddingTop: 10,
@@ -22,7 +23,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   rowSeparator: {
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    backgroundColor: colors.buttonBorderColor,
     height: 1,
     marginLeft: 4,
   },

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import colors from './colors';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -9,14 +10,14 @@ export default StyleSheet.create({
     marginTop: 64,
   },
   board: {
+    backgroundColor: colors.backgroundColor,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: '#FCFFF7',
   },
   boardSquare: {
+    backgroundColor: colors.backgroundColor,
     height: 30,
     width: 30,
-    backgroundColor: "#CBE896",
     margin: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -44,18 +45,18 @@ export default StyleSheet.create({
     fontSize: 20,
   },
   theFlag: {
+    backgroundColor: colors.buttonColor,
     height: 30,
     width: 30,
-    backgroundColor: 'black',
   },
   resetButton: {
-    backgroundColor: '#FFF',
+    backgroundColor: colors.buttonColor,
+    borderColor: colors.buttonBorderColor,
+    color: colors.backgroundColor,
     fontSize: 16,
     fontWeight: 'bold',
     borderRadius: 4,
-    color: '#666',
     textAlign: 'center',
-    borderColor: '#666',
     borderWidth: 1,
     padding: 8,
   },

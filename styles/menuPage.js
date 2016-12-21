@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import colors from './colors';
 
 export default StyleSheet.create({
   mainContainer: {
+    backgroundColor: colors.backgroundColor,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#FCFFF7',
   },
   menuButton: {
-    backgroundColor: '#E53D00',
+    backgroundColor: colors.buttonColor,
+    borderColor: colors.buttonBorderColor,
     width: 350,
-    borderColor: '#A72D00',
     borderWidth: 1,
     padding: 8,
   },
@@ -20,16 +21,16 @@ export default StyleSheet.create({
     opacity: 0.65,
   },
   menuButtonText: {
+    color: colors.backgroundColor,
+    borderColor: colors.buttonBorderColor,
     fontSize: 46,
     fontWeight: 'bold',
-    color: '#FCFFF7',
     textAlign: 'center',
-    borderColor: '#A72D00',
   },
   menuButtonSubtext: {
+    color: colors.backgroundColor,
     fontWeight: 'bold',
     fontSize: 20,
-    color: '#FCFFF7',
     textAlign: 'center',
   },
 });

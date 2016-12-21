@@ -5,7 +5,6 @@ import {
   TouchableHighlight,
   View,
   Animated,
-  Alert,
 } from 'react-native';
 
 const Square = React.createClass({

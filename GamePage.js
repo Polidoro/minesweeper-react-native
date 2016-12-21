@@ -134,7 +134,7 @@ var GamePage = React.createClass({
   placeFlag(cell) {
     let newAnswerArray = this.state.answerArray;
 
-    // Check if there all the possible flags are currently placed
+    // If cell is flagged unflag it
     if(cell.isFlagged) {
       cell.isFlagged = false;
       newAnswerArray.map(letterObject => {
@@ -143,6 +143,7 @@ var GamePage = React.createClass({
         }
       });
     } else if(this.state.answerArray.filter(letterObject => letterObject.revealed === true).length >= this.state.thePun.answer.replace(/\s/g, '').length) {
+      // If cell is NOT flagged, check if all the possible flags are currently placed
       Alert.alert('Uh oh!', 'You cannot place any more flags, try removing one first!');
     } else if(!cell.isOpened) {
       cell.isFlagged = true;
