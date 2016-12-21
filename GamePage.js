@@ -182,6 +182,15 @@ var GamePage = React.createClass({
     this.checkWin()
   },
 
+
+  get_random_color() {
+    function c() {
+      var hex = Math.floor(Math.random()*256).toString(16);
+      return ("0"+String(hex)).substr(-2); // pad with zero
+    }
+    return "#"+c()+c()+c();
+  },
+
   render() {
     panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => this.state.gameState === 'active',
@@ -214,19 +223,22 @@ var GamePage = React.createClass({
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         gridRow.push(
-          <Square key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(this.state.boardArray[i][j])} squareData={this.state.boardArray[i][j]} />
+          <Square style={{flex: 1}} key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(this.state.boardArray[i][j])} squareData={this.state.boardArray[i][j]} />
         )
       }
 
-
       // Add the row to the grid of squares to display
-      theGrid.push(<View style={styles.gamePage.boardRow} key={i}>{gridRow}</View>);
+      theGrid.push(<View style={{flexDirection: 'row', flex: 1}} key={i}>{gridRow}</View>);
     }
 
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
-        <View ref='board' style={[styles.gamePage.board, (this.state.gameState === 'lost') && {backgroundColor: '#A72D00'}]} onLayout={(event) => this.measureBoard(event)}>{theGrid}</View>
+        <View style={{flexDirection: 'row', height: this.state.boardArray.length * Dimensions.get('window').width / this.state.boardArray[0].length, backgroundColor: 'steelblue'}}>
+          <View style={{ flexDirection: 'column', flex: 1 }}>
+            {theGrid}
+          </View>
+        </View>
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
       </View>

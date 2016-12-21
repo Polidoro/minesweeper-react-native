@@ -4,22 +4,20 @@ import colors from './colors';
 
 export default StyleSheet.create({
   mainContainer: {
+    backgroundColor: colors.backgroundColor,
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 64,
+    paddingTop: 64,
   },
   board: {
+    flex: 5,
     backgroundColor: colors.backgroundColor,
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
   boardSquare: {
     backgroundColor: colors.backgroundColor,
-    height: 30,
-    width: 30,
+    flex: 1,
     margin: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
     borderStyle: 'solid',
     borderWidth: .5,
@@ -28,9 +26,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   questionText: {
-    margin: 20,
     fontSize: 30,
     textAlign: 'center',
+    padding: 10,
   },
   answerText: {
     flexDirection: 'row',
