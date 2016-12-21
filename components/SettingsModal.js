@@ -21,7 +21,10 @@ let SettingsModal = React.createClass({
         <View style={styles.settingsModal.mainContainer}>
           <Text>Hello World!</Text>
           <SegmentedControlIOS style={{width: 200}} direction='column' values={['One', 'Two', 'Three', 'Four', 'Five']} />
-          <Button onPress={() => this.props.hideModal()} text='Hide Modal' />
+          <View style={{flexDirection: 'row'}}>
+            <Button onPress={() => this.props.hideModal()} text='Save' />
+            <Button onPress={() => this.props.hideModal()} text='Cancel' />
+          </View>
         </View>
       </Modal>
     )
