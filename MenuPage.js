@@ -17,6 +17,11 @@ import {
 var MenuPage = React.createClass({
   componentDidMount() {
     this._loadInitialState().done();
+    this.props.events.addListener('rightButtonPressed', this.alertMe.bind(this));
+  },
+
+  alertMe() {
+    Alert.alert(JSON.stringify(this.state.gameswon));
   },
 
   getInitialState() {

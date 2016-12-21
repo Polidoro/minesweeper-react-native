@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import MenuPage from './MenuPage';
+import EventEmitter from 'wolfy87-eventemitter';
 import {
   AppRegistry,
   View,
@@ -15,7 +16,13 @@ import {
   NavigatorIOS,
 } from 'react-native';
 
+var rightButtonHandler = new EventEmitter();
+
 export default class sandbox extends Component {
+  handleRightButtonPress() {
+    rightButtonHandler.emitEvent('rightButtonPressed');
+  }
+
   render() {
     return (
       <NavigatorIOS
@@ -26,6 +33,11 @@ export default class sandbox extends Component {
         initialRoute={{
           component: MenuPage,
           title: 'Menu',
+          rightButtonTitle: 'Alert',
+          onRightButtonPress: () => this.handleRightButtonPress(),
+          passProps: {
+            events: rightButtonHandler
+          }
         }}
       />
     );
