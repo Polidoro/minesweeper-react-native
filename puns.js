@@ -35,10 +35,8 @@ export const puns = {
   ],
 }
 
-// Grabs a pun that hasn't been completed, calculates appropriate size and return it
-export const getNewPun = (gameType, gameswon) => {
-  const punsToChooseFrom = puns[gameType].filter(pun => gameswon.indexOf(pun.id) < 0);
-  let thePun = punsToChooseFrom[Math.floor(Math.random()*punsToChooseFrom.length)];
+export const getPun = (punQuestion) => {
+  let thePun = [].concat(puns['easy'],puns['medium'],puns['hard']).find(pun => pun.question === punQuestion)
 
   const mineCount = thePun.answer.replace(/\s/g, '').length;
   const cellCount = mineCount * 6;
@@ -49,4 +47,12 @@ export const getNewPun = (gameType, gameswon) => {
   thePun.boardRows = boardRows;
 
   return thePun;
+}
+
+// Grabs a pun that hasn't been completed, calculates appropriate size and return it
+export const getNewPun = (gameType, gameswon) => {
+  const punsToChooseFrom = puns[gameType].filter(pun => gameswon.indexOf(pun.id) < 0);
+  let thePun = punsToChooseFrom[Math.floor(Math.random()*punsToChooseFrom.length)];
+
+  return getPun(thePun.question);
 }
