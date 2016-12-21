@@ -1,29 +1,28 @@
 import React from 'react';
 import styles from '../styles';
+import Button from './Button';
 import {
   Text,
   View,
   Modal,
   TouchableHighlight,
+  SegmentedControlIOS,
 } from 'react-native';
 
 let SettingsModal = React.createClass({
   render() {
     return (
       <Modal
-        animationType={"slide"}
-        transparent={false}
+        animationType={"fade"}
+        transparent={true}
         visible={this.props.isVisible}
         onRequestClose={() => {alert("Modal has been closed.")}}
       >
-      <View style={{marginTop: 22}}>
-        <View>
+        <View style={styles.settingsModal.mainContainer}>
           <Text>Hello World!</Text>
-          <TouchableHighlight onPress={() => this.props.hideModal()}>
-            <Text>Hide Modal</Text>
-          </TouchableHighlight>
+          <SegmentedControlIOS style={{width: 200}} direction='column' values={['One', 'Two', 'Three', 'Four', 'Five']} />
+          <Button onPress={() => this.props.hideModal()} text='Hide Modal' />
         </View>
-       </View>
       </Modal>
     )
   }
