@@ -33,7 +33,7 @@ export default class sandbox extends Component {
         initialRoute={{
           component: MenuPage,
           title: 'Menu',
-          rightButtonTitle: 'Alert',
+          rightButtonTitle: 'Settings',
           onRightButtonPress: () => this.handleRightButtonPress(),
           passProps: {
             events: rightButtonHandler

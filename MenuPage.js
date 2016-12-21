@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles';
 import HighScoresPage from './HighScoresPage';
 import GamePage from './GamePage';
+import SettingsModal from './components/SettingsModal';
 import { puns } from './puns';
 import {
   Image,
@@ -15,62 +16,22 @@ import {
   AsyncStorage,
 } from 'react-native';
 
-let SetingsModal = React.createClass({
-  getInitialState() {
-    return ({
-      modalVisible: false
-    });
-  },
-
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  },
-
-  render() {
-    return (
-      <View>
-      <Modal
-        animationType={"slide"}
-        transparent={false}
-        visible={this.state.modalVisible}
-        onRequestClose={() => {alert("Modal has been closed.")}}
-      >
-      <View style={{marginTop: 22}}>
-        <View>
-          <Text>Hello World!</Text>
-
-          <TouchableHighlight onPress={() => {
-            this.setModalVisible(!this.state.modalVisible)
-          }}>
-            <Text>Hide Modal</Text>
-          </TouchableHighlight>
-
-        </View>
-       </View>
-      </Modal>
-      <TouchableHighlight onPress={() => {
-        this.setModalVisible(true)
-      }}>
-        <Text>Show Modal</Text>
-      </TouchableHighlight>
-      </View>
-    )
-  }
-})
-
 let MenuPage = React.createClass({
   componentDidMount() {
     this._loadInitialState().done();
-    this.props.events.addListener('rightButtonPressed', this.alertMe);
+    this.props.events.addListener('rightButtonPressed', this.toggleSettingsModal);
   },
 
-  alertMe() {
-    Alert.alert(JSON.stringify(this.state.gameswon));
+  toggleSettingsModal() {
+    this.setState({
+      modalVisible: !this.state.modalVisible
+    });;
   },
 
   getInitialState() {
     return {
       gameswon: [],
+      modalVisible: false,
     };
   },
 
@@ -128,7 +89,7 @@ let MenuPage = React.createClass({
       <View style={styles.menuPage.mainContainer}>
         <View></View>
         <View></View>
-        <SetingsModal />
+        <SettingsModal isVisible={this.state.modalVisible} hideModal={() => this.toggleSettingsModal()} />
         <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy Mode</Text>
