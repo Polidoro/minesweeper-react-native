@@ -235,7 +235,7 @@ var GamePage = React.createClass({
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>
         <View style={{flexDirection: 'row', height: this.state.boardArray.length * Dimensions.get('window').width / this.state.boardArray[0].length, backgroundColor: 'steelblue'}}>
-          <View style={{ flexDirection: 'column', flex: 1 }}>
+          <View ref='board' onLayout={(event) => this.measureBoard(event)} style={{ flexDirection: 'column', flex: 1 }}>
             {theGrid}
           </View>
         </View>
