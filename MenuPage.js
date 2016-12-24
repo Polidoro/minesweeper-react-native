@@ -6,9 +6,6 @@ import SettingsModal from './components/SettingsModal';
 import EventEmitter from 'wolfy87-eventemitter';
 import { puns } from './puns';
 import {
-  Image,
-  StyleSheet,
-  ScrollView,
   TouchableHighlight,
   Text,
   View,
@@ -78,11 +75,13 @@ let MenuPage = React.createClass({
     this.props.navigator.push({
       title: 'High Scores',
       component: HighScoresPage,
-      rightButtonTitle: 'Search',
-      onRightButtonPress: () => Alert.alert('Hello','This is an alert'),
+      rightButtonTitle: 'Clear Scores',
+      onRightButtonPress: () => this.handleRightButtonPress(),
       passProps: {
         gameswon: this.state.gameswon,
+        events: rightButtonHandler,
         reloadInitialState: () => this.reloadInitialState(),
+
       },
     });
   },

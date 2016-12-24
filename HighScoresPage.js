@@ -25,6 +25,10 @@ let HighScore = React.createClass({
 })
 
 let HighScoresPage = React.createClass({
+  componentDidMount() {
+    this.props.events.addListener('rightButtonPressed', () => this.confirmClearScores());
+  },
+
   getInitialState() {
     return {
       gameswon: this.props.gameswon,
@@ -62,7 +66,6 @@ let HighScoresPage = React.createClass({
     return (
       <ScrollView style={styles.highScoresPage.mainContainer}>
         <Text style={styles.highScoresPage.instructionText}>Tap the pun to see the punchline!</Text>
-        <Button text='Clear Scores' onPress={() => this.confirmClearScores()} />
         {gameTypes}
         <Text>{this.state.highScores}</Text>
       </ScrollView>
