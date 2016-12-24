@@ -39,7 +39,9 @@ export default StyleSheet.create({
   }, 
   squareLetter: {
     padding: 1,
+    opacity: 1,
     fontSize: 20,
+    textAlign: 'center',
   },
   theFlag: {
     backgroundColor: colors.buttonColor,

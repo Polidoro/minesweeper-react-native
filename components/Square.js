@@ -12,6 +12,7 @@ const Square = React.createClass({
     const squareData = this.props.squareData;
     let displayCharacter = ' ';
     let squareColor = colors.cellColor;
+    let squareOpacity = 1;
 
     if (squareData.isOpened && squareData.isMine) {
         displayCharacter = 'M';
@@ -22,6 +23,8 @@ const Square = React.createClass({
     } else if (squareData.isOpened) {
         displayCharacter = squareData.adjacentMines;
         squareColor = colors.backgroundColor;
+
+        squareOpacity = 1-(squareData.adjacentMines/8);
     }
 
     return (
@@ -30,7 +33,7 @@ const Square = React.createClass({
         onPress={this.props.onShortPress}
         disabled={this.props.disabled}
       >
-        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor }]}>
+        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }]}>
           <Text style={styles.gamePage.squareLetter}>
             {displayCharacter === 0 ? ' ' : displayCharacter}
           </Text>
