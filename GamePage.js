@@ -41,12 +41,9 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    if(this.props.question) {
-      this.setupBoard(getPun(this.props.question));
-    } else {
-      this.setupBoard(getNewPun(this.state.gameType, this.props.gameswon));
-    }
-
+    const thePun = getNewPun(this.state.gameType, this.props.gameswon, this.props.question);
+    this.setupBoard(thePun);
+    
     this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
   },
 
@@ -57,8 +54,8 @@ var GamePage = React.createClass({
       answerArray: [],
     });
 
-    const boardArray = generateBoard(thePun);
-    const answerArray = generateAnswerArray(thePun.answer);
+    let boardArray = generateBoard(thePun);
+    let answerArray = generateAnswerArray(thePun.answer);
 
     this.setState({
       thePun,

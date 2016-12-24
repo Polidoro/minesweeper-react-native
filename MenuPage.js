@@ -64,6 +64,7 @@ let MenuPage = React.createClass({
         gameType: gameType,
         gameswon: this.state.gameswon,
         reloadInitialState: () => this.reloadInitialState(),
+        onRightButtonPress: () => this.handleRightButtonPress(),
       },
     });
   },
@@ -83,6 +84,7 @@ let MenuPage = React.createClass({
         events: rightButtonHandler,
         reloadInitialState: () => this.reloadInitialState(),
         pushGamePage: this.pushGamePage,
+        onRightButtonPress: () => this.handleRightButtonPress(),
       },
     });
   },

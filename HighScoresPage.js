@@ -74,9 +74,23 @@ let HighScoresPage = React.createClass({
     );
   },
 
+  // Need to make sure this includes all the right info from the MenuPage call
+  // Need to set GamePage to accept a specific question (the gameQuestion prop)
   loadGame({gameType, question}) {
-    //this.props.navigator.pop().then();
-    this.props.pushGamePage(gameType + ' Game', gameType, question, (route) => this.props.navigator.replace(route));
+    this.props.events.removeEvent();
+    this.props.navigator.push({
+      title: gameType + ' Game',
+      component: GamePage,
+      rightButtonTitle: 'Reset',
+      onRightButtonPress: this.props.onRightButtonPress,
+      passProps: {
+        events: this.props.events,
+        gameQuestion: question,
+        gameType: gameType,
+        gameswon: [],
+        reloadInitialState: () => this.props.reloadInitialState(),
+      },
+    });;
   },
 
   render() {
