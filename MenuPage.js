@@ -120,7 +120,7 @@ let MenuPage = React.createClass({
         <TouchableHighlight style={[styles.menuPage.menuButton, (this.state.gameswon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gameswon.length === 0)}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>View Archive</Text>
-            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gameswon.length} pun{(this.state.gameswon.length !== 1) && 's'} to view </Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gameswon.length} Pun{(this.state.gameswon.length !== 1) && 's'} To View </Text>
           </View>
         </TouchableHighlight>
         <View></View>

@@ -23,19 +23,16 @@ let HighScore = React.createClass({
               style={styles.highScoresPage.cellImage}
             />
             <View style={styles.highScoresPage.cellTextContainer}>
-              <Text style={styles.highScoresPage.mediaName} numberOfLines={1}>
-                trackName
+              <Text style={styles.highScoresPage.username} numberOfLines={1}>
+                User's Name - 4:32
               </Text>
               <Text style={[styles.highScoresPage.mediaDescription, styles.highScoresPage.highScoreText]} numberOfLines={2}>
-                <Text style={styles.highScoresPage.mediaYear}>
-                  parseInt(this.props.media.releaseDate)
-                </Text>
-                {" "}-{" "}
                 {this.props.question}
               </Text>
             </View>
           </View>
         </TouchableHighlight>
+        <View style={styles.highScoresPage.rowSeparator} />
       </View>
     )
   }
@@ -70,24 +67,20 @@ let HighScoresPage = React.createClass({
   },
 
   render() {
-    let gameTypes = [];
+    let scores = [];
     for(let gameType in puns) {
-      gameTypes.push(
-        <View key={gameType}>
-          <Text style={styles.highScoresPage.highScoreCategory}>{gameType}</Text>
-          <View style={styles.highScoresPage.rowSeparator} />
-        </View>);
       puns[gameType].map(game => {
         if(this.state.gameswon.indexOf(game.question) >= 0) { 
-          gameTypes.push(<HighScore key={game.question} answer={game.answer} question={game.question} />)
+          scores.push(<HighScore key={game.question} answer={game.answer} question={game.question} />)
         }
       });
     }
 
     return (
       <ScrollView style={styles.highScoresPage.mainContainer}>
-        {gameTypes}
-        <Text>{this.state.highScores}</Text>
+        <Text style={styles.highScoresPage.instructionalText}>Tap a score to see the punchline!</Text>
+        <View style={styles.highScoresPage.rowSeparator} />
+        {scores}
       </ScrollView>
     );
   }
