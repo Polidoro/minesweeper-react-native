@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from './components/Button'
+import GamePage from './GamePage';
+import Button from './components/Button';
 import styles from './styles';
 import { puns } from './puns';
 import {
@@ -15,11 +16,9 @@ import {
 let HighScore = React.createClass({
   displayAnswer() {
     Alert.alert(this.props.question, this.props.answer,[
-        {text: 'That\'s HILARIOUS!', style: 'cancel'},
-        {text: 'Replay board', onPress: () => {
-          this.props.navigator.pop();
-        }},
-      ])
+      {text: 'That\'s HILARIOUS!', style: 'cancel'},
+      {text: 'Replay board', onPress: () => this.props.loadGame({gameType: this.props.gameType, question: this.props.question})},
+    ])
   },
 
   render() {
@@ -33,9 +32,9 @@ let HighScore = React.createClass({
             />
             <View style={styles.highScoresPage.cellTextContainer}>
               <Text style={styles.highScoresPage.username} numberOfLines={1}>
-                User's Name - 4:32
+                {this.props.gameType}
               </Text>
-              <Text style={[styles.highScoresPage.mediaDescription, styles.highScoresPage.highScoreText]} numberOfLines={2}>
+              <Text style={[styles.highScoresPage.questionText, styles.highScoresPage.highScoreText]} numberOfLines={2}>
                 {this.props.question}
               </Text>
             </View>
@@ -75,12 +74,30 @@ let HighScoresPage = React.createClass({
     );
   },
 
+  // Need to make sure this includes all the right info from the MenuPage call
+  // Need to set GamePage to accept a specific question (the gameQuestion prop)
+  loadGame({gameType, question}) {
+    this.props.navigator.replace({
+      title: 'Title',
+      component: GamePage,
+      rightButtonTitle: 'Reset',
+      onRightButtonPress: this.props.navigator.onRightButtonPress,
+      passProps: {
+        events: this.props.events,
+        gameQuestion: question,
+        gameType: gameType,
+        gameswon: [],
+        reloadInitialState: () => this.props.reloadInitialState(),
+      },
+    });;
+  },
+
   render() {
     let scores = [];
     for(let gameType in puns) {
       puns[gameType].map(game => {
         if(this.state.gameswon.indexOf(game.question) >= 0) { 
-          scores.push(<HighScore navigator={this.props.navigator} key={game.question} answer={game.answer} question={game.question} />)
+          scores.push(<HighScore gameType={gameType} loadGame={(question) => this.loadGame(question)} key={game.question} answer={game.answer} question={game.question} />)
         }
       });
     }
