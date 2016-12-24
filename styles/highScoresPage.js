@@ -18,9 +18,9 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   instructionalText: {
+    color: colors.fontColor,
     marginBottom: 5,
     fontSize: 14,
-    color: colors.fontColor,
     textAlign: 'center',
   },
   rowSeparator: {
@@ -29,9 +29,9 @@ export default StyleSheet.create({
     marginLeft: 4,
   },
   cellContainer: {
+    backgroundColor: colors.backgroundColor,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF',
     padding: 4,
   },
   cellImage: {
@@ -45,12 +45,9 @@ export default StyleSheet.create({
     fontWeight: '600',
     marginBottom: 4,
   },
-  mediaDescription: {
+  questionText: {
+    color: colors.fontColor,
     fontSize: 12,
-    color: '#999',
     flex: 1,
-  },
-  mediaYear: {
-    fontWeight: 'bold',
   },
 });

@@ -35,6 +35,7 @@ export const puns = {
   ],
 }
 
+// Grabs a specific pun based on the question sent
 export const getPun = (punQuestion) => {
   let thePun = [].concat(puns['easy'],puns['medium'],puns['hard']).find(pun => pun.question === punQuestion)
 
