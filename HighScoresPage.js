@@ -13,10 +13,19 @@ import {
 } from 'react-native';
 
 let HighScore = React.createClass({
+  displayAnswer() {
+    Alert.alert(this.props.question, this.props.answer,[
+        {text: 'That\'s HILARIOUS!', style: 'cancel'},
+        {text: 'Replay board', onPress: () => {
+          this.props.navigator.pop();
+        }},
+      ])
+  },
+
   render() {
     return (
-      <View key={this.props.question}>
-        <TouchableHighlight onPress={() => Alert.alert(this.props.question, this.props.answer)}>
+      <View>
+        <TouchableHighlight onPress={this.displayAnswer}>
           <View style={styles.highScoresPage.cellContainer}>
             <Image
               source={{uri: 'https://betterbusinesslodging.com/web_betterbusinesslodging/wp-content/uploads/2015/07/Easy-Button.png'}}
@@ -71,7 +80,7 @@ let HighScoresPage = React.createClass({
     for(let gameType in puns) {
       puns[gameType].map(game => {
         if(this.state.gameswon.indexOf(game.question) >= 0) { 
-          scores.push(<HighScore key={game.question} answer={game.answer} question={game.question} />)
+          scores.push(<HighScore navigator={this.props.navigator} key={game.question} answer={game.answer} question={game.question} />)
         }
       });
     }
