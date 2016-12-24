@@ -95,6 +95,10 @@ var GamePage = React.createClass({
     }
   },
 
+  componentWillUnmount() {
+    this.props.events.removeEvent();
+  },
+
   checkWin() {
     let gameWon = true;
     this.state.boardArray.map(row => row.map(cell => {

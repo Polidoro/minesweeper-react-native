@@ -8,17 +8,34 @@ import {
   Text,
   AsyncStorage,
   Alert,
+  Image,
   TouchableHighlight,
 } from 'react-native';
 
 let HighScore = React.createClass({
   render() {
     return (
-      <View>
-        <TouchableHighlight key={this.props.question} onPress={() => Alert.alert(this.props.question, this.props.answer)}>
-          <Text style={styles.highScoresPage.highScoreText}>{this.props.question}</Text>
+      <View key={this.props.question}>
+        <TouchableHighlight onPress={() => Alert.alert(this.props.question, this.props.answer)}>
+          <View style={styles.highScoresPage.cellContainer}>
+            <Image
+              source={{uri: 'https://betterbusinesslodging.com/web_betterbusinesslodging/wp-content/uploads/2015/07/Easy-Button.png'}}
+              style={styles.highScoresPage.cellImage}
+            />
+            <View style={styles.highScoresPage.cellTextContainer}>
+              <Text style={styles.highScoresPage.mediaName} numberOfLines={1}>
+                trackName
+              </Text>
+              <Text style={[styles.highScoresPage.mediaDescription, styles.highScoresPage.highScoreText]} numberOfLines={2}>
+                <Text style={styles.highScoresPage.mediaYear}>
+                  parseInt(this.props.media.releaseDate)
+                </Text>
+                {" "}-{" "}
+                {this.props.question}
+              </Text>
+            </View>
+          </View>
         </TouchableHighlight>
-        <View style={styles.highScoresPage.rowSeparator} />
       </View>
     )
   }
@@ -27,6 +44,10 @@ let HighScore = React.createClass({
 let HighScoresPage = React.createClass({
   componentDidMount() {
     this.props.events.addListener('rightButtonPressed', () => this.confirmClearScores());
+  },
+
+  componentWillUnmount() {
+    this.props.events.removeEvent();
   },
 
   getInitialState() {
@@ -57,7 +78,7 @@ let HighScoresPage = React.createClass({
           <View style={styles.highScoresPage.rowSeparator} />
         </View>);
       puns[gameType].map(game => {
-        if(this.state.gameswon.indexOf(game.question) >= 0) {
+        if(this.state.gameswon.indexOf(game.question) >= 0) { 
           gameTypes.push(<HighScore key={game.question} answer={game.answer} question={game.question} />)
         }
       });
@@ -65,7 +86,6 @@ let HighScoresPage = React.createClass({
 
     return (
       <ScrollView style={styles.highScoresPage.mainContainer}>
-        <Text style={styles.highScoresPage.instructionText}>Tap the pun to see the punchline!</Text>
         {gameTypes}
         <Text>{this.state.highScores}</Text>
       </ScrollView>
