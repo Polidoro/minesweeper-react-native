@@ -23,7 +23,6 @@ const Square = React.createClass({
     } else if (squareData.isOpened) {
         displayCharacter = squareData.adjacentMines;
         squareColor = colors.backgroundColor;
-
         squareOpacity = 1-(squareData.adjacentMines/8);
     }
 

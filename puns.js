@@ -45,6 +45,7 @@ export const getPun = (punQuestion) => {
 
   thePun.boardCols = boardCols;
   thePun.boardRows = boardRows;
+  thePun.mineCount = mineCount;
 
   return thePun;
 }
