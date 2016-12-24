@@ -52,14 +52,15 @@ let MenuPage = React.createClass({
     }
   },
 
-  pushGamePage(title, gameType) {
-    this.props.navigator.push({
+  pushGamePage(title, gameType, question = null, method = (route) => this.props.navigator.push(route)) {
+    method({
       title: title,
       component: GamePage,
       rightButtonTitle: 'Reset',
       onRightButtonPress: () => this.handleRightButtonPress(),
       passProps: { 
         events: rightButtonHandler,
+        question: question,
         gameType: gameType,
         gameswon: this.state.gameswon,
         reloadInitialState: () => this.reloadInitialState(),
@@ -81,7 +82,7 @@ let MenuPage = React.createClass({
         gameswon: this.state.gameswon,
         events: rightButtonHandler,
         reloadInitialState: () => this.reloadInitialState(),
-
+        pushGamePage: this.pushGamePage,
       },
     });
   },

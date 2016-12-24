@@ -1,5 +1,5 @@
 import React from 'react';
-import { getNewPun } from './puns';
+import { getPun, getNewPun } from './puns';
 import styles from './styles';
 import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
@@ -41,8 +41,13 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    const thePun = getNewPun(this.state.gameType, this.props.gameswon);
-    this.setupBoard(thePun);
+    debugger;
+    if(this.props.question) {
+      this.setupBoard(getPun(this.props.question));
+    } else {
+      this.setupBoard(getNewPun(this.state.gameType, this.props.gameswon));
+    }
+
     this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
   },
 
