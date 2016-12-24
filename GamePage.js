@@ -41,7 +41,6 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    debugger;
     if(this.props.question) {
       this.setupBoard(getPun(this.props.question));
     } else {
