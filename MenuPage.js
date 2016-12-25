@@ -34,18 +34,18 @@ let MenuPage = React.createClass({
 
   getInitialState() {
     return {
-      gameswon: [],
+      gamesWon: [],
       modalVisible: false,
     };
   },
 
   async _loadInitialState() {
     try {
-      var value = await AsyncStorage.getItem('gameswon');
+      var value = await AsyncStorage.getItem('gamesWon');
       if (value !== null){
-        this.setState({ gameswon: JSON.parse(value) });
+        this.setState({ gamesWon: JSON.parse(value) });
       } else {
-        this.setState({ gameswon: [] });
+        this.setState({ gamesWon: [] });
       }
     } catch (error) {
       Alert.alert('ERROR', error.message);
@@ -62,7 +62,7 @@ let MenuPage = React.createClass({
         events: rightButtonHandler,
         question: question,
         gameType: gameType,
-        gameswon: this.state.gameswon,
+        gamesWon: this.state.gamesWon,
         reloadInitialState: () => this.reloadInitialState(),
         onRightButtonPress: () => this.handleRightButtonPress(),
       },
@@ -80,7 +80,7 @@ let MenuPage = React.createClass({
       rightButtonTitle: 'Clear Scores',
       onRightButtonPress: () => this.handleRightButtonPress(),
       passProps: {
-        gameswon: this.state.gameswon,
+        gamesWon: this.state.gamesWon,
         events: rightButtonHandler,
         reloadInitialState: () => this.reloadInitialState(),
         pushGamePage: this.pushGamePage,
@@ -90,12 +90,12 @@ let MenuPage = React.createClass({
   },
 
   render() {
-    const easyPunsDisabled = puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length === puns['easy'].length;
-    const easyPunsCompleted = puns['easy'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length + '/' + puns['easy'].length;
-    const mediumPunsDisabled = puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length === puns['medium'].length;
-    const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length + '/' + puns['medium'].length;
-    const hardPunsDisabled = puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length === puns['hard'].length;
-    const hardPunsCompleted = puns['hard'].filter(pun => this.state.gameswon.indexOf(pun.question) >= 0).length + '/' + puns['hard'].length;
+    const easyPunsDisabled = puns['easy'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length === puns['easy'].length;
+    const easyPunsCompleted = puns['easy'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length + '/' + puns['easy'].length;
+    const mediumPunsDisabled = puns['medium'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length === puns['medium'].length;
+    const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length + '/' + puns['medium'].length;
+    const hardPunsDisabled = puns['hard'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length === puns['hard'].length;
+    const hardPunsCompleted = puns['hard'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length + '/' + puns['hard'].length;
     
     return (
       <View style={styles.menuPage.mainContainer}>
@@ -120,10 +120,10 @@ let MenuPage = React.createClass({
             <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted} Completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.menuPage.menuButton, (this.state.gameswon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gameswon.length === 0)}>
+        <TouchableHighlight style={[styles.menuPage.menuButton, (this.state.gamesWon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gamesWon.length === 0)}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>View Archive</Text>
-            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gameswon.length} Pun{(this.state.gameswon.length !== 1) && 's'} To View </Text>
+            <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gamesWon.length} Pun{(this.state.gamesWon.length !== 1) && 's'} To View </Text>
           </View>
         </TouchableHighlight>
         <View></View>

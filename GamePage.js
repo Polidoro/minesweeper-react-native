@@ -41,7 +41,7 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    const thePun = getNewPun(this.state.gameType, this.props.gameswon, this.props.question);
+    const thePun = getNewPun(this.state.gameType, this.props.gamesWon, this.props.question);
     this.setupBoard(thePun);
     
     this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
@@ -110,12 +110,12 @@ var GamePage = React.createClass({
     }));
 
     if(gameWon) {
-      AsyncStorage.getItem('gameswon', (error, result) => {
-        let previousGameswon = JSON.parse(result);
-        if(!previousGameswon) {
-          AsyncStorage.setItem('gameswon', JSON.stringify([this.state.thePun.question]));
+      AsyncStorage.getItem('gamesWon', (error, result) => {
+        let previousgamesWon = JSON.parse(result);
+        if(!previousgamesWon) {
+          AsyncStorage.setItem('gamesWon', JSON.stringify([this.state.thePun.question]));
         } else {
-          AsyncStorage.setItem('gameswon', JSON.stringify(previousGameswon.concat([this.state.thePun.question])));
+          AsyncStorage.setItem('gamesWon', JSON.stringify(previousgamesWon.concat([this.state.thePun.question])));
         }
       });
 

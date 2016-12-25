@@ -57,7 +57,7 @@ let HighScoresPage = React.createClass({
 
   getInitialState() {
     return {
-      gameswon: this.props.gameswon,
+      gamesWon: this.props.gamesWon,
     };
   },
 
@@ -65,7 +65,7 @@ let HighScoresPage = React.createClass({
     Alert.alert('Are you sure?', 'This will erase all your pun-sweeping progress!',
       [
         {text: 'Yes! Wipe my scores!', onPress: () => {
-          AsyncStorage.removeItem('gameswon');
+          AsyncStorage.removeItem('gamesWon');
           this.props.navigator.pop();
           this.props.reloadInitialState();
         }},
@@ -74,8 +74,6 @@ let HighScoresPage = React.createClass({
     );
   },
 
-  // Need to make sure this includes all the right info from the MenuPage call
-  // Need to set GamePage to accept a specific question (the gameQuestion prop)
   loadGame({gameType, question}) {
     this.props.events.removeEvent();
     this.props.navigator.push({
@@ -89,7 +87,7 @@ let HighScoresPage = React.createClass({
         events: this.props.events,
         gameQuestion: question,
         gameType: gameType,
-        gameswon: [],
+        gamesWon: this.state.gamesWon,
         reloadInitialState: () => this.props.reloadInitialState(),
       },
     });;
@@ -99,7 +97,7 @@ let HighScoresPage = React.createClass({
     let scores = [];
     for(let gameType in puns) {
       puns[gameType].map(game => {
-        if(this.state.gameswon.indexOf(game.question) >= 0) { 
+        if(this.state.gamesWon.indexOf(game.question) >= 0) { 
           scores.push(<HighScore gameType={gameType} loadGame={(question) => this.loadGame(question)} key={game.question} answer={game.answer} question={game.question} />)
         }
       });
