@@ -83,6 +83,8 @@ let HighScoresPage = React.createClass({
       component: GamePage,
       rightButtonTitle: 'Reset',
       onRightButtonPress: this.props.onRightButtonPress,
+      leftButtonTitle: 'Menu',
+      onLeftButtonPress: () => this.props.navigator.popToTop(0),
       passProps: {
         events: this.props.events,
         gameQuestion: question,
