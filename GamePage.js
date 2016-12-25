@@ -22,10 +22,9 @@ var GamePage = React.createClass({
   getInitialState() {
     return {
       seconds: 0,
-      timer: setInterval(() => this.setState({ seconds: this.state.seconds+1}), 1000),
+      timer: setInterval(() => { if (this.state.gameState === 'active') this.setState({ seconds: this.state.seconds+1}) }, 1000),
       pan: new Animated.ValueXY(),
       gameState: 'active',
-      gameType: this.props.gameType,
       boardArray: [[]],
       boardWidth: 0,
       boardHeight: 0,
@@ -43,7 +42,7 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    const thePun = getNewPun(this.state.gameType, this.props.gamesWon, this.props.question);
+    const thePun = getNewPun(this.props.gameType, this.props.gamesWon, this.props.question);
     this.setupBoard(thePun);
     this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
   },
@@ -114,10 +113,16 @@ var GamePage = React.createClass({
     if(gameWon) {
       AsyncStorage.getItem('gamesWon', (error, result) => {
         let previousgamesWon = JSON.parse(result);
+        let newScore = {
+            question: this.state.thePun.question,
+            time: this.state.seconds,
+            date: Date(),
+            gameType: this.props.gameType
+          }
         if(!previousgamesWon) {
-          AsyncStorage.setItem('gamesWon', JSON.stringify([this.state.thePun.question]));
+          AsyncStorage.setItem('gamesWon', JSON.stringify([newScore]));
         } else {
-          AsyncStorage.setItem('gamesWon', JSON.stringify(previousgamesWon.concat([this.state.thePun.question])));
+          AsyncStorage.setItem('gamesWon', JSON.stringify(previousgamesWon.concat([newScore])));
         }
       });
 
@@ -198,15 +203,6 @@ var GamePage = React.createClass({
     });
 
     this.checkWin()
-  },
-
-
-  get_random_color() {
-    function c() {
-      var hex = Math.floor(Math.random()*256).toString(16);
-      return ("0"+String(hex)).substr(-2); // pad with zero
-    }
-    return "#"+c()+c()+c();
   },
 
   render() {

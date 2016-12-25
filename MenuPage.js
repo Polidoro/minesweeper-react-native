@@ -90,12 +90,12 @@ let MenuPage = React.createClass({
   },
 
   render() {
-    const easyPunsDisabled = puns['easy'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length === puns['easy'].length;
-    const easyPunsCompleted = puns['easy'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length + '/' + puns['easy'].length;
-    const mediumPunsDisabled = puns['medium'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length === puns['medium'].length;
-    const mediumPunsCompleted = puns['medium'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length + '/' + puns['medium'].length;
-    const hardPunsDisabled = puns['hard'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length === puns['hard'].length;
-    const hardPunsCompleted = puns['hard'].filter(pun => this.state.gamesWon.indexOf(pun.question) >= 0).length + '/' + puns['hard'].length;
+    const easyPunsCompleted = this.state.gamesWon.filter(gameWon => gameWon.gameType === 'easy').length + '/' +puns['easy'].length;
+    const easyPunsDisabled = easyPunsCompleted === puns['easy'].length;
+    const mediumPunsCompleted = this.state.gamesWon.filter(gameWon => gameWon.gameType === 'medium').length + '/' +puns['medium'].length;
+    const mediumPunsDisabled = mediumPunsCompleted === puns['medium'].length;
+    const hardPunsCompleted = this.state.gamesWon.filter(gameWon => gameWon.gameType === 'hard').length + '/' +puns['hard'].length;
+    const hardPunsDisabled = hardPunsCompleted === puns['hard'].length;
     
     return (
       <View style={styles.menuPage.mainContainer}>

@@ -15,10 +15,10 @@ import {
 
 let HighScore = React.createClass({
   displayAnswer() {
-    Alert.alert(this.props.question, this.props.answer,[
+    Alert.alert(this.props.gameWon.question, this.props.gameWon.answer,[
       {text: 'That\'s HILARIOUS!', style: 'cancel'},
-      {text: 'Replay board', onPress: () => this.props.loadGame({gameType: this.props.gameType, question: this.props.question})},
-    ])
+      {text: 'Replay board', onPress: () => this.props.loadGame({gameType: this.props.gameWon.gameType, question: this.props.gameWon.question})},
+    ]);
   },
 
   render() {
@@ -32,10 +32,10 @@ let HighScore = React.createClass({
             />
             <View style={styles.highScoresPage.cellTextContainer}>
               <Text style={styles.highScoresPage.username} numberOfLines={1}>
-                {this.props.gameType}
+                {this.props.gameWon.gameType}
               </Text>
               <Text style={[styles.highScoresPage.questionText, styles.highScoresPage.highScoreText]} numberOfLines={2}>
-                {this.props.question}
+                {this.props.gameWon.question}
               </Text>
             </View>
           </View>
@@ -53,12 +53,6 @@ let HighScoresPage = React.createClass({
 
   componentWillUnmount() {
     this.props.events.removeEvent();
-  },
-
-  getInitialState() {
-    return {
-      gamesWon: this.props.gamesWon,
-    };
   },
 
   confirmClearScores() {
@@ -87,21 +81,18 @@ let HighScoresPage = React.createClass({
         events: this.props.events,
         gameQuestion: question,
         gameType: gameType,
-        gamesWon: this.state.gamesWon,
+        gamesWon: this.props.gamesWon,
         reloadInitialState: () => this.props.reloadInitialState(),
       },
     });;
   },
 
+  // Need to fix this reference, then pass highScore object to highscore module
   render() {
     let scores = [];
-    for(let gameType in puns) {
-      puns[gameType].map(game => {
-        if(this.state.gamesWon.indexOf(game.question) >= 0) { 
-          scores.push(<HighScore gameType={gameType} loadGame={(question) => this.loadGame(question)} key={game.question} answer={game.answer} question={game.question} />)
-        }
-      });
-    }
+    this.props.gamesWon.map(gameWon => scores.push(
+      <HighScore loadGame={(question) => this.loadGame(question)} key={gameWon.question} gameWon={gameWon} />
+    ));
 
     return (
       <ScrollView style={styles.highScoresPage.mainContainer}>
