@@ -42,7 +42,7 @@ var GamePage = React.createClass({
   },
 
   componentDidMount() {
-    const thePun = getNewPun(this.props.gameType, this.props.gamesWon, this.props.question);
+    const thePun = getNewPun(this.props.gameType, this.props.gamesWon, this.props.gameQuestion);
     this.setupBoard(thePun);
     this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
   },
@@ -52,6 +52,7 @@ var GamePage = React.createClass({
       gameState: 'active',
       boardArray: [[]],
       answerArray: [],
+      seconds: 0,
     });
 
     let boardArray = generateBoard(thePun);
@@ -112,7 +113,7 @@ var GamePage = React.createClass({
 
     if(gameWon) {
       AsyncStorage.getItem('gamesWon', (error, result) => {
-        let previousgamesWon = JSON.parse(result);
+        let previousGamesWon = JSON.parse(result);
         let newScore = {
             question: this.state.thePun.question,
             answer: this.state.thePun.answer,
@@ -120,10 +121,18 @@ var GamePage = React.createClass({
             date: Date(),
             gameType: this.props.gameType
           }
-        if(!previousgamesWon) {
+        if(!previousGamesWon) { // No gamesWon, so create a new array and store it
           AsyncStorage.setItem('gamesWon', JSON.stringify([newScore]));
+        } else if(!previousGamesWon.find(gameWon => gameWon.question === this.state.thePun.question)) {
+          // This is the first high score for the qustion, add it
+          AsyncStorage.setItem('gamesWon', JSON.stringify(previousGamesWon.concat([newScore])));
         } else {
-          AsyncStorage.setItem('gamesWon', JSON.stringify(previousgamesWon.concat([newScore])));
+          previousGamesWon.map((gameWon, index) => { // Update existing high score, if necessary
+            if(gameWon.question === this.state.thePun.question && gameWon.time > newScore.time) {
+              previousGamesWon[index] = newScore;
+              AsyncStorage.setItem('gamesWon', JSON.stringify(previousGamesWon));
+            }
+          });
         }
       });
 

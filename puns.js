@@ -53,7 +53,7 @@ export const getPun = (punQuestion) => {
 
 // Grabs a pun that hasn't been completed, calculates appropriate size and return it
 export const getNewPun = (gameType, gamesWon, question) => {
-  const punsToChooseFrom = puns[gameType].filter(pun => gamesWon.indexOf(pun.question) < 0);
+  const punsToChooseFrom = puns[gameType].filter(pun => !gamesWon.find(gameWon => gameWon.question === pun.question));
   let thePun = punsToChooseFrom[Math.floor(Math.random()*punsToChooseFrom.length)];
 
   return getPun(question || thePun.question);
