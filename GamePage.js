@@ -5,7 +5,6 @@ import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
 import Button from './components/Button';
 import FlagCounter from './components/FlagCounter';
-import Timer from './components/Timer';
 import {
   TouchableHighlight,
   Text,
@@ -17,11 +16,13 @@ import {
   AsyncStorage,
   Alert,
 } from 'react-native';
-import { generateBoard, generateRandomLetter, generateAnswerArray, checkWin } from './Helpers'
+import { generateBoard, generateRandomLetter, generateAnswerArray, checkWin, convertToTime } from './Helpers'
 
 var GamePage = React.createClass({
   getInitialState() {
     return {
+      seconds: 0,
+      timer: setInterval(() => this.setState({ seconds: this.state.seconds+1}), 1000),
       pan: new Animated.ValueXY(),
       gameState: 'active',
       gameType: this.props.gameType,
@@ -44,7 +45,6 @@ var GamePage = React.createClass({
   componentDidMount() {
     const thePun = getNewPun(this.state.gameType, this.props.gamesWon, this.props.question);
     this.setupBoard(thePun);
-    
     this.props.events.addListener('rightButtonPressed', () => this.setupBoard(thePun));
   },
 
@@ -98,6 +98,7 @@ var GamePage = React.createClass({
   },
 
   componentWillUnmount() {
+    clearInterval(this.state.timer);
     this.props.events.removeEvent();
   },
 
@@ -259,7 +260,7 @@ var GamePage = React.createClass({
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
         <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
-        <Timer />
+        <Text>{convertToTime(this.state.seconds)}</Text>
       </View>
     );
   }

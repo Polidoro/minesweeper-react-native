@@ -101,3 +101,11 @@ export const generateAnswerArray = (answer) => {
 
   return answerArray;
 }
+
+export const convertToTime = (number) => {
+  const mins = Math.floor(number / 60)
+  const secs = (number % 60).toFixed()
+  const time = `${ mins < 10 ? '0' : '' }${ mins }:${ secs < 10 ? '0' : '' }${ secs }`
+  return (time === 'NaN:NaN' ? '00:00' : time)
+}
+
