@@ -119,13 +119,22 @@ var GamePage = React.createClass({
         }
       });
 
-      this.setState({gameState: 'won'});
-      Alert.alert('YOU WIN', this.state.thePun.answer, [{text: 'Awesome!', onPress: () => 
-        {
-          this.props.navigator.popToTop(0);
-          this.props.reloadInitialState();
-        }
-      }]);
+      this.state.answerArray.map(letterObject => {
+        letterObject.revealed = true;
+        letterObject.wrongLetter = null;
+      });
+      this.state.boardArray.map(row => row.map(cell => cell.isFlagged = cell.isMine));
+
+      this.setState({ 
+        answerArray: this.state.answerArray,
+        boardArray: this.state.boardArray,
+        gameState: 'won',
+      });
+
+      Alert.alert('YOU WIN', this.state.thePun.answer, [{text: 'Awesome!', onPress: () => {
+        this.props.navigator.popToTop(0);
+        this.props.reloadInitialState();
+      }}]);
     }
   },
 
