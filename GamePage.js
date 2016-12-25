@@ -5,6 +5,7 @@ import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
 import Button from './components/Button';
 import FlagCounter from './components/FlagCounter';
+import Timer from './components/Timer';
 import {
   TouchableHighlight,
   Text,
@@ -258,6 +259,7 @@ var GamePage = React.createClass({
         <PunAnswer answerArray={this.state.answerArray} />
         <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
         <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
+        <Timer />
       </View>
     );
   }
