@@ -115,6 +115,7 @@ var GamePage = React.createClass({
         let previousgamesWon = JSON.parse(result);
         let newScore = {
             question: this.state.thePun.question,
+            answer: this.state.thePun.answer,
             time: this.state.seconds,
             date: Date(),
             gameType: this.props.gameType

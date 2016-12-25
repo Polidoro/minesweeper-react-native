@@ -22,6 +22,9 @@ let HighScore = React.createClass({
   },
 
   render() {
+    let date = new Date(this.props.gameWon.date);
+    let dateString = date.toDateString();
+
     return (
       <View>
         <TouchableHighlight onPress={this.displayAnswer}>
@@ -31,10 +34,11 @@ let HighScore = React.createClass({
               style={styles.highScoresPage.cellImage}
             />
             <View style={styles.highScoresPage.cellTextContainer}>
-              <Text style={styles.highScoresPage.username} numberOfLines={1}>
-                {this.props.gameWon.gameType}
-              </Text>
-              <Text style={[styles.highScoresPage.questionText, styles.highScoresPage.highScoreText]} numberOfLines={2}>
+              <View style={styles.highScoresPage.cellTextHeader}>
+                <Text style={styles.highScoresPage.time} numberOfLines={1}>Record: {this.props.gameWon.time} seconds</Text>
+                <Text>{dateString}</Text>
+              </View>
+              <Text style={styles.highScoresPage.highScoreText}>
                 {this.props.gameWon.question}
               </Text>
             </View>
@@ -84,10 +88,9 @@ let HighScoresPage = React.createClass({
         gamesWon: this.props.gamesWon,
         reloadInitialState: () => this.props.reloadInitialState(),
       },
-    });;
+    });
   },
 
-  // Need to fix this reference, then pass highScore object to highscore module
   render() {
     let scores = [];
     this.props.gamesWon.map(gameWon => scores.push(

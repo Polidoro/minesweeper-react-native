@@ -15,7 +15,9 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   highScoreText: {
-    fontSize: 24,
+    color: colors.fontColor,
+    fontSize: 16,
+    flex: 1,
   },
   instructionalText: {
     color: colors.fontColor,
@@ -28,6 +30,10 @@ export default StyleSheet.create({
     height: 1,
     marginLeft: 4,
   },
+  cellTextContainer: {
+    flex: 5,
+    flexDirection: 'column',
+  },
   cellContainer: {
     backgroundColor: colors.backgroundColor,
     flexDirection: 'row',
@@ -36,18 +42,17 @@ export default StyleSheet.create({
   },
   cellImage: {
     height: 80,
-    width: 60,
     marginRight: 8,
     resizeMode: 'contain',
+    flex: 1,
   },
-  username: {
+  cellTextHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  time: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 4,
-  },
-  questionText: {
-    color: colors.fontColor,
-    fontSize: 12,
-    flex: 1,
   },
 });
