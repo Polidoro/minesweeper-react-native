@@ -26,20 +26,9 @@ var GamePage = React.createClass({
       timer: setInterval(() => { if (this.state.gameState === 'active') this.setState({ seconds: this.state.seconds+1}) }, 1000),
       gameState: 'active',
       boardArray: [[]],
-      boardMeasurements: {
-        boardWidth: 0,
-        boardHeight: 0,
-        boardStartX: 0,
-        boardStartY: 0,
-      },
       answerArray: [],
-      thePun: {
-        mineCount: 0,
-        boardCols: 0,
-        boardRows: 0,
-        question: '',
-        answer: [],
-      },
+      boardMeasurements: { boardWidth: 0, boardHeight: 0, boardStartX: 0, boardStartY: 0, },
+      thePun: { mineCount: 0, boardCols: 0, boardRows: 0, question: '', answer: [], },
     };
   },
 
@@ -170,7 +159,6 @@ var GamePage = React.createClass({
     });
   },
 
-  // Need to make sure cell.isFlagged is updated correctly, and that state is saved with updated flag data
   placeFlag(i, j) {
     let newAnswerArray = this.state.answerArray;
 
@@ -215,6 +203,7 @@ var GamePage = React.createClass({
     }
 
     this.setState({
+      boardArray: this.state.boardArray,
       answerArray: newAnswerArray,
     });
 
@@ -222,8 +211,6 @@ var GamePage = React.createClass({
   },
 
   render() {
-    
-
     // Build the board based on the pun characteristics
     let theGrid = [];
     for (let i = 0; i < this.state.boardArray.length; i++) {

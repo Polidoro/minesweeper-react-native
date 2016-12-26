@@ -14,7 +14,7 @@ const Flag = React.createClass({
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !(nextProps.seconds === this.props.seconds );
+    return !(nextProps.seconds === this.props.seconds);
   },
 
   render() {
@@ -38,7 +38,7 @@ const Flag = React.createClass({
           );
         }
 
-        Animated.spring( this.state.pan, { toValue: {x: 0, y: 0} } ).start()
+        Animated.spring( this.state.pan, { toValue: {x: 0, y: 0} }).start()
       }
     });
 

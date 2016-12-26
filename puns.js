@@ -5,6 +5,10 @@ export const puns = {
       answer: 'IRAN',
     },
     {
+      question: 'What do you call a man with a seagull on his head?',
+      answer: 'CLIFF',
+    },
+    {
       question: 'Which country has the most birds?',
       answer: 'PORTUGULL',
     },
@@ -13,6 +17,10 @@ export const puns = {
     {
       question: 'What does a house wear?',
       answer: 'A DRESS',
+    },
+    {
+      question: 'What music do ghosts dance to?',
+      answer: 'SOUL MUSIC',
     },
     {
       question: 'What do you do when chemists die?',
