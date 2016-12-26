@@ -5,6 +5,7 @@ import PunAnswer from './components/PunAnswer';
 import Square from './components/Square';
 import Button from './components/Button';
 import FlagCounter from './components/FlagCounter';
+import Flag from './components/Flag';
 import {
   TouchableHighlight,
   Text,
@@ -23,14 +24,15 @@ var GamePage = React.createClass({
     return {
       seconds: 0,
       timer: setInterval(() => { if (this.state.gameState === 'active') this.setState({ seconds: this.state.seconds+1}) }, 1000),
-      pan: new Animated.ValueXY(),
       gameState: 'active',
       boardArray: [[]],
-      boardWidth: 0,
-      boardHeight: 0,
-      boardStartX: 0,
+      boardMeasurements: {
+        boardWidth: 0,
+        boardHeight: 0,
+        boardStartX: 0,
+        boardStartY: 0,
+      },
       answerArray: [],
-      boardStartY: 0,
       thePun: {
         mineCount: 0,
         boardCols: 0,
@@ -158,17 +160,21 @@ var GamePage = React.createClass({
   measureBoard(event) {
     this.refs['board'].measure((fx, fy, width, height, px, py) => {
       this.setState({
-        boardWidth: width,
-        boardHeight: height,
-        boardStartX: px,
-        boardStartY: py,
+        boardMeasurements: {
+          boardWidth: width,
+          boardHeight: height,
+          boardStartX: px,
+          boardStartY: py,
+        },
       });
     });
   },
 
-  placeFlag(cell) {
+  // Need to make sure cell.isFlagged is updated correctly, and that state is saved with updated flag data
+  placeFlag(i, j) {
     let newAnswerArray = this.state.answerArray;
 
+    let cell = this.state.boardArray[i][j];
     // If cell is flagged unflag it
     if(cell.isFlagged) {
       cell.isFlagged = false;
@@ -216,29 +222,7 @@ var GamePage = React.createClass({
   },
 
   render() {
-    panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => this.state.gameState === 'active',
-      onPanResponderMove: Animated.event([null,{
-        dx : this.state.pan.x,
-        dy : this.state.pan.y
-      }]),
-
-      onPanResponderRelease: (e, gesture) => {
-        let newBoard = this.state.boardArray
-        let xWithRespectToBoard = (gesture.moveX - this.state.boardStartX);
-        let yWithRespectToBoard = (gesture.moveY - this.state.boardStartY);
-
-        if(xWithRespectToBoard > 0 && xWithRespectToBoard < this.state.boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < this.state.boardHeight) {
-          this.placeFlag(newBoard[Math.floor(yWithRespectToBoard / (this.state.boardHeight / this.state.thePun.boardRows))][Math.floor(xWithRespectToBoard / (this.state.boardWidth / this.state.thePun.boardCols))]);
-          this.setState({ theBoard: newBoard })
-        }
-
-        Animated.spring(
-          this.state.pan,
-          {toValue: {x: 0, y: 0}}
-        ).start()
-      }
-    });
+    
 
     // Build the board based on the pun characteristics
     let theGrid = [];
@@ -247,7 +231,7 @@ var GamePage = React.createClass({
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         gridRow.push(
-          <Square style={{flex: 1}} key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(this.state.boardArray[i][j])} squareData={this.state.boardArray[i][j]} />
+          <Square style={{flex: 1}} key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(i, j)} squareData={this.state.boardArray[i][j]} />
         )
       }
 
@@ -264,7 +248,7 @@ var GamePage = React.createClass({
           </View>
         </View>
         <PunAnswer answerArray={this.state.answerArray} />
-        <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
+        <Flag gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={(i, j) => this.placeFlag(i, j)} />
         <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
         <Text>{convertToTime(this.state.seconds)}</Text>
       </View>
