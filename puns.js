@@ -9,22 +9,54 @@ export const puns = {
       answer: 'CLIFF',
     },
     {
-      question: 'Which country has the most birds?',
-      answer: 'PORTUGULL',
+      question: 'What\'s the only kind of tea you can\'t have in space?',
+      answer: 'GRAVITY',
+    },
+    {
+      question: 'What could you use to split the ocean in two?',
+      answer: 'SEA SAW',
+    },
+    {
+      question: 'What\'s brown and sticky?',
+      answer: 'A STICK',
     },
   ],
   medium: [
+    {
+      question: 'What do you call a tree small enough to fit in your hand?',
+      answer: 'PALM TREE',
+    },
+    {
+      question: 'Which country has the most birds?',
+      answer: 'PORTUGULL',
+    },
     {
       question: 'What does a house wear?',
       answer: 'A DRESS',
     },
     {
-      question: 'What music do ghosts dance to?',
+      question: 'What tunes do ghosts dance to?',
       answer: 'SOUL MUSIC',
     },
     {
       question: 'What do you do when chemists die?',
       answer: 'BARRIUM',
+    },
+    {
+      question: 'Where do polar bears keep thier money?',
+      answer: 'SNOW BANK',
+    },
+    {
+      question: 'What do you get when you mix a christmas tree with a pig?',
+      answer: 'PORCUPINE',
+    },
+    {
+      question: 'How do billboards communicate with each other?',
+      answer: 'SIGN LANGUAGE',
+    },
+    {
+      question: 'Why was the broom late for work?',
+      answer: 'IT OVERSWEPT',
     },
   ],
   hard: [
@@ -39,6 +71,10 @@ export const puns = {
     {
       question: 'Why couldn\'t the bicycle go for a ride?',
       answer: 'IT WAS TOO TIRED',
+    },
+    {
+      question: 'Where should a commander store his armies?',
+      answer: 'IN HIS SLEEVIES',
     },
   ],
 }
