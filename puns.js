@@ -1,8 +1,16 @@
 export const puns = {
   easy: [
     {
+      question: 'What kind of shirts do golfers wear?',
+      answer: 'TEE SHIRTS',
+    },
+    {
       question: 'How did I escape Iraq?',
       answer: 'IRAN',
+    },
+    {
+      question: 'What\'s exactly one foot long and slippery?',
+      answer: 'A SLIPPER',
     },
     {
       question: 'What do you call a man with a seagull on his head?',
@@ -19,6 +27,10 @@ export const puns = {
     {
       question: 'What\'s brown and sticky?',
       answer: 'A STICK',
+    },
+    {
+      question: 'What\'s the best way to organize an Earth party?',
+      answer: 'PLANET',
     },
   ],
   medium: [
@@ -61,6 +73,10 @@ export const puns = {
   ],
   hard: [
     {
+      question: 'What do hermit crabs and turtles use to communicate?',
+      answer: 'SHELLULAR PHONES',
+    },
+    {
       question: 'What do you call cheese that doesn\'t belong to you?',
       answer: 'NACHO CHEESE',
     },
@@ -75,6 +91,14 @@ export const puns = {
     {
       question: 'Where should a commander store his armies?',
       answer: 'IN HIS SLEEVIES',
+    },
+    {
+      question: 'What do peppers do when they\'re mad?',
+      answer: 'GET JALAPENO FACE',
+    },
+    {
+      question: 'What\'s the best part about corduroy pillows?',
+      answer: 'THEY MAKE HEADLINES',
     },
   ],
 }
