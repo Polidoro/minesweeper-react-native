@@ -12,7 +12,8 @@ const Square = React.createClass({
     const squareData = this.props.squareData;
     let displayCharacter = ' ';
     let squareColor = colors.cellColor;
-    let squareOpacity = 1;
+    let squareOpacity = this.props.highlighted ? 0.8 : 1.0;
+;
 
     if (squareData.isOpened && squareData.isMine) {
         displayCharacter = 'M';
@@ -34,7 +35,7 @@ const Square = React.createClass({
         onPressOut={this.props.onPressOut}
         disabled={this.props.disabled}
       >
-        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }, this.props.highlighted && {backgroundColor: 'green'}]}>
+        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }]}>
           <Text style={styles.gamePage.squareLetter}>
             {displayCharacter === 0 ? ' ' : displayCharacter}
           </Text>
