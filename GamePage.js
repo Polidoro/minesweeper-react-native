@@ -159,6 +159,10 @@ var GamePage = React.createClass({
     });
   },
 
+  highlightCell(i, j) {
+    console.log('Highlighted Cell: '+i+', '+j);
+  },
+
   placeFlag(i, j) {
     let newAnswerArray = this.state.answerArray;
 
@@ -235,7 +239,7 @@ var GamePage = React.createClass({
           </View>
         </View>
         <PunAnswer answerArray={this.state.answerArray} />
-        <Flag gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={(i, j) => this.placeFlag(i, j)} />
+        <Flag highlightCell={this.highlightCell} gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={this.placeFlag} />
         <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
         <Text>{convertToTime(this.state.seconds)}</Text>
       </View>

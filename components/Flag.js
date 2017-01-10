@@ -18,16 +18,27 @@ const Flag = React.createClass({
   },
 
   render() {
-    panResponder = PanResponder.create({
+    let animatedEvent = Animated.event([null, {dx : this.state.pan.x, dy : this.state.pan.y}]);
+
+    let panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => this.props.gameState === 'active',
-      onPanResponderMove: Animated.event([null,{
-        dx : this.state.pan.x,
-        dy : this.state.pan.y
-      }]),
+      onPanResponderMove: (e, gesture) => {
+        let { boardWidth, boardHeight, boardStartX, boardStartY } = this.props.boardMeasurements;
+        let xWithRespectToBoard = (gesture.moveX - boardStartX);
+        let yWithRespectToBoard = (gesture.moveY - boardStartY);
+
+        if(xWithRespectToBoard > 0 && xWithRespectToBoard < boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < boardHeight) {
+          this.props.highlightCell(
+            Math.floor(yWithRespectToBoard / (boardHeight / this.props.thePun.boardRows)), 
+            Math.floor(xWithRespectToBoard / (boardWidth / this.props.thePun.boardCols))
+          );
+        }
+
+        return animatedEvent(e, gesture);
+      },
 
       onPanResponderRelease: (e, gesture) => {
         let { boardWidth, boardHeight, boardStartX, boardStartY } = this.props.boardMeasurements;
-
         let xWithRespectToBoard = (gesture.moveX - boardStartX);
         let yWithRespectToBoard = (gesture.moveY - boardStartY);
 
@@ -38,7 +49,7 @@ const Flag = React.createClass({
           );
         }
 
-        Animated.spring( this.state.pan, { toValue: {x: 0, y: 0} }).start()
+        Animated.spring(this.state.pan, { toValue: {x: 0, y: 0} }).start()
       }
     });
 
