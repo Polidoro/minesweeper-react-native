@@ -32,7 +32,7 @@ const Square = React.createClass({
         onPress={this.props.onShortPress}
         disabled={this.props.disabled}
       >
-        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }]}>
+        <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }, this.props.highlighted && {backgroundColor: 'green'}]}>
           <Text style={styles.gamePage.squareLetter}>
             {displayCharacter === 0 ? ' ' : displayCharacter}
           </Text>

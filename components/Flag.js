@@ -32,6 +32,8 @@ const Flag = React.createClass({
             Math.floor(yWithRespectToBoard / (boardHeight / this.props.thePun.boardRows)), 
             Math.floor(xWithRespectToBoard / (boardWidth / this.props.thePun.boardCols))
           );
+        } else {
+          this.props.highlightCell(null, null);
         }
 
         return animatedEvent(e, gesture);
@@ -43,6 +45,7 @@ const Flag = React.createClass({
         let yWithRespectToBoard = (gesture.moveY - boardStartY);
 
         if(xWithRespectToBoard > 0 && xWithRespectToBoard < boardWidth && yWithRespectToBoard > 0 && yWithRespectToBoard < boardHeight) {
+          this.props.highlightCell(null, null);
           this.props.placeFlag(
             Math.floor(yWithRespectToBoard / (boardHeight / this.props.thePun.boardRows)), 
             Math.floor(xWithRespectToBoard / (boardWidth / this.props.thePun.boardCols))

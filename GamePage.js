@@ -23,6 +23,8 @@ var GamePage = React.createClass({
   getInitialState() {
     return {
       seconds: 0,
+      highlightedX: null,
+      highlightedY: null,
       timer: setInterval(() => { if (this.state.gameState === 'active') this.setState({ seconds: this.state.seconds+1}) }, 1000),
       gameState: 'active',
       boardArray: [[]],
@@ -160,7 +162,10 @@ var GamePage = React.createClass({
   },
 
   highlightCell(i, j) {
-    console.log('Highlighted Cell: '+i+', '+j);
+    this.setState({
+      highlightedX: j,
+      highlightedY: i,
+    });
   },
 
   placeFlag(i, j) {
@@ -222,7 +227,7 @@ var GamePage = React.createClass({
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         gridRow.push(
-          <Square style={{flex: 1}} key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(i, j)} squareData={this.state.boardArray[i][j]} />
+          <Square style={{flex: 1}} highlighted={(this.state.highlightedY === i && this.state.highlightedX === j)} key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(i, j)} squareData={this.state.boardArray[i][j]} />
         )
       }
 
