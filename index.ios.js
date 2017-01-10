@@ -18,7 +18,7 @@ import {
 
 let rightButtonHandler = new EventEmitter();
 
-export default class sandbox extends Component {
+export default class PunSweeper extends Component {
   // handleRightButtonPress() {
   //   rightButtonHandler.emitEvent('rightButtonPressed');
   // }
@@ -44,4 +44,4 @@ export default class sandbox extends Component {
   }
 }
 
-AppRegistry.registerComponent('sandbox', () => sandbox);
+AppRegistry.registerComponent('PunSweeper', () => PunSweeper);

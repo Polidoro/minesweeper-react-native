@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class sandbox extends Component {
+export default class PunSweeper extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('sandbox', () => sandbox);
+AppRegistry.registerComponent('PunSweeper', () => PunSweeper);

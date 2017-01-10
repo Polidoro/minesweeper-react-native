@@ -1,4 +1,4 @@
-package com.sandbox;
+package com.punsweeper;
 
 import android.app.Application;
 import android.util.Log;
