@@ -19,7 +19,7 @@ let rightButtonHandler = new EventEmitter();
 let MenuPage = React.createClass({
   componentDidMount() {
     this._loadInitialState().done();
-    this.props.events.addListener('rightButtonPressed', this.toggleSettingsModal);
+    // this.props.events.addListener('rightButtonPressed', this.toggleSettingsModal);
   },
 
   handleRightButtonPress() {

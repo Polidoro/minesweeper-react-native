@@ -19,9 +19,9 @@ import {
 let rightButtonHandler = new EventEmitter();
 
 export default class sandbox extends Component {
-  handleRightButtonPress() {
-    rightButtonHandler.emitEvent('rightButtonPressed');
-  }
+  // handleRightButtonPress() {
+  //   rightButtonHandler.emitEvent('rightButtonPressed');
+  // }
 
   render() {
     return (
@@ -33,11 +33,11 @@ export default class sandbox extends Component {
         initialRoute={{
           component: MenuPage,
           title: 'Menu',
-          rightButtonTitle: 'Settings',
-          onRightButtonPress: () => this.handleRightButtonPress(),
-          passProps: {
-            events: rightButtonHandler
-          }
+          // rightButtonTitle: 'Settings',
+          // onRightButtonPress: () => this.handleRightButtonPress(),
+          // passProps: {
+          //   events: rightButtonHandler
+          // }
         }}
       />
     );
