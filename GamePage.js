@@ -227,7 +227,17 @@ var GamePage = React.createClass({
 
       for (let j = 0; j < this.state.boardArray[i].length; j++) {
         gridRow.push(
-          <Square style={{flex: 1}} highlighted={(this.state.highlightedY === i && this.state.highlightedX === j)} key={j} disabled={this.state.gameState !== 'active'} onShortPress={() => this.openSquare(i, j)} onLongPress={() => this.placeFlag(i, j)} squareData={this.state.boardArray[i][j]} />
+          <Square style={{flex: 1}} highlighted={(this.state.highlightedY === i && this.state.highlightedX === j)} key={j}
+            disabled={this.state.gameState !== 'active'}
+            onShortPress={() => this.openSquare(i, j)}
+            squareData={this.state.boardArray[i][j]}
+            onPressIn={() => this.highlightCell(i, j)}
+            onPressOut={() => this.highlightCell(null, null)}
+            onLongPress={() => { 
+              this.highlightCell(null, null);
+              this.placeFlag(i, j);
+            }}
+          />
         )
       }
 

@@ -30,6 +30,8 @@ const Square = React.createClass({
       <TouchableWithoutFeedback
         onLongPress={this.props.onLongPress}
         onPress={this.props.onShortPress}
+        onPressIn={this.props.onPressIn}
+        onPressOut={this.props.onPressOut}
         disabled={this.props.disabled}
       >
         <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }, this.props.highlighted && {backgroundColor: 'green'}]}>
