@@ -52,6 +52,7 @@ export default StyleSheet.create({
   theFlag: {
     height: 30,
     width: 30,
+    zIndex: 1000,
   },
   cellImage: {
     resizeMode: 'contain',
