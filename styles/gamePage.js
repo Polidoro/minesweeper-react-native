@@ -17,9 +17,11 @@ export default StyleSheet.create({
   boardSquare: {
     backgroundColor: colors.backgroundColor,
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     borderStyle: 'solid',
     borderWidth: .5,
+    alignItems: 'center',
   },
   boardRow: {
     flexDirection: 'row',
@@ -51,8 +53,5 @@ export default StyleSheet.create({
   cellImage: {
     resizeMode: 'contain',
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
   },
 });
