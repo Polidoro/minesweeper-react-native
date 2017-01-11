@@ -32,8 +32,48 @@ export const puns = {
       question: 'What\'s the best way to organize an Earth party?',
       answer: 'PLANET',
     },
+    {
+      question: 'What do you call a bear with no teeth?',
+      answer: 'GUMMY BEAR',
+    },
+    {
+      question: 'What do you call a fish with no eyes?',
+      answer: 'FSH',
+    },
+    {
+      question: 'What did the pirate say on his eightieth birthday?',
+      answer: 'AYE MATEY',
+    },
+    {
+      question: 'Where do horses buy their clothes?',
+      answer: 'OLD NEIGHVY',
+    },
+    {
+      question: 'What do you call a cow with two legs?',
+      answer: 'LEAN BEEF',
+    },
+    {
+      question: 'What did the cobbler say when when a cat wandered in?',
+      answer: 'SHOE',
+    },
   ],
   medium: [
+    {
+      question: 'Why is it a bad idea to eat a clown?',
+      answer: 'THEY TASTE FUNNY',
+    },
+    {
+      question: 'What do you call a deer without any eyeballs?',
+      answer: 'NO EYE DEER',
+    },
+    {
+      question: 'Why didn\'t the ocean say anything to the beach?',
+      answer: 'IT JUST WAVED',
+    },
+    {
+      question: 'What do you use to fix a train with a hearing problem?',
+      answer: 'AN ENGINEER',
+    },
     {
       question: 'What do you call a tree small enough to fit in your hand?',
       answer: 'PALM TREE',
@@ -70,8 +110,24 @@ export const puns = {
       question: 'Why was the broom late for work?',
       answer: 'IT OVERSWEPT',
     },
+    {
+      question: 'Why did the cookie go to the hospital?',
+      answer: 'HE FELT CRUMMY',
+    },
+    {
+      question: 'What happens when a frog\'s car breaks down?',
+      answer: 'IT GETS TOAD',
+    },
+    {
+      question: 'What do you call a cow with a great sense of humor?',
+      answer: 'LAUGHING STOCK',
+    },
   ],
   hard: [
+    {
+      question: 'Why shouldn\'t you trust atoms?',
+      answer: 'THEY MAKE UP EVERYTHING',
+    },
     {
       question: 'What do hermit crabs and turtles use to communicate?',
       answer: 'SHELLULAR PHONES',
@@ -99,6 +155,26 @@ export const puns = {
     {
       question: 'What\'s the best part about corduroy pillows?',
       answer: 'THEY MAKE HEADLINES',
+    },
+    {
+      question: 'If you read ten puns, how many made you laugh?',
+      answer: 'NO PUN IN TEN DID',
+    },
+    {
+      question: 'What do you call a theatrical performance about puns?',
+      answer: 'A PLAY ON WORDS',
+    },
+    {
+      question: 'Why didn\'t it hurt when you were hit with a soda?',
+      answer: 'IT WAS A SOFT DRINK',
+    },
+    {
+      question: 'Why are pirates so mean?',
+      answer: 'THEY JUST ARRR',
+    },
+    {
+      question: 'What did the big bucket say to the little bucket?',
+      answer: 'YOU LOOK A LITTLE PAIL',
     },
   ],
 }
