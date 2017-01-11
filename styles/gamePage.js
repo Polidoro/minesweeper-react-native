@@ -34,11 +34,12 @@ export default StyleSheet.create({
   answerText: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
+    justifyContent: 'center',
   },
   answerLetter: {
-    padding: 3,
-    fontSize: 40,
-  }, 
+    minWidth: 20,
+    fontSize: 28,
+  },
   squareLetter: {
     padding: 1,
     opacity: 1,
