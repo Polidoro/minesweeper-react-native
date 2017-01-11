@@ -2,6 +2,9 @@ import React from 'react';
 import GamePage from './GamePage';
 import Button from './components/Button';
 import styles from './styles';
+import easyImage from './images/easy.png';
+import mediumImage from './images/medium.png';
+import hardImage from './images/hard.png';
 import { puns } from './puns';
 import {
   ScrollView,
@@ -24,13 +27,22 @@ let HighScore = React.createClass({
   render() {
     let date = new Date(this.props.gameWon.date);
     let dateString = date.toDateString();
+    let HighScoreImage = null;
+
+    if(this.props.gameWon.gameType === 'easy') {
+      HighScoreImage = easyImage;
+    } else if(this.props.gameWon.gameType === 'medium') {
+      HighScoreImage = mediumImage;
+    } else {
+      HighScoreImage = hardImage;
+    }
 
     return (
       <View>
         <TouchableHighlight onPress={this.displayAnswer}>
           <View style={styles.highScoresPage.cellContainer}>
             <Image
-              source={{uri: 'https://betterbusinesslodging.com/web_betterbusinesslodging/wp-content/uploads/2015/07/Easy-Button.png'}}
+              source={HighScoreImage}
               style={styles.highScoresPage.cellImage}
             />
             <View style={styles.highScoresPage.cellTextContainer}>
