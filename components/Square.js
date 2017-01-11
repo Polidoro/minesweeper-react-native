@@ -22,7 +22,6 @@ const Square = React.createClass({
         squareColor = colors.buttonColor
         squareContent = <Image source={mineImage} style={styles.gamePage.cellImage} />
     } else if (squareData.isFlagged) {
-        squareColor = colors.cellDarkColor;
         squareContent = <Image source={flagImage} style={styles.gamePage.cellImage} />
     } else if (squareData.isOpened) {
         squareColor = colors.backgroundColor;

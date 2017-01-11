@@ -45,8 +45,10 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+  flagImage: {
+    resizeMode: 'contain',
+  },
   theFlag: {
-    backgroundColor: colors.buttonColor,
     height: 30,
     width: 30,
   },

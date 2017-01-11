@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from '../styles';
+import flagImage from '../images/flag.png';
 import {
-  Text,
   PanResponder,
   Animated,
+  Image,
 } from 'react-native';
 
 const Flag = React.createClass({
@@ -57,7 +58,9 @@ const Flag = React.createClass({
     });
 
     return (
-      <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]} />
+      <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}>
+        <Image source={flagImage} />
+      </Animated.View>
     )
   }
 });
