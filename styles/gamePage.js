@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   flagInstructions: {
     color: colors.inactiveFontColor,
-    flex: 7,
+    flex: 5,
     textAlign: 'right',
   },
   timerText: {
@@ -73,12 +73,13 @@ export default StyleSheet.create({
     padding: 4
   },
   theFlag: {
-    borderWidth: 1,
-    borderStyle: 'dotted',
-    height: 60,
     width: 60,
+    height: 60,
+    borderWidth: 1,
+    borderStyle: 'dashed',
     zIndex: 1000,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   cellImage: {
     resizeMode: 'contain',
