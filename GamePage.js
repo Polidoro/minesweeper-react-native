@@ -253,10 +253,12 @@ var GamePage = React.createClass({
             {theGrid}
           </View>
         </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 4}}>
+          <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
+          <Text style={styles.gamePage.timerText}>{convertToTime(this.state.seconds)}</Text>
+        </View>
         <PunAnswer answerArray={this.state.answerArray} />
         <Flag highlightCell={this.highlightCell} gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={this.placeFlag} />
-        <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
-        <Text>{convertToTime(this.state.seconds)}</Text>
       </View>
     );
   }

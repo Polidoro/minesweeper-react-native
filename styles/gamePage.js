@@ -37,6 +37,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   answerLetter: {
+    padding: 3,
     minWidth: 20,
     fontSize: 28,
   },
@@ -48,6 +49,14 @@ export default StyleSheet.create({
   },
   flagImage: {
     resizeMode: 'contain',
+  },
+  timerText: {
+    minWidth: 40,
+  },
+  gameInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 4
   },
   theFlag: {
     height: 30,
