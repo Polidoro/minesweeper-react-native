@@ -27,6 +27,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   questionText: {
+    color: colors.fontColor,
     fontSize: 30,
     textAlign: 'center',
     padding: 10,
@@ -49,6 +50,17 @@ export default StyleSheet.create({
   },
   flagImage: {
     resizeMode: 'contain',
+    width: 60,
+    height: 60,
+  },
+  flagInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  flagInstructions: {
+    color: colors.inactiveFontColor,
+    flex: 7,
+    textAlign: 'right',
   },
   timerText: {
     minWidth: 40,
@@ -59,8 +71,8 @@ export default StyleSheet.create({
     padding: 4
   },
   theFlag: {
-    height: 30,
-    width: 30,
+    height: 60,
+    width: 60,
     zIndex: 1000,
   },
   cellImage: {
