@@ -48,4 +48,11 @@ export default StyleSheet.create({
     height: 30,
     width: 30,
   },
+  cellImage: {
+    resizeMode: 'contain',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
 });

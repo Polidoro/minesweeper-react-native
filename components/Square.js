@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from '../styles';
 import colors from '../styles/colors';
+import mineImage from '../images/mine.png';
 import {
   TouchableWithoutFeedback ,
   View,
   Text,
+  Image,
 } from 'react-native';
 
 const Square = React.createClass({
@@ -13,18 +15,19 @@ const Square = React.createClass({
     let displayCharacter = ' ';
     let squareColor = colors.cellColor;
     let squareOpacity = this.props.highlighted ? 0.8 : 1.0;
-;
+    let squareContent = <View />
 
     if (squareData.isOpened && squareData.isMine) {
-        displayCharacter = 'M';
         squareColor = colors.buttonColor
+        squareContent = <Image source={mineImage} style={styles.gamePage.cellImage} />
     } else if (squareData.isFlagged) {
-        displayCharacter = 'F';
         squareColor = colors.cellDarkColor;
+        squareContent = <Text style={styles.gamePage.squareLetter}>F</Text>
     } else if (squareData.isOpened) {
         displayCharacter = squareData.adjacentMines;
         squareColor = colors.backgroundColor;
         squareOpacity = 1-(squareData.adjacentMines/8);
+        squareContent = <Text style={styles.gamePage.squareLetter}>{squareData.adjacentMines}</Text>
     }
 
     return (
@@ -36,9 +39,7 @@ const Square = React.createClass({
         disabled={this.props.disabled}
       >
         <View style={[styles.gamePage.boardSquare, { backgroundColor: squareColor, opacity: squareOpacity }]}>
-          <Text style={styles.gamePage.squareLetter}>
-            {displayCharacter === 0 ? ' ' : displayCharacter}
-          </Text>
+          {squareContent}
         </View>
       </TouchableWithoutFeedback>
     )
