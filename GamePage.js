@@ -6,10 +6,11 @@ import Square from './components/Square';
 import Button from './components/Button';
 import FlagCounter from './components/FlagCounter';
 import Flag from './components/Flag';
+import arrowImage from './images/arrow.png';
 import {
   TouchableHighlight,
   Text,
-  Linking,
+  Image,
   View,
   PanResponder,
   Animated,
@@ -259,7 +260,8 @@ var GamePage = React.createClass({
         </View>
         <PunAnswer answerArray={this.state.answerArray} />
         <View style={styles.gamePage.flagInfo}>
-          <Text style={styles.gamePage.flagInstructions}>Drag and drop to add/remove flags --></Text>
+          <Text style={styles.gamePage.flagInstructions}>(Drag and drop to add or remove flags)</Text>
+          <Image source={arrowImage} style={{height: 20, width: 26}} />
           <View style={{flex: 1}}>
             <Flag highlightCell={this.highlightCell} gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={this.placeFlag} />
           </View>

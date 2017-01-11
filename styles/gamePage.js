@@ -54,6 +54,8 @@ export default StyleSheet.create({
     height: 60,
   },
   flagInfo: {
+    flex: 1,
+    margin: 20,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -71,9 +73,12 @@ export default StyleSheet.create({
     padding: 4
   },
   theFlag: {
+    borderWidth: 1,
+    borderStyle: 'dotted',
     height: 60,
     width: 60,
     zIndex: 1000,
+    justifyContent: 'center',
   },
   cellImage: {
     resizeMode: 'contain',
