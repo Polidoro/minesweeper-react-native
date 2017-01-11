@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles';
 import colors from '../styles/colors';
 import mineImage from '../images/mine.png';
+import flagImage from '../images/flag.png';
 import {
   TouchableWithoutFeedback ,
   View,
@@ -22,12 +23,11 @@ const Square = React.createClass({
         squareContent = <Image source={mineImage} style={styles.gamePage.cellImage} />
     } else if (squareData.isFlagged) {
         squareColor = colors.cellDarkColor;
-        squareContent = <Text style={styles.gamePage.squareLetter}>F</Text>
+        squareContent = <Image source={flagImage} style={styles.gamePage.cellImage} />
     } else if (squareData.isOpened) {
-        displayCharacter = squareData.adjacentMines;
         squareColor = colors.backgroundColor;
         squareOpacity = 1-(squareData.adjacentMines/8);
-        squareContent = <Text style={styles.gamePage.squareLetter}>{squareData.adjacentMines}</Text>
+        squareContent = <Text style={styles.gamePage.squareLetter}>{squareData.adjacentMines || ' '}</Text>
     }
 
     return (
