@@ -104,7 +104,7 @@ let MenuPage = React.createClass({
         <SettingsModal isVisible={this.state.modalVisible} hideModal={() => this.toggleSettingsModal()} />
         <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
-            <Text style={styles.menuPage.menuButtonText}>Easy Mode</Text>
+            <Text style={styles.menuPage.menuButtonText}>Easy</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {easyPunsCompleted}/{puns['easy'].length} Completed </Text>
           </View>
         </TouchableHighlight>
@@ -116,7 +116,7 @@ let MenuPage = React.createClass({
         </TouchableHighlight>
         <TouchableHighlight style={[styles.menuPage.menuButton, hardPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Hard Game', 'hard')} disabled={hardPunsDisabled}>
           <View>
-            <Text style={styles.menuPage.menuButtonText}>Hard Mode</Text>
+            <Text style={styles.menuPage.menuButtonText}>Hard</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted}/{puns['hard'].length} Completed </Text>
           </View>
         </TouchableHighlight>
