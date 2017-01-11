@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   questionText: {
     color: colors.fontColor,
-    fontSize: 30,
+    fontSize: 28,
     textAlign: 'center',
     padding: 10,
   },
