@@ -10,6 +10,7 @@ export default StyleSheet.create({
   },
   board: {
     flex: 5,
+    zIndex: 100,
     backgroundColor: colors.backgroundColor,
     flexDirection: 'column',
     justifyContent: 'flex-start',
