@@ -18,7 +18,7 @@ import {
 
 let HighScore = React.createClass({
   displayAnswer() {
-    Alert.alert(this.props.gameWon.question, this.props.gameWon.answer,[
+    Alert.alert(this.props.gameWon.answer, '', [
       {text: 'That\'s HILARIOUS!', style: 'default'},
       {text: 'Replay board', onPress: () => this.props.loadGame({gameType: this.props.gameWon.gameType, question: this.props.gameWon.question})},
     ]);

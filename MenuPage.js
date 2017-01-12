@@ -42,12 +42,20 @@ let MenuPage = React.createClass({
 
   async _loadInitialState() {
     try {
-      var value = await AsyncStorage.getItem('gamesWon');
-      if (value !== null){
-        this.setState({ gamesWon: JSON.parse(value) });
+      var gamesWon = await AsyncStorage.getItem('gamesWon');
+      var showInstructions = await AsyncStorage.getItem('showInstructions');
+
+      if (gamesWon !== null){
+        this.setState({ gamesWon: JSON.parse(gamesWon) });
       } else {
         this.setState({ gamesWon: [] });
       }
+
+      if(!showInstructions) {
+        this.setState({ modalVisible: true });
+        AsyncStorage.setItem('showInstructions', 'false');
+      }
+
     } catch (error) {
       Alert.alert('ERROR', error.message);
     }
