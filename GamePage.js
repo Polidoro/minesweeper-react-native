@@ -258,11 +258,11 @@ var GamePage = React.createClass({
           <FlagCounter flagsPlaced={this.state.answerArray.filter(letterObject => letterObject.revealed).length} mineCount={this.state.thePun.mineCount} />
           <Text style={styles.gamePage.timerText}>{convertToTime(this.state.seconds)}</Text>
         </View>
-        <PunAnswer answerArray={this.state.answerArray} />
+        <PunAnswer style={{ flex: 1 }} answerArray={this.state.answerArray} />
         <View style={styles.gamePage.flagInfo}>
           <Text style={styles.gamePage.flagInstructions}>(Drag and drop to add or remove flags)</Text>
           <Image source={arrowImage} style={{height: 20, width: 26}} />
-          <View style={{flex: 1}}>
+          <View style={{flex: 1, flexDirection: 'column'}}>
             <Flag highlightCell={this.highlightCell} gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={this.placeFlag} />
           </View>
         </View>

@@ -38,9 +38,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   answerLetter: {
-    padding: 3,
-    minWidth: 20,
-    fontSize: 28,
+    padding: 1,
+    minWidth: 18,
+    fontSize: 26,
   },
   squareLetter: {
     padding: 1,
