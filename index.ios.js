@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import styles from './styles';
 import MenuPage from './MenuPage';
@@ -19,9 +13,9 @@ import {
 let rightButtonHandler = new EventEmitter();
 
 export default class PunSweeper extends Component {
-  // handleRightButtonPress() {
-  //   rightButtonHandler.emitEvent('rightButtonPressed');
-  // }
+  handleRightButtonPress() {
+    rightButtonHandler.emitEvent('rightButtonPressed');
+  }
 
   render() {
     return (
@@ -33,11 +27,11 @@ export default class PunSweeper extends Component {
         initialRoute={{
           component: MenuPage,
           title: 'Menu',
-          // rightButtonTitle: 'Settings',
-          // onRightButtonPress: () => this.handleRightButtonPress(),
-          // passProps: {
-          //   events: rightButtonHandler
-          // }
+          rightButtonTitle: 'Instructions',
+          onRightButtonPress: () => this.handleRightButtonPress(),
+          passProps: {
+            events: rightButtonHandler
+          }
         }}
       />
     );

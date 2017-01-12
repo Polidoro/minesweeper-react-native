@@ -1,53 +1,33 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import styles from './styles';
+import MenuPage from './MenuPage';
+import EventEmitter from 'wolfy87-eventemitter';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator,
 } from 'react-native';
 
+let rightButtonHandler = new EventEmitter();
+
 export default class PunSweeper extends Component {
+  handleRightButtonPress() {
+    rightButtonHandler.emitEvent('rightButtonPressed');
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator
+        initialRoute={{ title: 'Initial Scene', index: 0 }}
+        renderScene={(route, navigator) =>
+          <MenuPage title="menu" navigator={navigator} rightButtonTitle="Instructions" events={rightButtonHandler} />
+        }
+        style={ styles.global.mainContainer }
+      />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('PunSweeper', () => PunSweeper);

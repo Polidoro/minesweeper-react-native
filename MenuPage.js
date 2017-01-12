@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles';
 import HighScoresPage from './HighScoresPage';
 import GamePage from './GamePage';
-import SettingsModal from './components/SettingsModal';
+import InstructionsModal from './components/InstructionsModal';
 import EventEmitter from 'wolfy87-eventemitter';
 import { puns } from './puns';
 import {
@@ -19,14 +19,14 @@ let rightButtonHandler = new EventEmitter();
 let MenuPage = React.createClass({
   componentDidMount() {
     this._loadInitialState().done();
-    // this.props.events.addListener('rightButtonPressed', this.toggleSettingsModal);
+    this.props.events.addListener('rightButtonPressed', this.toggleInstructionsModal);
   },
 
   handleRightButtonPress() {
     rightButtonHandler.emitEvent('rightButtonPressed');
   },
 
-  toggleSettingsModal() {
+  toggleInstructionsModal() {
     this.setState({
       modalVisible: !this.state.modalVisible
     });;
@@ -99,9 +99,9 @@ let MenuPage = React.createClass({
     
     return (
       <View style={styles.menuPage.mainContainer}>
+        <InstructionsModal isVisible={this.state.modalVisible} hideModal={() => this.toggleInstructionsModal()} />
         <View></View>
         <View></View>
-        <SettingsModal isVisible={this.state.modalVisible} hideModal={() => this.toggleSettingsModal()} />
         <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy</Text>

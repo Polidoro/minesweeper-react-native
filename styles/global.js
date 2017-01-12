@@ -18,7 +18,7 @@ export default StyleSheet.create({
     color: colors.backgroundColor,
     fontSize: 16,
     fontWeight: 'bold',
-    borderRadius: 4,
+    borderRadius: 1,
     textAlign: 'center',
     borderWidth: 1,
     padding: 8,
