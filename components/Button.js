@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles';
+import colors from '../styles/colors';
 import {
   Text,
   TouchableHighlight,
@@ -8,7 +9,7 @@ import {
 const Button = React.createClass({
   render() {
     return (
-      <TouchableHighlight onPress={this.props.onPress}>
+      <TouchableHighlight underlayColor={colors.buttonBorderColor} onPress={this.props.onPress}>
         <Text style={styles.global.buttonText}>{this.props.text}</Text>
       </TouchableHighlight>
     )

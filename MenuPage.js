@@ -4,6 +4,7 @@ import HighScoresPage from './HighScoresPage';
 import GamePage from './GamePage';
 import InstructionsModal from './components/InstructionsModal';
 import EventEmitter from 'wolfy87-eventemitter';
+import colors from './styles/colors';
 import { puns } from './puns';
 import {
   TouchableHighlight,
@@ -102,25 +103,25 @@ let MenuPage = React.createClass({
         <InstructionsModal isVisible={this.state.modalVisible} hideModal={() => this.toggleInstructionsModal()} />
         <View></View>
         <View></View>
-        <TouchableHighlight style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
+        <TouchableHighlight underlayColor={colors.buttonBorderColor} style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {easyPunsCompleted}/{puns['easy'].length} Completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.menuPage.menuButton, mediumPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Medium Game', 'medium')} disabled={mediumPunsDisabled}>
+        <TouchableHighlight underlayColor={colors.buttonBorderColor} style={[styles.menuPage.menuButton, mediumPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Medium Game', 'medium')} disabled={mediumPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Medium</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {mediumPunsCompleted}/{puns['medium'].length} Completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.menuPage.menuButton, hardPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Hard Game', 'hard')} disabled={hardPunsDisabled}>
+        <TouchableHighlight underlayColor={colors.buttonBorderColor} style={[styles.menuPage.menuButton, hardPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Hard Game', 'hard')} disabled={hardPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Hard</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {hardPunsCompleted}/{puns['hard'].length} Completed </Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.menuPage.menuButton, (this.state.gamesWon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gamesWon.length === 0)}>
+        <TouchableHighlight underlayColor={colors.buttonBorderColor} style={[styles.menuPage.menuButton, (this.state.gamesWon.length === 0) && styles.menuPage.disabledButton]} onPress={() => this.pushHighScoresPage()} disabled={(this.state.gamesWon.length === 0)}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>View Archive</Text>
             <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gamesWon.length} Pun{(this.state.gamesWon.length !== 1) && 's'} To View </Text>
