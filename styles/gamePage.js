@@ -76,11 +76,15 @@ export default StyleSheet.create({
   theFlag: {
     width: 60,
     height: 60,
-    borderWidth: 1,
-    borderStyle: 'dashed',
     zIndex: 1000,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  flagContainer: {
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    width: 60,
+    height: 60,
   },
   cellImage: {
     resizeMode: 'contain',

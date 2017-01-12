@@ -5,6 +5,7 @@ import {
   PanResponder,
   Animated,
   Image,
+  View,
 } from 'react-native';
 
 const Flag = React.createClass({
@@ -58,9 +59,11 @@ const Flag = React.createClass({
     });
 
     return (
-      <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}>
-        <Image source={flagImage} />
-      </Animated.View>
+      <View style={{borderWidth: 1, borderStyle: 'dashed', width: 60, height: 60}}>
+        <Animated.View {...panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.gamePage.theFlag]}>
+          <Image source={flagImage} />
+        </Animated.View>
+      </View>
     )
   }
 });
