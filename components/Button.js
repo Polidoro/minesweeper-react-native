@@ -8,7 +8,7 @@ import {
 const Button = React.createClass({
   render() {
     return (
-      <TouchableHighlight style={styles.global.button} onPress={this.props.onPress}>
+      <TouchableHighlight onPress={this.props.onPress}>
         <Text style={styles.global.buttonText}>{this.props.text}</Text>
       </TouchableHighlight>
     )

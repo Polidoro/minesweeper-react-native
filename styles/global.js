@@ -9,9 +9,6 @@ export default StyleSheet.create({
   content: {
     backgroundColor: colors.backgroundColor,
   },
-  button: {
-    padding: 8,
-  },
   buttonText: {
     backgroundColor: colors.buttonColor,
     borderColor: colors.buttonBorderColor,
