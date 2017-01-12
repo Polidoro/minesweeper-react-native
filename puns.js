@@ -1,8 +1,32 @@
 export const puns = {
   easy: [
     {
+      question: 'How many tickles does it take to make an octopus laugh?',
+      answer: 'TEN TICKLES',
+    },
+    {
+      question: 'What do you call it when the boat store sells paddles at a discount?',
+      answer: 'OAR DEAL',
+    },
+    {
       question: 'What kind of shirts do golfers wear?',
       answer: 'TEE SHIRTS',
+    },
+    {
+      question: 'What does the best dentist of the year get?',
+      answer: 'A PLAQUE',
+    },
+    {
+      question: 'Why shouldn\'t you make a pencil with erasers on both ends?',
+      answer: 'NO POINT',
+    },
+    {
+      question: 'What do you call it when you get paid to sleep at work?',
+      answer: 'DREAM JOB',
+    },
+    {
+      question: 'What do you call a sleeping bull?',
+      answer: 'BULL DOZER',
     },
     {
       question: 'How did I escape Iraq?',
@@ -59,8 +83,24 @@ export const puns = {
   ],
   medium: [
     {
+      question: 'What do you call a snake with a lego set?',
+      answer: 'BOA CONSTRUCTOR',
+    },
+    {
+      question: 'What do you call it when a clown holds the door open for you?',
+      answer: 'A NICE JESTER',
+    },
+    {
+      question: 'What do you call Dracula when he comes down with hayfever?',
+      answer: 'POLLEN COUNT',
+    },
+    {
       question: 'Why is it a bad idea to eat a clown?',
       answer: 'THEY TASTE FUNNY',
+    },
+    {
+      question: 'What do you call an alligator in a vest?',
+      answer: 'INVESTIGATOR',
     },
     {
       question: 'What do you call a deer without any eyeballs?',
@@ -125,6 +165,22 @@ export const puns = {
   ],
   hard: [
     {
+      question: 'What did the judge say when the skunk walked into the court room?',
+      answer: 'ODOR IN THE COURT',
+    },
+    {
+      question: 'What do you get when a judge loves the sound of his own voice?',
+      answer: 'A LONG SENTENCE',
+    },
+    {
+      question: 'Why are teddy bears never hungry?',
+      answer: 'THEY ARE ALWAYS STUFFED',
+    },
+    {
+      question: 'What\'s the easiest way to communicate with fish?',
+      answer: 'DROP THEM A LINE',
+    },
+    {
       question: 'Why shouldn\'t you trust atoms?',
       answer: 'THEY MAKE UP EVERYTHING',
     },
@@ -175,6 +231,18 @@ export const puns = {
     {
       question: 'What did the big bucket say to the little bucket?',
       answer: 'YOU LOOK A LITTLE PAIL',
+    },
+    {
+      question: 'What do you call a cardboard belt?',
+      answer: 'WAIST OF PAPER',
+    },
+    {
+      question: 'What do you say to the guy that invented zero?',
+      answer: 'THANKS FOR NOTHING',
+    },
+    {
+      question: 'Where do polar bears vote?',
+      answer: 'IN THE NORTH POLL',
     },
   ],
 }
