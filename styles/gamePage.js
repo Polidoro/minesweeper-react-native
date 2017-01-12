@@ -21,7 +21,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderStyle: 'solid',
-    borderWidth: .5,
+    borderWidth: 1,
     alignItems: 'center',
   },
   boardRow: {
