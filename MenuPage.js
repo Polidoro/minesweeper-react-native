@@ -61,12 +61,15 @@ let MenuPage = React.createClass({
     }
   },
 
-  pushGamePage(title, gameType, question = null, method = (route) => this.props.navigator.push(route)) {
+  pushGamePage(title, gameType, question = null, method = (route) => this.props.navigator.push(route, this.props.navigator)) {
     method({
       title: title,
+      componentName: 'GamePage',
       component: GamePage,
       rightButtonTitle: 'Reset',
       onRightButtonPress: () => this.handleRightButtonPress(),
+      leftButtonTitle: 'Menu',
+      onLeftButtonPress: () => this.props.navigator.pop(),
       passProps: { 
         events: rightButtonHandler,
         question: question,
@@ -85,9 +88,12 @@ let MenuPage = React.createClass({
   pushHighScoresPage() {
     this.props.navigator.push({
       title: 'High Scores',
+      componentName: 'HighScoresPage',
       component: HighScoresPage,
       rightButtonTitle: 'Clear Scores',
       onRightButtonPress: () => this.handleRightButtonPress(),
+      leftButtonTitle: 'Menu',
+      onLeftButtonPress: () => this.props.navigator.pop(),
       passProps: {
         gamesWon: this.state.gamesWon,
         events: rightButtonHandler,

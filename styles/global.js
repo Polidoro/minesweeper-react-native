@@ -5,6 +5,7 @@ import colors from './colors';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
+
   },
   content: {
     backgroundColor: colors.backgroundColor,
@@ -19,5 +20,22 @@ export default StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     padding: 8,
+  },
+  navigationBar: {
+    height: 50,
+    backgroundColor: colors.buttonColor,
+  },
+  navigationBarButton: {
+    flex: 1,
+  },
+  navigationBarButtonText: {
+    flex: 1,
+    backgroundColor: 'blue',
+    color: colors.backgroundColor,
+  },
+  navigationBarTitleText: {
+    color: colors.backgroundColor,
+    textAlign: 'center',
+    padding: 10,
   },
 });
