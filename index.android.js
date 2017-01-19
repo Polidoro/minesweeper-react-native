@@ -53,26 +53,27 @@ export default class PunSweeper extends Component {
         }}
         renderScene={(route, nav) => this.renderScene(route, nav)}
         style={ styles.global.mainContainer }
-         navigationBar={
-         <Navigator.NavigationBar
-           routeMapper={{
-             LeftButton: (route, navigator, index, navState) =>
-               { return (
+        navigationBar={
+          <Navigator.NavigationBar
+            style={ styles.global.navigationBar }
+            routeMapper={{
+              LeftButton: (route, navigator, index, navState) =>
+                { return (
                 <TouchableHighlight style={styles.global.navigationBarButton} onPress={route.onLeftButtonPress}>
                   <Text style={styles.global.navigationBarButtonText}>{ route.leftButtonTitle }</Text>
                 </TouchableHighlight>
                 ) },
-             RightButton: (route, navigator, index, navState) =>
-               { return (
-                  <TouchableHighlight onPress={route.onRightButtonPress}>
+              RightButton: (route, navigator, index, navState) =>
+                { return (
+                  <TouchableHighlight style={styles.global.navigationBarButton} onPress={route.onRightButtonPress}>
                     <Text style={styles.global.navigationBarButtonText}>{ route.rightButtonTitle }</Text>
                   </TouchableHighlight>
                 ) },
-             Title: (route, navigator, index, navState) =>
-               { return <Text style={styles.global.navigationBarTitleText}>{route.title}</Text> },
-           }}
-           style={styles.global.navigationBar}
-         />
+              Title: (route, navigator, index, navState) =>
+                { return <Text style={styles.global.navigationBarTitleText}>{route.title}</Text> },
+            }}
+          style={styles.global.navigationBar}
+          />
         }
       />
     );

@@ -5,10 +5,6 @@ import colors from './colors';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-
-  },
-  content: {
-    backgroundColor: colors.backgroundColor,
   },
   buttonText: {
     backgroundColor: colors.buttonColor,
@@ -22,18 +18,20 @@ export default StyleSheet.create({
     padding: 8,
   },
   navigationBar: {
-    height: 50,
-    backgroundColor: colors.buttonColor,
+    height: 40,
+    backgroundColor: 'pink',
   },
   navigationBarButton: {
     flex: 1,
   },
   navigationBarButtonText: {
-    flex: 1,
     backgroundColor: 'blue',
+    flex: 1,
     color: colors.backgroundColor,
   },
   navigationBarTitleText: {
+    flex: 1,
+    backgroundColor: 'green',
     color: colors.backgroundColor,
     textAlign: 'center',
     padding: 10,
