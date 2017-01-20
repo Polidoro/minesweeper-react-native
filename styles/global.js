@@ -6,6 +6,9 @@ export default StyleSheet.create({
   navBar: {
     backgroundColor: colors.buttonColor,
   },
+  mainContainer: {
+    flex: 1,
+  },
   navBarText: {
     fontSize: 20,
   },
