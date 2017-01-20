@@ -6,11 +6,12 @@ import GamePage from './GamePage';
 import EventEmitter from 'wolfy87-eventemitter';
 import {
   AppRegistry,
+  PixelRatio,
   StyleSheet,
   Text,
   View,
   Navigator,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 
 let rightButtonHandler = new EventEmitter();
@@ -41,6 +42,8 @@ export default class PunSweeper extends Component {
   render() {
     return (
       <Navigator
+        renderScene={(route, nav) => this.renderScene(route, nav)}
+        style={ styles.global.navBar }
         initialRoute={{
           component: MenuPage,
           componentName: 'MenuPage',
@@ -51,28 +54,26 @@ export default class PunSweeper extends Component {
             events: rightButtonHandler
           }
         }}
-        renderScene={(route, nav) => this.renderScene(route, nav)}
-        style={ styles.global.mainContainer }
         navigationBar={
           <Navigator.NavigationBar
-            style={ styles.global.navigationBar }
+            style={ styles.global.navBar }
+            navigationStyles={Navigator.NavigationBar.StylesIOS}
             routeMapper={{
               LeftButton: (route, navigator, index, navState) =>
                 { return (
-                <TouchableHighlight style={styles.global.navigationBarButton} onPress={route.onLeftButtonPress}>
-                  <Text style={styles.global.navigationBarButtonText}>{ route.leftButtonTitle }</Text>
-                </TouchableHighlight>
+                <TouchableOpacity style={styles.global.navBarLeftButton} onPress={route.onLeftButtonPress}>
+                  <Text style={[styles.global.navBarText, styles.global.navBarButtonText]}>{ route.leftButtonTitle }</Text>
+                </TouchableOpacity>
                 ) },
               RightButton: (route, navigator, index, navState) =>
                 { return (
-                  <TouchableHighlight style={styles.global.navigationBarButton} onPress={route.onRightButtonPress}>
-                    <Text style={styles.global.navigationBarButtonText}>{ route.rightButtonTitle }</Text>
-                  </TouchableHighlight>
+                  <TouchableOpacity style={styles.global.navBarRightButton} onPress={route.onRightButtonPress}>
+                    <Text style={[styles.global.navBarText, styles.global.navBarButtonText]}>{ route.rightButtonTitle }</Text>
+                  </TouchableOpacity>
                 ) },
               Title: (route, navigator, index, navState) =>
-                { return <Text style={styles.global.navigationBarTitleText}>{route.title}</Text> },
+                { return <Text  style={[styles.global.navBarText, styles.global.navBarTitleText]}>{route.title}</Text> },
             }}
-          style={styles.global.navigationBar}
           />
         }
       />

@@ -3,8 +3,11 @@ import { StyleSheet } from 'react-native';
 import colors from './colors';
 
 export default StyleSheet.create({
-  mainContainer: {
-    flex: 1,
+  navBar: {
+    backgroundColor: colors.buttonColor,
+  },
+  navBarText: {
+    fontSize: 20,
   },
   buttonText: {
     backgroundColor: colors.buttonColor,
@@ -17,23 +20,17 @@ export default StyleSheet.create({
     borderWidth: 1,
     padding: 8,
   },
-  navigationBar: {
-    height: 40,
-    backgroundColor: 'pink',
-  },
-  navigationBarButton: {
-    flex: 1,
-  },
-  navigationBarButtonText: {
-    backgroundColor: 'blue',
-    flex: 1,
+  navBarButtonText: {
     color: colors.backgroundColor,
   },
-  navigationBarTitleText: {
-    flex: 1,
-    backgroundColor: 'green',
+  navBarTitleText: {
     color: colors.backgroundColor,
-    textAlign: 'center',
-    padding: 10,
+    fontWeight: '500',
+  },
+  navBarLeftButton: {
+    paddingLeft: 10,
+  },
+  navBarRightButton: {
+    paddingRight: 10,
   },
 });

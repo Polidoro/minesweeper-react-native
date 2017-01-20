@@ -5,7 +5,6 @@ import colors from './colors';
 export default StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.backgroundColor,
-    margin: 5,
     flex: 1,
     flexDirection: 'column',
   },
@@ -28,7 +27,7 @@ export default StyleSheet.create({
   rowSeparator: {
     backgroundColor: colors.buttonBorderColor,
     height: 1,
-    marginLeft: 4,
+    marginHorizontal: 4,
   },
   cellTextContainer: {
     flex: 5,
