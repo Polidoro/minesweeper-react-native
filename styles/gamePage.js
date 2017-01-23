@@ -39,11 +39,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   answerLetter: {
+    color: 'black',
     padding: 1,
     minWidth: 18,
     fontSize: 26,
   },
   squareLetter: {
+    color: 'black',
     padding: 1,
     opacity: 1,
     fontSize: 20,
