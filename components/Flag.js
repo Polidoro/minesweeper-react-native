@@ -15,6 +15,10 @@ const Flag = React.createClass({
     });
   },
 
+  componentDidMount() {
+    Animated.spring(this.state.pan, { toValue: {x: 0, y: 0} }).start()
+  },
+
   shouldComponentUpdate(nextProps, nextState) {
     return !(nextProps.seconds === this.props.seconds);
   },
