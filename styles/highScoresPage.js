@@ -8,11 +8,6 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  highScoreCategory: {
-    paddingTop: 10,
-    fontSize: 44,
-    fontWeight: 'bold',
-  },
   highScoreText: {
     color: colors.fontColor,
     fontSize: 16,
@@ -20,7 +15,8 @@ export default StyleSheet.create({
   },
   instructionalText: {
     color: colors.fontColor,
-    marginBottom: 5,
+    marginTop: 6,
+    marginBottom: 4,
     fontSize: 14,
     textAlign: 'center',
   },

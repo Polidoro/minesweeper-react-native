@@ -115,8 +115,6 @@ let MenuPage = React.createClass({
     return (
       <View style={styles.menuPage.mainContainer}>
         <InstructionsModal isVisible={this.state.modalVisible} hideModal={() => this.toggleInstructionsModal()} />
-        <View></View>
-        <View></View>
         <TouchableHighlight underlayColor={colors.buttonBorderColor} style={[styles.menuPage.menuButton, easyPunsDisabled && styles.menuPage.disabledButton]} onPress={() => this.pushGamePage('Easy Game', 'easy')} disabled={easyPunsDisabled}>
           <View>
             <Text style={styles.menuPage.menuButtonText}>Easy</Text>

@@ -6,7 +6,6 @@ export default StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.backgroundColor,
     flex: 1,
-    paddingTop: 64,
   },
   board: {
     flex: 5,
@@ -29,7 +28,7 @@ export default StyleSheet.create({
   },
   questionText: {
     color: colors.fontColor,
-    fontSize: 28,
+    fontSize: 24,
     textAlign: 'center',
     padding: 10,
   },

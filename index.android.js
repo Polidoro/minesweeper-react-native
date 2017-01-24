@@ -44,6 +44,7 @@ export default class PunSweeper extends Component {
       <Navigator
         renderScene={(route, nav) => this.renderScene(route, nav)}
         style={ styles.global.navBar }
+        sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
         initialRoute={{
           component: MenuPage,
           componentName: 'MenuPage',

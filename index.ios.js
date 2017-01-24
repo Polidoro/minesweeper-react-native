@@ -24,6 +24,7 @@ export default class PunSweeper extends Component {
         barTintColor='#FC2F00'
         tintColor='#EFEFEF'
         titleTextColor='#FCFFF7'
+        translucent={false}
         initialRoute={{
           component: MenuPage,
           title: 'Menu',
@@ -31,7 +32,7 @@ export default class PunSweeper extends Component {
           onRightButtonPress: () => this.handleRightButtonPress(),
           passProps: {
             events: rightButtonHandler
-          }
+          },
         }}
       />
     );
