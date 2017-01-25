@@ -89,6 +89,7 @@ let HighScoresPage = React.createClass({
     this.props.navigator.push({
       title: gameType + ' Game',
       component: GamePage,
+      componentName: 'GamePage',
       rightButtonTitle: 'Reset',
       onRightButtonPress: this.props.onRightButtonPress,
       leftButtonTitle: 'Menu',
