@@ -14,6 +14,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
+
+var CustomSceneConfig = Object.assign({}, BaseConfig, {
+  gestures: {
+    pop: null,
+  }
+});
+
 let rightButtonHandler = new EventEmitter();
 
 export default class PunSweeper extends Component {
@@ -39,12 +47,17 @@ export default class PunSweeper extends Component {
     return pageContent
   }
 
+  _configureScene(route) {
+    return CustomSceneConfig;
+  }
+
   render() {
     return (
       <Navigator
         renderScene={(route, nav) => this.renderScene(route, nav)}
         style={ styles.global.navBar }
         sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
+        configureScene={this._configureScene}
         initialRoute={{
           component: MenuPage,
           componentName: 'MenuPage',

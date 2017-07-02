@@ -72,7 +72,7 @@ let MenuPage = React.createClass({
       onRightButtonPress: () => this.handleRightButtonPress(),
       leftButtonTitle: 'Menu',
       onLeftButtonPress: () => this.props.navigator.pop(),
-      passProps: { 
+      passProps: {
         events: rightButtonHandler,
         question: question,
         gameType: gameType,
