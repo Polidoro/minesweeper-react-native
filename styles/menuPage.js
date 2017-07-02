@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import colors from './colors';
+import React, { Component } from 'react'
+import { StyleSheet } from 'react-native'
+import colors from './colors'
 
 export default StyleSheet.create({
   mainContainer: {
-    backgroundColor: colors.backgroundColor,
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-around',
   },
   menuButton: {
     backgroundColor: colors.buttonColor,
@@ -18,7 +14,9 @@ export default StyleSheet.create({
     padding: 8,
   },
   disabledButton: {
-    opacity: 0.65,
+    backgroundColor: '#ff9570',
+    borderColor: '#a86046'
+    // opacity: 0.65,
   },
   menuButtonText: {
     color: colors.backgroundColor,
@@ -33,4 +31,12 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
-});
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  }
+})
