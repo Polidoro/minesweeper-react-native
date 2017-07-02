@@ -14,9 +14,8 @@ export default StyleSheet.create({
     padding: 8,
   },
   disabledButton: {
-    backgroundColor: '#ff9570',
-    borderColor: '#a86046'
-    // opacity: 0.65,
+    backgroundColor: colors.disabledButtonColor,
+    borderColor: colors.disabledButtonBorderColor
   },
   menuButtonText: {
     color: colors.backgroundColor,
