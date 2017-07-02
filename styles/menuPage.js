@@ -5,6 +5,7 @@ import colors from './colors'
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: 'white'
   },
   menuButton: {
     backgroundColor: colors.buttonColor,
