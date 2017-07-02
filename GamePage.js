@@ -12,10 +12,7 @@ import {
   Text,
   Image,
   View,
-  PanResponder,
-  Animated,
   Dimensions,
-  AsyncStorage,
   Alert,
 } from 'react-native';
 import { generateBoard, generateRandomLetter, generateAnswerArray, checkWin, convertToTime } from './Helpers'
@@ -246,7 +243,6 @@ var GamePage = React.createClass({
       theGrid.push(<View style={{flexDirection: 'row', flex: 1}} key={i}>{gridRow}</View>);
     }
 
-    debugger;
     return (
       <View style={styles.gamePage.mainContainer}>
         <Text style={styles.gamePage.questionText}>{this.state.thePun.question}</Text>

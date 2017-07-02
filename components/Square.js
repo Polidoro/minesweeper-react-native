@@ -31,6 +31,7 @@ const Square = React.createClass({
 
     return (
       <TouchableWithoutFeedback
+        delayLongPress={400}
         onLongPress={this.props.onLongPress}
         onPress={this.props.onShortPress}
         onPressIn={this.props.onPressIn}
