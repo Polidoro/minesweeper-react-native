@@ -13,6 +13,7 @@ import {
   Image,
   View,
   Dimensions,
+  AsyncStorage,
   Alert,
 } from 'react-native';
 import { generateBoard, generateRandomLetter, generateAnswerArray, checkWin, convertToTime } from './Helpers'
