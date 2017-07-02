@@ -242,7 +242,7 @@ export const puns = {
     },
     {
       question: 'Where do polar bears vote?',
-      answer: 'IN THE NORTH POLL',
+      answer: 'THE NORTH POLL',
     },
   ],
 }
