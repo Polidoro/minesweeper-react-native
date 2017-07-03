@@ -92,7 +92,7 @@ let MenuPage = React.createClass({
       title: 'High Scores',
       componentName: 'HighScoresPage',
       component: HighScoresPage,
-      rightButtonTitle: 'Clear Scores',
+      rightButtonTitle: 'Clear',
       onRightButtonPress: () => this.handleRightButtonPress(),
       leftButtonTitle: 'Menu',
       onLeftButtonPress: () => this.props.navigator.pop(),

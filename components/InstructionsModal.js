@@ -18,7 +18,7 @@ let InstructionsModal = React.createClass({
         onRequestClose={() => {alert("Modal has been closed.")}}
       >
         <View style={styles.instructionsModal.mainContainer}>
-          <Text style={styles.instructionsModal.headerText}>How to play</Text>
+          <Text style={styles.instructionsModal.headerText}>PunSweeper</Text>
           <Text style={styles.instructionsModal.contentText}>Just like the classic puzzle game, your job is to find and flag all the mines on the board without accidentally revealing one.</Text>
           <Text style={styles.instructionsModal.contentText}>Unlike the classic game, every puzzle comes with a riddle, and each time you place a flag on the board, one letter of the riddle's answer will be revealed.</Text>
           <Text style={styles.instructionsModal.contentText}>If you place a flag correctly, the letter will be accurate, but if you place a flag on a square that is not a mine, you will be shown an incorrect letter to confuse you!</Text>
