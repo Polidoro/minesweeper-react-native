@@ -1,34 +1,28 @@
 import React from 'react';
 import styles from '../styles';
-import {
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native';
+import { Text, View } from 'react-native';
 
-const Letter = React.createClass({
-  render() {
-    const letterObject = this.props.letterObject;
+const PunAnswer = React.createClass({
+  calculateLetter(letterObject) {
     let displayCharacter = (letterObject.actualLetter === ' ') ? ' ' : '_';
 
     if(letterObject.revealed) {
       displayCharacter = letterObject.wrongLetter || letterObject.actualLetter;
     }
 
-    return <Text style={styles.gamePage.answerLetter}>{displayCharacter}</Text>
-  }
-});
+    return displayCharacter;
+  },
 
-const PunAnswer = React.createClass({
   render() {
     let letterArray = [];
+    let letterString = '';
     this.props.answerArray.map((object, index) => {
-      letterArray.push(<Letter key={index} letterObject={object} />)
+      letterString = letterString.concat(this.calculateLetter(object))
     })
 
     return (
       <View style={styles.gamePage.answerText}>
-        {letterArray}
+        <Text style={styles.gamePage.letterString}>{letterString.split('').join('\u200A')}</Text>
       </View>
     );
   }

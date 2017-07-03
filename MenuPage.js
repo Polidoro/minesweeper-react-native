@@ -142,7 +142,6 @@ let MenuPage = React.createClass({
               <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gamesWon.length} Pun{(this.state.gamesWon.length !== 1) && 's'} To View </Text>
             </View>
           </TouchableHighlight>
-          <View></View>
         </Image>
       </View>
     );

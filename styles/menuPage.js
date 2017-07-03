@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import colors from './colors'
 
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   menuButton: {
     backgroundColor: colors.buttonColor,
     borderColor: colors.buttonBorderColor,
-    width: 350,
+    width: 330,
     borderWidth: 1,
-    padding: 8,
+    paddingBottom: 8,
+    marginHorizontal: 80,
   },
   disabledButton: {
     backgroundColor: colors.disabledButtonColor,
@@ -38,5 +39,6 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
+    padding: 8
   }
 })

@@ -37,9 +37,10 @@ export default StyleSheet.create({
     flexWrap: 'nowrap',
     justifyContent: 'center',
   },
-  answerLetter: {
+  letterString: {
     color: 'black',
-    padding: 1,
+    letterSpacing: 10,
+    textAlign: 'center',
     minWidth: 18,
     fontSize: 26,
   },
@@ -47,7 +48,7 @@ export default StyleSheet.create({
     color: 'black',
     padding: 1,
     opacity: 1,
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
   },
   flagImage: {
