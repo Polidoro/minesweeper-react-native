@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 
 const Square = React.createClass({
+  shouldComponentUpdate(nextProps) {
+    return !(this.props.squareData.isOpened === nextProps.isOpened && this.props.squareData.isFlagged === nextProps.isFlagged)
+  },
+
   render() {
     const squareData = this.props.squareData;
     let displayCharacter = ' ';
