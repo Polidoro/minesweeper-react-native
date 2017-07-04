@@ -15,6 +15,10 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: .5,
     borderRadius: 1,
+    shadowColor: colors.darkGrey,
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    shadowOffset: {width: 3, height: 3}
   },
   headerText: {
     color: colors.fontColor,
@@ -25,5 +29,7 @@ export default StyleSheet.create({
   contentText: {
     textAlign: 'center',
     color: colors.fontColor,
+    fontSize: 20,
+    fontWeight: 'bold'
   },
 });

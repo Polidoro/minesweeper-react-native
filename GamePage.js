@@ -258,7 +258,7 @@ var GamePage = React.createClass({
         </View>
         <PunAnswer style={{ flex: 1 }} answerArray={this.state.answerArray} />
         <View style={styles.gamePage.flagInfo}>
-          <Text style={styles.gamePage.flagInstructions}>(Drag and drop to add or remove flags)</Text>
+          <Text style={styles.gamePage.flagInstructions}><Text style={{fontWeight: 'bold'}}>Long-press</Text> to place a flags, Or <Text style={{fontWeight: 'bold'}}>drag and drop</Text> this icon</Text>
           <Image source={arrowImage} style={{height: 20, width: 26}} />
           <View style={{flex: 1, flexDirection: 'column'}}>
             <Flag highlightCell={this.highlightCell} gameState={this.state.gameState} boardMeasurements={this.state.boardMeasurements} thePun={this.state.thePun} placeFlag={this.placeFlag} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet } from 'react-native'
 import colors from './colors'
 
 export default StyleSheet.create({
@@ -14,6 +14,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     paddingBottom: 8,
     marginHorizontal: 80,
+    shadowColor: colors.darkGrey,
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    shadowOffset: {width: 3, height: 3}
   },
   disabledButton: {
     backgroundColor: colors.disabledButtonColor,

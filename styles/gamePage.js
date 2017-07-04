@@ -58,12 +58,14 @@ export default StyleSheet.create({
   },
   flagInfo: {
     flex: 1,
-    margin: 20,
+    marginHorizontal: 20,
+    marginBottom: 40,
     flexDirection: 'row',
     alignItems: 'center',
   },
   flagInstructions: {
     color: colors.inactiveFontColor,
+    fontSize: 18,
     flex: 5,
     textAlign: 'right',
   },

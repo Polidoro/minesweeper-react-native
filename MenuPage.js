@@ -14,7 +14,8 @@ import {
   Alert,
   Modal,
   AsyncStorage,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 
 let rightButtonHandler = new EventEmitter();
@@ -142,6 +143,7 @@ let MenuPage = React.createClass({
               <Text style={styles.menuPage.menuButtonSubtext}> {this.state.gamesWon.length} Pun{(this.state.gamesWon.length !== 1) && 's'} To View </Text>
             </View>
           </TouchableHighlight>
+          {Platform.OS === 'ios' && <View></View>}
         </Image>
       </View>
     );

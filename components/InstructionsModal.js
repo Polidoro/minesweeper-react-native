@@ -19,10 +19,10 @@ let InstructionsModal = React.createClass({
       >
         <View style={styles.instructionsModal.mainContainer}>
           <Text style={styles.instructionsModal.headerText}>PunSweeper</Text>
-          <Text style={styles.instructionsModal.contentText}>Just like the classic puzzle game, your job is to find and flag all the mines on the board without accidentally revealing one.</Text>
-          <Text style={styles.instructionsModal.contentText}>Unlike the classic game, every puzzle comes with a riddle, and each time you place a flag on the board, one letter of the riddle's answer will be revealed.</Text>
-          <Text style={styles.instructionsModal.contentText}>If you place a flag correctly, the letter will be accurate, but if you place a flag on a square that is not a mine, you will be shown an incorrect letter to confuse you!</Text>
-          <Text style={styles.instructionsModal.contentText}>See if you can solve all the puns, and then see if you can beat the high scores for each riddle!</Text>
+          <Text style={styles.instructionsModal.contentText}>It's MineSweeper with puns!</Text>
+          <Text style={styles.instructionsModal.contentText}>Every stage comes with a riddle!</Text>
+          <Text style={styles.instructionsModal.contentText}>Each flag you place reveals a letter of the punchline!</Text>
+          <Text style={styles.instructionsModal.contentText}>Flag all the mines to win!</Text>
           <Button onPress={() => this.props.hideModal()} text='Got it!' />
         </View>
       </Modal>

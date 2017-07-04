@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles';
-import { Text, View } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 
 const PunAnswer = React.createClass({
   calculateLetter(letterObject) {
@@ -22,7 +22,7 @@ const PunAnswer = React.createClass({
 
     return (
       <View style={styles.gamePage.answerText}>
-        <Text style={styles.gamePage.letterString}>{letterString.split('').join('\u200A')}</Text>
+        <Text style={styles.gamePage.letterString}>{(Platform.OS === 'ios') ? letterString : letterString.split('').join('\u200A')}</Text>
       </View>
     );
   }
