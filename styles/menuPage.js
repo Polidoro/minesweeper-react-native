@@ -13,7 +13,7 @@ export default StyleSheet.create({
     width: 330,
     borderWidth: 1,
     paddingBottom: 8,
-    marginHorizontal: 80,
+    marginHorizontal: 40,
     shadowColor: colors.darkGrey,
     shadowOpacity: 0.5,
     shadowRadius: 5,

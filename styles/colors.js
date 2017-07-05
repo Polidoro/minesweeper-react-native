@@ -8,4 +8,5 @@ export default {
   disabledButtonBorderColor: '#a86046',
   cellColor: '#CBE896',
   cellDarkColor: '#A7BE7B',
+  darkGrey: '#606060',
 }
